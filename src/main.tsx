@@ -9,11 +9,12 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import HeroPhase from "./app/features/hero-phase/routes/HeroPhase.tsx";
-import MovementPhase from "./app/features/movement-phase/routes/MovementPhase.tsx";
+import HeroPhase from "./app/features/hero-phase/components/HeroPhase.tsx";
+import MovementPhase from "./app/features/movement-phase/components/MovementPhase.tsx";
 import Root from "./app/routes/Root.tsx";
 import PreRounds from "./app/features/pre-rounds/routes/PreRounds.tsx";
-import ShootingPhase from "./app/features/shooting-phase/routes/ShootingPhase.tsx";
+import ShootingPhase from "./app/features/shooting-phase/components/ShootingPhase.tsx";
+import Phase from "./app/features/phase/Phase.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,15 +27,48 @@ const router = createBrowserRouter([
       },
       {
         path: "phases/hero",
-        element: <HeroPhase />,
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/pre-rounds",
+              previousRouteName: "Pre-game",
+              nextRoute: "/phases/movement",
+              nextRouteName: "Movement",
+            }}
+          >
+            <HeroPhase />
+          </Phase>
+        ),
       },
       {
         path: "phases/movement",
-        element: <MovementPhase />,
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/phases/hero",
+              previousRouteName: "Hero",
+              nextRoute: "/phases/shooting",
+              nextRouteName: "Shooting",
+            }}
+          >
+            <MovementPhase />
+          </Phase>
+        ),
       },
       {
         path: "phases/shooting",
-        element: <ShootingPhase />,
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/phases/movement",
+              previousRouteName: "Movement",
+              nextRoute: "/phases/charging",
+              nextRouteName: "Charging",
+            }}
+          >
+            <ShootingPhase />
+          </Phase>
+        ),
       },
     ],
   },
@@ -45,5 +79,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

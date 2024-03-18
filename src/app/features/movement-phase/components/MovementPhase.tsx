@@ -1,14 +1,11 @@
 import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionHeader from "../../../components/AccordionHeader";
-import { Page } from "../../../components/Page";
 import PageContent from "../../../components/PageContent";
 import { useAppSelector } from "../../../hooks";
-import GameHeader from "../../game/components/GameHeader";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
-import PlayerTurn from "../components/PlayerTurn";
-import OpponentTurn from "../components/OpponentTurn";
-import PhaseNavigation from "../../../components/PhaseNavigation";
+import PlayerTurn from "./PlayerTurn";
+import OpponentTurn from "./OpponentTurn";
 
 export interface MovementPhaseProps {}
 
@@ -16,10 +13,7 @@ const MovementPhase: React.FC<MovementPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
-    <Page>
-      <PageContent>
-        <GameHeader currentTurn={currentTurn} />
-      </PageContent>
+    <>
       <PageContent>
         <AccordionHeader>Movement</AccordionHeader>
       </PageContent>
@@ -61,13 +55,7 @@ const MovementPhase: React.FC<MovementPhaseProps> = function () {
         <AccordionHeader>Command abilities</AccordionHeader>
       </PageContent>
       {currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}
-      <PhaseNavigation
-        previousRoute="/phases/hero"
-        previousRouteName="Hero"
-        nextRoute="/phases/shooting"
-        nextRouteName="Shooting"
-      />
-    </Page>
+    </>
   );
 };
 

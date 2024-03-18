@@ -1,8 +1,8 @@
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import LinkButton from "../../components/LinkButton";
-import PageContent from "../../components/PageContent";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import LinkButton from "../../../components/LinkButton";
+import PageContent from "../../../components/PageContent";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   deployArmy,
   placeCustomTerrain,
@@ -12,8 +12,9 @@ import {
   selectPlacedCustomTerrain,
   selectPlacedTerrain,
   userHasPriority,
-} from "../game/gameSlice";
+} from "../../game/gameSlice";
 import { Button } from "@mui/material";
+import { Page } from "../../../components/Page";
 
 const PreRounds: React.FC = function () {
   const placedTerrain = useAppSelector(selectPlacedTerrain);
@@ -24,7 +25,7 @@ const PreRounds: React.FC = function () {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <Page>
       <PageContent>
         <Button onClick={() => dispatch(placeTerrain())}>
           Set up terrain {placedTerrain ? <CheckIcon /> : null}
@@ -46,9 +47,9 @@ const PreRounds: React.FC = function () {
         </Button>
       </PageContent>
       <PageContent>
-        <LinkButton href={"phases/hero"}>Start game</LinkButton>
+        <LinkButton href={"/phases/hero"}>Start game</LinkButton>
       </PageContent>
-    </div>
+    </Page>
   );
 };
 

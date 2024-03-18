@@ -1,5 +1,5 @@
 import { Page } from "./app/components/Page";
-import PreRounds from "./app/features/pre-rounds/PreRounds";
+import PreRounds from "./app/features/pre-rounds/routes/PreRounds";
 
 function App() {
   return (

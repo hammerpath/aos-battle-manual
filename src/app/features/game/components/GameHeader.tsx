@@ -6,7 +6,7 @@ export interface HeaderProps {
   currentTurn: CurrentTurn;
 }
 
-const Header: React.FC<HeaderProps> = function ({ currentTurn }) {
+const GameHeader: React.FC<HeaderProps> = function ({ currentTurn }) {
   return (
     <div>
       Your turn: {currentTurn === "player" ? <CheckIcon /> : <CloseIcon />}
@@ -14,4 +14,4 @@ const Header: React.FC<HeaderProps> = function ({ currentTurn }) {
   );
 };
 
-export default Header;
+export default GameHeader;

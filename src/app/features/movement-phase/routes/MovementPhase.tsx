@@ -3,15 +3,12 @@ import AccordionHeader from "../../../components/AccordionHeader";
 import { Page } from "../../../components/Page";
 import PageContent from "../../../components/PageContent";
 import { useAppSelector } from "../../../hooks";
-import Header from "../../game/components/GameHeader";
+import GameHeader from "../../game/components/GameHeader";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
-import PlayerTurn from "./PlayerTurn";
-import OpponentTurn from "./OpponentTurn";
+import PlayerTurn from "../components/PlayerTurn";
+import OpponentTurn from "../components/OpponentTurn";
 import PhaseNavigation from "../../../components/PhaseNavigation";
-import LinkButton from "../../../components/LinkButton";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export interface MovementPhaseProps {}
 
@@ -20,7 +17,7 @@ const MovementPhase: React.FC<MovementPhaseProps> = function () {
   return (
     <Page>
       <PageContent>
-        <Header currentTurn={currentTurn} />
+        <GameHeader currentTurn={currentTurn} />
       </PageContent>
       <PageContent>
         <AccordionHeader>Movement</AccordionHeader>
@@ -63,16 +60,12 @@ const MovementPhase: React.FC<MovementPhaseProps> = function () {
         <AccordionHeader>Command abilities</AccordionHeader>
       </PageContent>
       {currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}
-      <PageContent>
-        <PhaseNavigation>
-          <LinkButton href="phases/hero">
-            <ArrowBackIcon /> Hero
-          </LinkButton>
-          <LinkButton href="phases/shooting">
-            Shooting <ArrowForwardIcon />
-          </LinkButton>
-        </PhaseNavigation>
-      </PageContent>
+      <PhaseNavigation
+        previousRoute="/phases/hero"
+        previousRouteName="Hero"
+        nextRoute="/phases/shooting"
+        nextRouteName="Shooting"
+      />
     </Page>
   );
 };

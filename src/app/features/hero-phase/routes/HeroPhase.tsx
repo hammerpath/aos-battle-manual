@@ -5,13 +5,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionHeader from "../../../components/AccordionHeader";
 import { Page } from "../../../components/Page";
-import PlayerTurn from "./PlayerTurn";
-import OpponentTurn from "./OpponentTurn";
-import Header from "../../game/components/GameHeader";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import PlayerTurn from "../components/PlayerTurn";
+import OpponentTurn from "../components/OpponentTurn";
+import GameHeader from "../../game/components/GameHeader";
 import PhaseNavigation from "../../../components/PhaseNavigation";
-import LinkButton from "../../../components/LinkButton";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
 export interface HeroPhaseProps {}
@@ -22,7 +19,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
   return (
     <Page>
       <PageContent>
-        <Header currentTurn={currentTurn} />
+        <GameHeader currentTurn={currentTurn} />
       </PageContent>
       <PageContent>
         <AccordionHeader>Command points</AccordionHeader>
@@ -73,16 +70,12 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         </AccordionDetails>
       </Accordion>
       {currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}
-      <PageContent>
-        <PhaseNavigation>
-          <LinkButton href={`/`}>
-            <ArrowBackIcon /> Pre-game
-          </LinkButton>
-          <LinkButton href={`phases/movement`}>
-            Movement <ArrowForwardIcon />
-          </LinkButton>
-        </PhaseNavigation>
-      </PageContent>
+      <PhaseNavigation
+        previousRoute="/pre-rounds"
+        previousRouteName="Pre-game"
+        nextRoute="/phases/movement"
+        nextRouteName="Movement"
+      />
     </Page>
   );
 };

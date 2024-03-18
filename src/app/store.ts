@@ -5,7 +5,7 @@ import gameSettingsReducer from "./features/game-settings/gameSettingsSlice";
 const store = configureStore({
   reducer: {
     game: gameReducer,
-    gameSettings: gameSettingsReducer
+    gameSettings: gameSettingsReducer,
   },
 });
 

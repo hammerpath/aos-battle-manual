@@ -27,10 +27,10 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function () {
         <AccordionHeader>Spells</AccordionHeader>
       </PageContent>
       <Accordion>
-        <AccordionSummary>
-          Cast spells
-        </AccordionSummary>
-        <AccordionDetails>Cast spell with friendly Wizard. TODO</AccordionDetails>
+        <AccordionSummary>Cast spells</AccordionSummary>
+        <AccordionDetails>
+          Cast spell with friendly Wizard. TODO
+        </AccordionDetails>
       </Accordion>
     </>
   );

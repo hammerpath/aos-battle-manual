@@ -1,5 +1,5 @@
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import LinkButton from "../../components/LinkButton";
 import PageContent from "../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../hooks";

@@ -28,18 +28,14 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         <AccordionHeader>Command points</AccordionHeader>
       </PageContent>
       <Accordion>
-        <AccordionSummary>
-          General on battlefield
-        </AccordionSummary>
+        <AccordionSummary>General on battlefield</AccordionSummary>
         <AccordionDetails>Receive 1 command point.</AccordionDetails>
       </Accordion>
       <PageContent>
         <AccordionHeader>Heroic Actions</AccordionHeader>
       </PageContent>
       <Accordion>
-        <AccordionSummary>
-          Heroic Leadership
-        </AccordionSummary>
+        <AccordionSummary>Heroic Leadership</AccordionSummary>
         <AccordionDetails>
           Pick 1 friendly HERO and roll a dice. Add 2 to the roll if your
           general has been slain. On a 4+, you receive 1 command point that can
@@ -47,9 +43,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary>
-          Heroic Willpower
-        </AccordionSummary>
+        <AccordionSummary>Heroic Willpower</AccordionSummary>
         <AccordionDetails>
           Pick 1 friendly HERO that is not a WIZARD. If it is the enemy hero
           phase, that HERO can attempt to unbind 1 spell in that phase as if
@@ -60,9 +54,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary>
-          Their Finest Hour
-        </AccordionSummary>
+        <AccordionSummary>Their Finest Hour</AccordionSummary>
         <AccordionDetails>
           Pick 1 friendly HERO. Add 1 to wound rolls for attacks made by that
           HERO until the end of that turn, and add 1 to save rolls for attacks
@@ -72,9 +64,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary>
-          Heroic Recovery
-        </AccordionSummary>
+        <AccordionSummary>Heroic Recovery</AccordionSummary>
         <AccordionDetails>
           Pick 1 friendly HERO that is more than 3" from all enemy units and
           make a heroic recovery roll by rolling 2D6. If the roll is less than

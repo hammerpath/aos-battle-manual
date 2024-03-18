@@ -19,8 +19,8 @@ const router = createBrowserRouter([
   },
   {
     path: "phases/hero",
-    element: <HeroPhase />
-  }
+    element: <HeroPhase />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -28,5 +28,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

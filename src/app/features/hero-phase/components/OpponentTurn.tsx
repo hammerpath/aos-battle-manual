@@ -13,9 +13,7 @@ const OpponentTurn: React.FC<OpponentTurnProps> = function () {
       </PageContent>
       <Accordion>
         <AccordionSummary>Unbind spells</AccordionSummary>
-        <AccordionDetails>
-          Unbind spells. TODO
-        </AccordionDetails>
+        <AccordionDetails>Unbind spells. TODO</AccordionDetails>
       </Accordion>
     </>
   );

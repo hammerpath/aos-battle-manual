@@ -19,7 +19,7 @@ export interface GameState {
   // TODO - correct name?
   generalStrategy?: boolean;
   hasPriority?: boolean;
-  currentTurn: CurrentTurn
+  currentTurn: CurrentTurn;
   commandPoints: number;
   generalOnBattlefield: boolean;
   phase?: Phase;
@@ -32,7 +32,7 @@ const initialState: GameState = {
   deployedArmy: false,
   commandPoints: 0,
   generalOnBattlefield: true,
-  currentTurn: "player"
+  currentTurn: "player",
 };
 
 const gameSlice = createSlice({

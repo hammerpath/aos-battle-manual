@@ -13,6 +13,7 @@ import HeroPhase from "./app/features/hero-phase/routes/HeroPhase.tsx";
 import MovementPhase from "./app/features/movement-phase/routes/MovementPhase.tsx";
 import Root from "./app/routes/Root.tsx";
 import PreRounds from "./app/features/pre-rounds/routes/PreRounds.tsx";
+import ShootingPhase from "./app/features/shooting-phase/routes/ShootingPhase.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "phases/movement",
         element: <MovementPhase />,
+      },
+      {
+        path: "phases/shooting",
+        element: <ShootingPhase />,
       },
     ],
   },

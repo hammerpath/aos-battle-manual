@@ -14,6 +14,7 @@ export interface MovementPhaseProps {}
 
 const MovementPhase: React.FC<MovementPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
+
   return (
     <Page>
       <PageContent>

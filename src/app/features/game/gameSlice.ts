@@ -9,6 +9,7 @@ export type Phase =
   | "Charge"
   | "Combat"
   | "Battleshock";
+export type CurrentTurn = "player" | "opponent";
 
 export interface GameState {
   army?: Army;
@@ -18,6 +19,7 @@ export interface GameState {
   // TODO - correct name?
   generalStrategy?: boolean;
   hasPriority?: boolean;
+  currentTurn: CurrentTurn
   commandPoints: number;
   generalOnBattlefield: boolean;
   phase?: Phase;
@@ -30,6 +32,7 @@ const initialState: GameState = {
   deployedArmy: false,
   commandPoints: 0,
   generalOnBattlefield: true,
+  currentTurn: "player"
 };
 
 const gameSlice = createSlice({
@@ -48,6 +51,7 @@ const gameSlice = createSlice({
     userHasPriority: (state, action: PayloadAction<boolean>) => {
       state.hasPriority = action.payload;
       state.commandPoints = action.payload ? 1 : 2;
+      state.currentTurn = action.payload ? "player" : "opponent";
     },
     subtractCommandAbility: (state, action: PayloadAction<number>) => {
       state.commandPoints = state.commandPoints -= action.payload;
@@ -81,5 +85,6 @@ export const selectDeployedArmy = (state: RootState) => state.game.deployedArmy;
 export const selectHasPriority = (state: RootState) => state.game.hasPriority;
 export const selectCommandPoints = (state: RootState) =>
   state.game.commandPoints;
+export const selectCurrentTurn = (state: RootState) => state.game.currentTurn;
 
 export default gameSlice.reducer;

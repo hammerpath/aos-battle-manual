@@ -1,12 +1,12 @@
 import { Page } from "./app/components/Page";
-import HeroPhase from "./app/features/phases/HeroPhase";
+import PreRounds from "./app/features/pre-rounds/PreRounds";
 
 function App() {
   return (
     <div>
       <div className="text-center">Main header</div>
       <Page>
-        <HeroPhase />
+        <PreRounds />
       </Page>
     </div>
   );

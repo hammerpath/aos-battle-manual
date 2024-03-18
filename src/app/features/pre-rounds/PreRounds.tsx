@@ -1,6 +1,6 @@
-import { BoxedLink } from "../../components/BoxedLink";
-import CheckMark from "../../components/CheckMark";
-import Cross from "../../components/Cross";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import LinkButton from "../../components/LinkButton";
 import PageContent from "../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
@@ -13,6 +13,7 @@ import {
   selectPlacedTerrain,
   userHasPriority,
 } from "../game/gameSlice";
+import { Button } from "@mui/material";
 
 const PreRounds: React.FC = function () {
   const placedTerrain = useAppSelector(selectPlacedTerrain);
@@ -25,27 +26,27 @@ const PreRounds: React.FC = function () {
   return (
     <div>
       <PageContent>
-        <BoxedLink onClick={() => dispatch(placeTerrain())}>
-          Set up terrain {placedTerrain ? <CheckMark /> : null}
-        </BoxedLink>
+        <Button onClick={() => dispatch(placeTerrain())}>
+          Set up terrain {placedTerrain ? <CheckIcon /> : null}
+        </Button>
       </PageContent>
       <PageContent>
-        <BoxedLink onClick={() => dispatch(placeCustomTerrain())}>
-          Set up custom terrain {placedCustomTerrain ? <CheckMark /> : null}
-        </BoxedLink>
+        <Button onClick={() => dispatch(placeCustomTerrain())}>
+          Set up custom terrain {placedCustomTerrain ? <CheckIcon /> : null}
+        </Button>
       </PageContent>
       <PageContent>
-        <BoxedLink onClick={() => dispatch(deployArmy())}>
-          Deploy units{deployedArmy ? <CheckMark /> : null}
-        </BoxedLink>
+        <Button onClick={() => dispatch(deployArmy())}>
+          Deploy units{deployedArmy ? <CheckIcon /> : null}
+        </Button>
       </PageContent>
       <PageContent>
-        <BoxedLink onClick={() => dispatch(userHasPriority(!hasPriority))}>
-          You have priority? {hasPriority ? <CheckMark /> : <Cross />}
-        </BoxedLink>
+        <Button onClick={() => dispatch(userHasPriority(!hasPriority))}>
+          You have priority? {hasPriority ? <CheckIcon /> : <CloseIcon />}
+        </Button>
       </PageContent>
       <PageContent>
-        <BoxedLink>Start game</BoxedLink>
+        <LinkButton href={"phases/hero"}>Start game</LinkButton>
       </PageContent>
     </div>
   );

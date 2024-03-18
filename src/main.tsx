@@ -11,6 +11,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import HeroPhase from "./app/features/hero-phase/components/HeroPhase.tsx";
+import MovementPhase from "./app/features/movement-phase/components/MovementPhase.tsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "phases/hero",
     element: <HeroPhase />,
   },
+  {
+    path: "phases/movement",
+    element: <MovementPhase />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -28,5 +33,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

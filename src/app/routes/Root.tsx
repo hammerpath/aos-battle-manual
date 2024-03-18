@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Settings from "../features/game/components/Settings";
 
 export interface RootProps {}
 
@@ -7,6 +8,7 @@ const Root: React.FC = function () {
     <>
       <div className="text-center">Main header</div>
       <Outlet />
+      <Settings />
     </>
   );
 };

@@ -17,6 +17,8 @@ import ShootingPhase from "./app/features/shooting-phase/components/ShootingPhas
 import Phase from "./app/features/phase/Phase.tsx";
 import ChargePhase from "./app/features/charge-phase/components/ChargePhase.tsx";
 import CombatPhase from "./app/features/combat-phase/components/CombatPhase.tsx";
+import BattleshockPhase from "./app/features/battleshock-phase/components/BattleshockPhase.tsx";
+import PostRound from "./app/features/post-round/components/PostRound.tsx";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +101,36 @@ const router = createBrowserRouter([
             }}
           >
             <CombatPhase />
+          </Phase>
+        ),
+      },
+      {
+        path: "phases/battleshock",
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/phases/shooting",
+              previousRouteName: "Shooting",
+              nextRoute: "/phases/post-round",
+              nextRouteName: "Post round",
+            }}
+          >
+            <BattleshockPhase />
+          </Phase>
+        ),
+      },
+      {
+        path: "phases/post-round",
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/phases/battleshock",
+              previousRouteName: "Battleshock",
+              nextRoute: "/phases/hero",
+              nextRouteName: "Hero",
+            }}
+          >
+            <PostRound />
           </Phase>
         ),
       },

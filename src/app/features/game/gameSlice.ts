@@ -32,6 +32,7 @@ const gameSlice = createSlice({
 export const { userHasPriority } = gameSlice.actions;
 
 export const selectCurrentTurn = (state: RootState) => state.game.currentTurn;
-export const selectHasPriority = (state: RootState) => state.game.currentTurn === "player";
+export const selectHasPriority = (state: RootState) =>
+  state.game.currentTurn === "player";
 
 export default gameSlice.reducer;

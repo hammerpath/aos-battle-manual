@@ -3,23 +3,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import LinkButton from "../../../components/LinkButton";
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import {
-  deployArmy,
-  placeCustomTerrain,
-  placeTerrain,
-  selectDeployedArmy,
-  selectHasPriority,
-  selectPlacedCustomTerrain,
-  selectPlacedTerrain,
-  userHasPriority,
-} from "../../game/gameSlice";
+import { selectHasPriority, userHasPriority } from "../../game/gameSlice";
 import { Button } from "@mui/material";
 import { Page } from "../../../components/Page";
 
 const PreRounds: React.FC = function () {
-  const placedTerrain = useAppSelector(selectPlacedTerrain);
-  const placedCustomTerrain = useAppSelector(selectPlacedCustomTerrain);
-  const deployedArmy = useAppSelector(selectDeployedArmy);
   const hasPriority = useAppSelector(selectHasPriority);
 
   const dispatch = useAppDispatch();
@@ -27,23 +15,17 @@ const PreRounds: React.FC = function () {
   return (
     <Page>
       <PageContent>
-        <Button onClick={() => dispatch(placeTerrain())}>
-          Set up terrain {placedTerrain ? <CheckIcon /> : null}
-        </Button>
+        <Button>Set up terrain</Button>
       </PageContent>
       <PageContent>
-        <Button onClick={() => dispatch(placeCustomTerrain())}>
-          Set up custom terrain {placedCustomTerrain ? <CheckIcon /> : null}
-        </Button>
+        <Button>Set up custom terrain</Button>
       </PageContent>
       <PageContent>
-        <Button onClick={() => dispatch(deployArmy())}>
-          Deploy units{deployedArmy ? <CheckIcon /> : null}
-        </Button>
+        <Button>Deploy units</Button>
       </PageContent>
       <PageContent>
         <Button onClick={() => dispatch(userHasPriority(!hasPriority))}>
-          You have priority? {hasPriority ? <CheckIcon /> : <CloseIcon />}
+          You have priority: {hasPriority ? <CheckIcon /> : <CloseIcon />}
         </Button>
       </PageContent>
       <PageContent>

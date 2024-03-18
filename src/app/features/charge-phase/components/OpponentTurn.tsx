@@ -1,12 +1,12 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
 export interface OpponentTurnProps {}
 
 const OpponentTurn: React.FC<OpponentTurnProps> = function () {
   return (
     <Accordion>
-      <AccordionHeader>Unleash Hell</AccordionHeader>
+      <AccordionSummary>Unleash Hell</AccordionSummary>
       <AccordionDetails>
         You can use this command ability after an enemy unit finishes a charge
         move. The unit that receives the command must be within 6" of that enemy

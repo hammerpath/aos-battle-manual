@@ -26,7 +26,7 @@ const TurnSelect: React.FC<TurnSelectProps> = function ({
         labelId="turn-select-label"
         id="turn-select"
         value={currentTurn}
-        label="Age"
+        label="Turn"
         onChange={onChange}
       >
         <MenuItem value={"player"}>You</MenuItem>

@@ -1,0 +1,57 @@
+{
+  "name": "Sylvaneth",
+  "preRound": {
+    "terrains": [
+      {
+        "name": "Places of Power",
+        "description": "After territories are determined, before faction terrain features are set up, you can pick up to 3 terrain features on the battlefield that are wholly outside enemy territory. Those terrain features are considered by you to be overgrown terrain features."
+      }
+    ],
+    "grandStrategies": [
+      {
+        "name": "Chorus of the Woodlands",
+        "description": "When the battle ends, you complete this grand strategy if you completed at least 4 battle tactics and every battle tactic you completed was from the 'Songs of War' list."
+      },
+      {
+        "name": "Vengeance and Spite",
+        "description": "When the battle ends, you complete this grand strategy if the model picked to be your opponent's general was slain by an attack made by a friendly OUTCASTS unit."
+      },
+      {
+        "name": "The Roots of Victory",
+        "description": "When the battle ends, you complete this grand strategy if there is a friendly Awakened Wyldwood in each quarter of the battlefield and all enemy units are more than 6\" from all friendly Awakened Wyldwoods on the battlefield."
+      }
+    ]
+  },
+  "heroPhase": [
+    {
+      "start": [
+        {
+          "name": "Abundant Growth",
+          "description": "At the start of your hero phase, you can heal 1 wound allocated to each friendly EVERGREEN HUNT unit that is wholly within 9\" of an overgrown terrain feature."
+        }
+      ],
+      "battleTactics": [
+        {
+          "name": "Eradicate Trespassers",
+          "description": "Pick 1 enemy unit within 6\" of a friendly Awakened Wyldwood. You complete this battle tactic if that unit is destroyed during this turn."
+        },
+        {
+          "name": "Harness the Spirit Paths",
+          "description": "You complete this battle tactic if any models in a friendly SYLVANETH unit that was set up using the From the Woodland Depths battle trait this turn make a charge move this turn."
+        },
+        {
+          "name": "Balance the Cycle",
+          "description": "Pick 1 enemy unit within 12\" of an overgrown terrain feature or friendly Awakened Wyldwood. You complete this battle tactic if that unit is destroyed by an attack made by a friendly SYLVANETH unit that was added to your army this turn."
+        },
+        {
+          "name": "March of the Forest Lords",
+          "description": "Pick 1 enemy MONSTER on the battlefield. You complete this battle tactic if that MONSTER is slain by an attack made by a friendly SPIRIT OF DURTHU, TREELORD ANCIENT or TREELORD during this turn."
+        },
+        {
+          "name": "Unleash Ghyran's Wrath",
+          "description": "Pick 1 friendly SYLVANETH WIZARD on the battlefield. You complete this battle tactic if a spell successfully cast by that WIZARD, or an endless spell summoned by that WIZARD, destroys an enemy unit this turn."
+        }
+      ]
+    }
+  ]
+}

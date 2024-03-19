@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prettier:check": "prettier . --check",
     "prettier:write": "prettier . --write",
-    "stage": "npm run lint && npm run prettier:write",
+    "stage": "npm run lint && npm run prettier:write && git add",
     "preview": "vite preview",
     "prepare": "husky"
   },

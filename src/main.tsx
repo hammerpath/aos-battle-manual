@@ -28,9 +28,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <CreateGame />
-        )
+        element: <CreateGame />,
       },
       {
         path: "pre-rounds",

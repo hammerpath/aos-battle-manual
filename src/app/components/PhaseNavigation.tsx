@@ -16,17 +16,13 @@ const PhaseNavigation: React.FC<PhaseNavigationProps> = function ({
   nextRouteName,
 }) {
   return (
-    <div className="flex py-4">
-      <div className="flex-1">
-        <LinkButton href={previousRoute}>
-          <ArrowBackIcon /> {previousRouteName}
-        </LinkButton>
-      </div>
-      <div className="flex-1">
-        <LinkButton href={nextRoute}>
-          {nextRouteName} <ArrowForwardIcon />
-        </LinkButton>
-      </div>
+    <div className="flex justify-between py-4">
+      <LinkButton href={previousRoute}>
+        <ArrowBackIcon /> {previousRouteName}
+      </LinkButton>
+      <LinkButton href={nextRoute}>
+        {nextRouteName} <ArrowForwardIcon />
+      </LinkButton>
     </div>
   );
 };

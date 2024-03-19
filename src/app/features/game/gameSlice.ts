@@ -26,22 +26,24 @@ const gameSlice = createSlice({
     },
     chooseOpponentArmy: (
       state,
-      action: PayloadAction<ArmyName | undefined>
+      action: PayloadAction<ArmyName | undefined>,
     ) => {
       state.opponentArmyName = action.payload;
     },
   },
 });
 
-export const { userHasPriority,   choosePlayerArmy,
-  chooseOpponentArmy } = gameSlice.actions;
+export const { userHasPriority, choosePlayerArmy, chooseOpponentArmy } =
+  gameSlice.actions;
 
 export const selectCurrentTurn = (state: RootState) => state.game.currentTurn;
 export const selectHasPriority = (state: RootState) =>
   state.game.currentTurn === "player";
-  export const selectArmyName = (state: RootState) =>
-  state.game.currentTurn === "player" ? state.game.playerArmyName : state.game.opponentArmyName;
-  export const selectPlayerArmyName = (state: RootState) =>
+export const selectArmyName = (state: RootState) =>
+  state.game.currentTurn === "player"
+    ? state.game.playerArmyName
+    : state.game.opponentArmyName;
+export const selectPlayerArmyName = (state: RootState) =>
   state.game.playerArmyName;
 export const selectOpponentArmyName = (state: RootState) =>
   state.game.opponentArmyName;

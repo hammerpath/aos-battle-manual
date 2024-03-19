@@ -24,10 +24,8 @@ const gameSettingsSlice = createSlice({
   },
 });
 
-export const {
-  toggleBattleTactics,
-  toggleGrandStrategies,
-} = gameSettingsSlice.actions;
+export const { toggleBattleTactics, toggleGrandStrategies } =
+  gameSettingsSlice.actions;
 
 export const selectBattleTacticsEnabled = (state: RootState) =>
   state.gameSettings.battleTactics;

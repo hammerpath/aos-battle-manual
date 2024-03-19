@@ -28,7 +28,7 @@ const PreRounds: React.FC = function () {
           header={"Select Grand Strategy"}
           content={mergeArrays(
             army?.preRound?.grandStrategies,
-            getGrandStrategies()
+            getGrandStrategies(),
           ).map((ability) => {
             return { summary: ability.name, details: ability.description };
           })}

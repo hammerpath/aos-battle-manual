@@ -10,7 +10,12 @@ import { getArmyNames } from "../../armies/Army";
 import ArmySelect from "./ArmySelect";
 import { ArmyName } from "../../armies/types";
 import PageContentColumns from "../../../components/PageContentColumns";
-import { chooseOpponentArmy, choosePlayerArmy, selectOpponentArmyName, selectPlayerArmyName } from "../gameSlice";
+import {
+  chooseOpponentArmy,
+  choosePlayerArmy,
+  selectOpponentArmyName,
+  selectPlayerArmyName,
+} from "../gameSlice";
 
 export interface SettingsProps {}
 

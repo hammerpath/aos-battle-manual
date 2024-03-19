@@ -19,6 +19,7 @@ import ChargePhase from "./app/features/charge-phase/components/ChargePhase.tsx"
 import CombatPhase from "./app/features/combat-phase/components/CombatPhase.tsx";
 import BattleshockPhase from "./app/features/battleshock-phase/components/BattleshockPhase.tsx";
 import PostRound from "./app/features/post-round/components/PostRound.tsx";
+import CreateGame from "./app/features/game/CreateGame.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,25 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
+        path: "/",
+        element: (
+          <CreateGame />
+        )
+      },
+      {
         path: "pre-rounds",
-        element: <PreRounds />,
+        element: (
+          <Phase
+            navigation={{
+              previousRoute: "/",
+              previousRouteName: "Settings",
+              nextRoute: "/phases/hero",
+              nextRouteName: "Hero",
+            }}
+          >
+            <PreRounds />
+          </Phase>
+        ),
       },
       {
         path: "phases/hero",
@@ -35,7 +53,7 @@ const router = createBrowserRouter([
           <Phase
             navigation={{
               previousRoute: "/pre-rounds",
-              previousRouteName: "Pre-game",
+              previousRouteName: "Game setup",
               nextRoute: "/phases/movement",
               nextRouteName: "Movement",
             }}

@@ -1,16 +1,23 @@
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import { CurrentTurn } from "../gameSlice";
+import { CurrentTurn, userHasPriority } from "../gameSlice";
+import { useAppDispatch } from "../../../hooks";
+import TurnSelect from "./TurnSelect";
 
 export interface HeaderProps {
   currentTurn: CurrentTurn;
 }
 
 const GameHeader: React.FC<HeaderProps> = function ({ currentTurn }) {
+  const dispatch = useAppDispatch();
+
   return (
-    <div>
-      Your turn: {currentTurn === "player" ? <CheckIcon /> : <CloseIcon />}
-    </div>
+    <>
+      <TurnSelect
+        currentTurn={currentTurn}
+        onChange={(event) =>
+          dispatch(userHasPriority(event.target.value === "player"))
+        }
+      />
+    </>
   );
 };
 

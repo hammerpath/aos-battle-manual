@@ -1,11 +1,10 @@
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
-import LinkButton from "../../../components/LinkButton";
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import { selectHasPriority, userHasPriority } from "../../game/gameSlice";
-import { Button } from "@mui/material";
-import { Page } from "../../../components/Page";
+import { Accordion } from "@mui/material";
+import AccordionHeader from "../../../components/AccordionHeader";
+import AccordionSummary from "../../../components/accordion/AccordionSummary";
+import TurnSelect from "../../game/components/TurnSelect";
 
 const PreRounds: React.FC = function () {
   const hasPriority = useAppSelector(selectHasPriority);
@@ -13,25 +12,32 @@ const PreRounds: React.FC = function () {
   const dispatch = useAppDispatch();
 
   return (
-    <Page>
+    <>
       <PageContent>
-        <Button>Set up terrain</Button>
+        <AccordionHeader>Game setup</AccordionHeader>
       </PageContent>
+      <Accordion>
+        <AccordionSummary>Set up terrain</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Set up custom terrain</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Deploy units</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Priority roll</AccordionSummary>
+      </Accordion>
       <PageContent>
-        <Button>Set up custom terrain</Button>
+        <AccordionHeader>Who's turn</AccordionHeader>
       </PageContent>
-      <PageContent>
-        <Button>Deploy units</Button>
-      </PageContent>
-      <PageContent>
-        <Button onClick={() => dispatch(userHasPriority(!hasPriority))}>
-          You have priority: {hasPriority ? <CheckIcon /> : <CloseIcon />}
-        </Button>
-      </PageContent>
-      <PageContent>
-        <LinkButton href={"/phases/hero"}>Start game</LinkButton>
-      </PageContent>
-    </Page>
+      <TurnSelect
+        currentTurn={hasPriority ? "player" : "opponent"}
+        onChange={(event) =>
+          dispatch(userHasPriority(event.target.value === "player"))
+        }
+      />
+    </>
   );
 };
 

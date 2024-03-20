@@ -20,7 +20,7 @@ const mapAbilityToComponentContent = (ability: Ability): Content => {
 export function useArmy(
   phase: string | undefined,
   turn: CurrentTurn,
-  armyName?: ArmyName
+  armyName?: ArmyName,
 ) {
   const army = getArmy(armyName);
 
@@ -31,24 +31,24 @@ export function useArmy(
           turn === "mine"
             ? mergeArrays(
                 army?.heroPhase?.yourTurn.start?.map(
-                  mapAbilityToComponentContent
+                  mapAbilityToComponentContent,
                 ),
                 army?.heroPhase?.turnIndependent?.start?.map(
-                  mapAbilityToComponentContent
-                )
+                  mapAbilityToComponentContent,
+                ),
               )
             : mergeArrays(
                 army?.heroPhase?.opponentTurn?.start?.map(
-                  mapAbilityToComponentContent
+                  mapAbilityToComponentContent,
                 ),
                 army?.heroPhase?.turnIndependent?.start?.map(
-                  mapAbilityToComponentContent
-                )
+                  mapAbilityToComponentContent,
+                ),
               ),
         battleTacticsContent:
           turn === "mine"
             ? army?.heroPhase?.yourTurn.battleTactics?.map(
-                mapAbilityToComponentContent
+                mapAbilityToComponentContent,
               )
             : undefined,
       };

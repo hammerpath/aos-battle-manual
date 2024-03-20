@@ -7,21 +7,32 @@ import AccordionHeader from "../../../components/AccordionHeader";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
+import { Content } from "../../phase/components/PhaseContent";
 
-export interface HeroPhaseProps {}
+export interface HeroPhaseProps {
+  startContent: Content[];
+}
 
-const HeroPhase: React.FC<HeroPhaseProps> = function () {
+const HeroPhase: React.FC<HeroPhaseProps> = function ({ startContent }) {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
     <>
       <PageContent>
-        <AccordionHeader>Command points</AccordionHeader>
+        <AccordionHeader>Start</AccordionHeader>
       </PageContent>
       <Accordion>
         <AccordionSummary>General on battlefield</AccordionSummary>
         <AccordionDetails>Receive 1 command point.</AccordionDetails>
       </Accordion>
+      {startContent?.map((content) => {
+        return (
+          <Accordion>
+            <AccordionSummary>{content.summary}</AccordionSummary>
+            <AccordionDetails>{content.details}</AccordionDetails>
+          </Accordion>
+        );
+      })}
       <PageContent>
         <AccordionHeader>Heroic Actions</AccordionHeader>
       </PageContent>
@@ -63,7 +74,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
           wounds allocated to that HERO.
         </AccordionDetails>
       </Accordion>
-      {currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}
+      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
     </>
   );
 };

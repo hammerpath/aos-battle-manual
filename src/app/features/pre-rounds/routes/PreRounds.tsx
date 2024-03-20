@@ -1,7 +1,7 @@
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
-  selectArmyName,
+  selectMyArmyName,
   selectHasPriority,
   userHasPriority,
 } from "../../game/gameSlice";
@@ -16,7 +16,7 @@ import { getGrandStrategies } from "../../../rules/rules";
 const PreRounds: React.FC = function () {
   const hasPriority = useAppSelector(selectHasPriority);
   const grandStrategyEnabled = useAppSelector(selectGrandStrategiesEnabled);
-  const armyName = useAppSelector(selectArmyName);
+  const armyName = useAppSelector(selectMyArmyName);
   const army = armyName && getArmy(armyName);
 
   const dispatch = useAppDispatch();
@@ -56,9 +56,10 @@ const PreRounds: React.FC = function () {
         <AccordionHeader>Who's turn</AccordionHeader>
       </PageContent>
       <TurnSelect
-        currentTurn={hasPriority ? "player" : "opponent"}
+        currentTurn={hasPriority ? "mine" : "opponent"}
         onChange={(event) =>
-          dispatch(userHasPriority(event.target.value === "player"))
+          // TODO - fix typings for value
+          dispatch(userHasPriority(event.target.value === "mine"))
         }
       />
     </>

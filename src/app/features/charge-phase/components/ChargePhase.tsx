@@ -8,7 +8,7 @@ export interface ChargePhaseProps {}
 const ChargePhase: React.FC<ChargePhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
-  return <>{currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}</>;
+  return <>{currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}</>;
 };
 
 export default ChargePhase;

@@ -1,11 +1,8 @@
 import Sylvaneth from "../../armies/Sylvaneth.json";
 import { Army, ArmyName } from "./types";
 
-const getArmy = (name: ArmyName): Army => {
+const getArmy = (name?: ArmyName) => {
   const army = getAllArmies().find((army) => army.name === name);
-  if (!army) {
-    throw Error(`No army with name: ${name}`);
-  }
 
   return army;
 };

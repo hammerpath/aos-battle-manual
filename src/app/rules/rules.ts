@@ -2,7 +2,7 @@ export type Rule = {
   name: string;
   description: string;
 };
-
+// TODO - remove this file
 export const getGrandStrategies = (): Rule[] => {
   return [
     {
@@ -13,7 +13,7 @@ export const getGrandStrategies = (): Rule[] => {
     {
       name: "Vendetta",
       description:
-        "When the battle ends, you complete this grand strategy if the model chosen to be your opponent’s general has been slain and the model chosen to be your general has not been slain.",
+        "When the battle ends, you complete this grand strategy if the model chosen to be your opponent's general has been slain and the model chosen to be your general has not been slain.",
     },
     {
       name: "Hold the Line",

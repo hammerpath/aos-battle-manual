@@ -51,7 +51,7 @@ const CombatPhase: React.FC<CombatPhaseProps> = function () {
       <PageContent>
         <AccordionHeader>Command abilities</AccordionHeader>
       </PageContent>
-      {currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}
+      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
       <PageContent>
         <AccordionHeader>Attack (TODO)</AccordionHeader>
       </PageContent>

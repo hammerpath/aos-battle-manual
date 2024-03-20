@@ -4,7 +4,7 @@ export type ArmyName = "Sylvaneth" | "Test";
 export type Army = {
   name: string;
   preRound?: PreRound;
-  heroPhase?: HeroPhase[];
+  heroPhase?: HeroPhase;
 };
 
 export type PreRound = {
@@ -13,6 +13,13 @@ export type PreRound = {
 };
 
 export type HeroPhase = {
+  yourTurn: HeroPhaseInfo;
+  turnIndependent?: HeroPhaseInfo;
+  opponentTurn?: HeroPhaseInfo;
+};
+
+// TODO - bad name
+export type HeroPhaseInfo = {
   start?: Ability[];
   battleTactics?: Ability[];
 };

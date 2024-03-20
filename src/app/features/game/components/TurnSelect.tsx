@@ -29,7 +29,7 @@ const TurnSelect: React.FC<TurnSelectProps> = function ({
         label="Turn"
         onChange={onChange}
       >
-        <MenuItem value={"player"}>You</MenuItem>
+        <MenuItem value={"mine"}>Mine</MenuItem>
         <MenuItem value={"opponent"}>Opponent</MenuItem>
       </Select>
     </FormControl>

@@ -14,7 +14,8 @@ const GameHeader: React.FC<HeaderProps> = function ({ currentTurn }) {
       <TurnSelect
         currentTurn={currentTurn}
         onChange={(event) =>
-          dispatch(userHasPriority(event.target.value === "player"))
+          // TODO - fix typings for value
+          dispatch(userHasPriority(event.target.value === "mine"))
         }
       />
     </>

@@ -8,7 +8,7 @@ export interface MovementPhaseProps {}
 const MovementPhase: React.FC<MovementPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
-  return <>{currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}</>;
+  return <>{currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}</>;
 };
 
 export default MovementPhase;

@@ -8,7 +8,7 @@ export interface ShootingPhaseProps {}
 const ShootingPhase: React.FC<ShootingPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
-  return <>{currentTurn === "player" ? <PlayerTurn /> : <OpponentTurn />}</>;
+  return <>{currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}</>;
 };
 
 export default ShootingPhase;

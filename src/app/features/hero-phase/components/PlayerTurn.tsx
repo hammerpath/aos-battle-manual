@@ -4,10 +4,17 @@ import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { useAppSelector } from "../../../hooks";
 import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlice";
+import { Content } from "../../phase/components/PhaseContent";
 
-export interface PlayerTurnProps {}
+export interface PlayerTurnProps {
+  battleTacticsContent?: Content[];
+  spellsContent?: Content[];
+}
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function () {
+const PlayerTurn: React.FC<PlayerTurnProps> = function ({
+  battleTacticsContent,
+  spellsContent,
+}) {
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
 
   return (
@@ -30,10 +37,31 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function () {
       <PageContent>
         <AccordionHeader>Spells</AccordionHeader>
       </PageContent>
+      {spellsContent?.map((content) => {
+        return (
+          <Accordion>
+            <AccordionSummary>{content.summary}</AccordionSummary>
+            <AccordionDetails>{content.details}</AccordionDetails>
+          </Accordion>
+        );
+      })}
       <Accordion>
-        <AccordionSummary>Cast spells</AccordionSummary>
+        <AccordionSummary>Arcane Bolt</AccordionSummary>
         <AccordionDetails>
-          Cast spell with friendly Wizard. TODO
+          Arcane Bolt is a spell that has a casting value of 5 and a range of
+          12". If successfully cast, at the start of any 1 phase before your
+          next hero phase, you can pick 1 enemy unit within range and visible to
+          the caster. That unit suffers 1 mortal wound. If that unit is within
+          3" of the caster, it suffers D3 mortal wounds instead of 1.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Mystic Shield</AccordionSummary>
+        <AccordionDetails>
+          Mystic Shield is a spell that has a casting value of 5 and a range of
+          12". If successfully cast, pick 1 friendly unit wholly within range
+          and visible to the caster. Add 1 to save rolls for attacks that target
+          that unit until your next hero phase.
         </AccordionDetails>
       </Accordion>
       {battleTacticsEnabled ? (
@@ -41,6 +69,14 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function () {
           <PageContent>
             <AccordionHeader>Battle tactic</AccordionHeader>
           </PageContent>
+          {battleTacticsContent?.map((content) => {
+            return (
+              <Accordion>
+                <AccordionSummary>{content.summary}</AccordionSummary>
+                <AccordionDetails>{content.details}</AccordionDetails>
+              </Accordion>
+            );
+          })}
           <Accordion>
             <AccordionSummary>Break their Spirit</AccordionSummary>
             <AccordionDetails>

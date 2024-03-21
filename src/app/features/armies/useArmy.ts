@@ -4,6 +4,7 @@ import { Content } from "../phase/components/PhaseContent";
 import { getArmy } from "./Army";
 import { Ability, ArmyName } from "./types";
 
+// TODO - use or remove this.
 export type Phase =
   | "hero"
   | "movement"
@@ -47,9 +48,11 @@ export function useArmy(
               ),
         battleTacticsContent:
           turn === "mine"
-            ? army?.heroPhase?.yourTurn.battleTactics?.map(
-                mapAbilityToComponentContent,
-              )
+            ? army?.battleTactics?.map(mapAbilityToComponentContent)
+            : undefined,
+        spells:
+          turn === "mine"
+            ? army?.spells?.map(mapAbilityToComponentContent)
             : undefined,
       };
     default:

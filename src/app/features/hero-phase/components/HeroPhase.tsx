@@ -11,9 +11,15 @@ import { Content } from "../../phase/components/PhaseContent";
 
 export interface HeroPhaseProps {
   startContent: Content[];
+  battleTacticsContent?: Content[];
+  spellsContent?: Content[];
 }
 
-const HeroPhase: React.FC<HeroPhaseProps> = function ({ startContent }) {
+const HeroPhase: React.FC<HeroPhaseProps> = function ({
+  startContent,
+  battleTacticsContent,
+  spellsContent,
+}) {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
@@ -74,7 +80,14 @@ const HeroPhase: React.FC<HeroPhaseProps> = function ({ startContent }) {
           wounds allocated to that HERO.
         </AccordionDetails>
       </Accordion>
-      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
+      {currentTurn === "mine" ? (
+        <PlayerTurn
+          battleTacticsContent={battleTacticsContent}
+          spellsContent={spellsContent}
+        />
+      ) : (
+        <OpponentTurn />
+      )}
     </>
   );
 };

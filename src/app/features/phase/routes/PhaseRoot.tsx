@@ -14,10 +14,15 @@ import { useArmy } from "../../armies/useArmy";
 export interface PhaseRootProps {}
 
 const PhaseRoot: React.FC<PhaseRootProps> = function () {
+  // TODO - can this be typed to Phase?
   const { phase } = useParams<"phase">();
   const currentTurn = useAppSelector(selectCurrentTurn);
   const myArmyName = useAppSelector(selectMyArmyName);
-  const { startContent } = useArmy(phase, currentTurn, myArmyName);
+  const { startContent, battleTacticsContent, spells } = useArmy(
+    phase,
+    currentTurn,
+    myArmyName,
+  );
 
   switch (phase) {
     case "hero":
@@ -30,7 +35,11 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Movement",
           }}
         >
-          <HeroPhase startContent={startContent} />
+          <HeroPhase
+            startContent={startContent}
+            battleTacticsContent={battleTacticsContent}
+            spellsContent={spells}
+          />
         </Phase>
       );
     case "movement":

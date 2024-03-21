@@ -26,12 +26,11 @@ const PreRounds: React.FC = function () {
       {grandStrategyEnabled ? (
         <PhaseContent
           header={"Select Grand Strategy"}
-          content={mergeArrays(
-            army?.preRound?.grandStrategies,
-            getGrandStrategies(),
-          ).map((ability) => {
-            return { summary: ability.name, details: ability.description };
-          })}
+          content={mergeArrays(army?.grandStrategies, getGrandStrategies()).map(
+            (ability) => {
+              return { summary: ability.name, details: ability.description };
+            },
+          )}
         />
       ) : null}
       <PhaseContent

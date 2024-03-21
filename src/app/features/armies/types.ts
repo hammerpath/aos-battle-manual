@@ -3,13 +3,15 @@ export type ArmyName = "Sylvaneth" | "Test";
 
 export type Army = {
   name: string;
+  spells?: Ability[];
+  grandStrategies?: Ability[];
+  battleTactics?: Ability[];
   preRound?: PreRound;
   heroPhase?: HeroPhase;
 };
 
 export type PreRound = {
   terrains?: Ability[];
-  grandStrategies?: Ability[];
 };
 
 export type HeroPhase = {
@@ -21,7 +23,6 @@ export type HeroPhase = {
 // TODO - bad name
 export type HeroPhaseInfo = {
   start?: Ability[];
-  battleTactics?: Ability[];
 };
 
 export type Ability = {

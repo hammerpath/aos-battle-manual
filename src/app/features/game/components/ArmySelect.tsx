@@ -33,8 +33,12 @@ const ArmySelect: React.FC<ArmySelectProps> = function ({
         onChange={onChange}
       >
         <MenuItem value="none">None</MenuItem>
-        {armyNames.map((name) => {
-          return <MenuItem value={name}>{name}</MenuItem>;
+        {armyNames.map((name, index) => {
+          return (
+            <MenuItem key={index} value={name}>
+              {name}
+            </MenuItem>
+          );
         })}
       </Select>
     </FormControl>

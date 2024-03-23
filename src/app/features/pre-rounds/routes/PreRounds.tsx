@@ -1,63 +1,96 @@
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import {
-  selectMyArmyName,
-  selectHasPriority,
-  userHasPriority,
-} from "../../game/gameSlice";
+import { selectHasPriority, userHasPriority } from "../../game/gameSlice";
+import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionHeader from "../../../components/AccordionHeader";
+import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import TurnSelect from "../../game/components/TurnSelect";
-import { selectGrandStrategiesEnabled } from "../../game-settings/gameSettingsSlice";
-import { getArmy } from "../../armies/Army";
-import PhaseContent from "../../phase/components/PhaseContent";
-import mergeArrays from "../../../utils/mergeArrays";
-import { getGrandStrategies } from "../../../rules/rules";
+import { Content } from "../../phase/components/PhaseContent";
 
-const PreRounds: React.FC = function () {
+export interface PreRoundsProps {
+  grandStrategiesContent?: Content[];
+}
+
+const PreRounds: React.FC<PreRoundsProps> = function ({
+  grandStrategiesContent,
+}) {
   const hasPriority = useAppSelector(selectHasPriority);
-  const grandStrategyEnabled = useAppSelector(selectGrandStrategiesEnabled);
-  const armyName = useAppSelector(selectMyArmyName);
-  const army = armyName && getArmy(armyName);
 
   const dispatch = useAppDispatch();
 
   return (
     <>
-      {grandStrategyEnabled ? (
-        <PhaseContent
-          header={"Select Grand Strategy"}
-          content={mergeArrays(army?.grandStrategies, getGrandStrategies()).map(
-            (ability) => {
-              return { summary: ability.name, details: ability.description };
-            },
-          )}
-        />
-      ) : null}
-      <PhaseContent
-        header="Game setup"
-        content={[
-          { summary: "Set up terrain" },
-          { summary: "Set up custom terrain" },
-          { summary: "Deploy units" },
-          {
-            summary: "Priority roll",
-            details:
-              "At the start of each battle round, the players must roll off. This is called the priority roll. The winner has priority in that battle round and must decide who will take the first turn and who will take the second turn.",
-          },
-          {
-            summary: "Command points",
-            details:
-              "After determining who will take which turn, the player who will take the first turn receives 1 command point (see 6.0) and the player who will take the second turn receives 2 command points.",
-          },
-        ]}
-      />
+      <PageContent>
+        <AccordionHeader>Grand strategy</AccordionHeader>
+      </PageContent>
+      {grandStrategiesContent?.map((content, index) => {
+        return (
+          <Accordion key={index}>
+            <AccordionSummary>{content.summary}</AccordionSummary>
+            <AccordionDetails>{content.details}</AccordionDetails>
+          </Accordion>
+        );
+      })}
+      <Accordion>
+        <AccordionSummary>Sever the Head</AccordionSummary>
+        <AccordionDetails>
+          When the battle ends, you complete this grand strategy if there are no
+          HEROES from your opponent's starting army on the battlefield.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Vendetta</AccordionSummary>
+        <AccordionDetails>
+          When the battle ends, you complete this grand strategy if the model
+          chosen to be your opponent's general has been slain and the model
+          chosen to be your general has not been slain.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Hold the Line</AccordionSummary>
+        <AccordionDetails>
+          When the battle ends, you complete this grand strategy if there are
+          any Battleline units from your starting army on the battlefield.
+        </AccordionDetails>
+      </Accordion>
+      <PageContent>
+        <AccordionHeader>Game setup</AccordionHeader>
+      </PageContent>
+      <Accordion>
+        <AccordionSummary>Set up terrain</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Set up custom terrain</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Deploy units</AccordionSummary>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Priority roll</AccordionSummary>
+        <AccordionDetails>
+          At the start of each battle round, the players must roll off. This is
+          called the priority roll. The winner has priority in that battle round
+          and must decide who will take the first turn and who will take the
+          second turn. In the event of a tied priority roll, do not roll off
+          again. Instead, if it is the first battle round, the player who
+          finished deploying their army first has priority. Otherwise, the
+          player who went first in the previous battle round has priority.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Command points</AccordionSummary>
+        <AccordionDetails>
+          After determining who will take which turn, the player who will take
+          the first turn receives 1 command point and the player who will take
+          the second turn receives 2 command points.
+        </AccordionDetails>
+      </Accordion>
       <PageContent>
         <AccordionHeader>Who's turn</AccordionHeader>
       </PageContent>
       <TurnSelect
         currentTurn={hasPriority ? "mine" : "opponent"}
         onChange={(event) =>
-          // TODO - fix typings for value
           dispatch(userHasPriority(event.target.value === "mine"))
         }
       />

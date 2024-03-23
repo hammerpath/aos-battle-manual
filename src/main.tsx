@@ -10,10 +10,9 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Root from "./app/routes/Root.tsx";
-import PreRounds from "./app/features/pre-rounds/routes/PreRounds.tsx";
-import Phase from "./app/features/phase/Phase.tsx";
 import CreateGame from "./app/features/game/CreateGame.tsx";
 import PhaseRoot from "./app/features/phase/routes/PhaseRoot.tsx";
+import PreRoundsRoot from "./app/features/pre-rounds/routes/PreRoundsRoot.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,18 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: "pre-rounds",
-        element: (
-          <Phase
-            navigation={{
-              previousRoute: "/",
-              previousRouteName: "Settings",
-              nextRoute: "/phases/hero",
-              nextRouteName: "Hero",
-            }}
-          >
-            <PreRounds />
-          </Phase>
-        ),
+        element: <PreRoundsRoot />,
       },
       {
         path: "phases/:phase",

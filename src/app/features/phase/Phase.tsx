@@ -11,19 +11,23 @@ import PhaseNavigation, {
 export interface PhaseProps {
   children: ReactNode;
   navigation: PhaseNavigationProps;
+  showHeader?: boolean;
 }
 
 const Phase: React.FC<PhaseProps> = function ({
   children,
   navigation: phaseNavigationProps,
+  showHeader = true,
 }) {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
     <Page>
-      <PageContent>
-        <GameHeader currentTurn={currentTurn} />
-      </PageContent>
+      {showHeader && (
+        <PageContent>
+          <GameHeader currentTurn={currentTurn} />
+        </PageContent>
+      )}
       {children}
       <PhaseNavigation {...phaseNavigationProps} />
     </Page>

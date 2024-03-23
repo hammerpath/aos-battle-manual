@@ -7,7 +7,7 @@ import AccordionHeader from "../../../components/AccordionHeader";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
-import { Content } from "../../phase/components/PhaseContent";
+import { Content } from "../../phase/types";
 
 export interface HeroPhaseProps {
   startContent?: Content[];

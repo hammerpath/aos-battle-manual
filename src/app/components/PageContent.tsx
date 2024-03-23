@@ -5,7 +5,7 @@ export interface PageContentProps {
 }
 
 const PageContent: React.FC<PageContentProps> = function ({ children }) {
-  return <div className="flex flex-1 p-4">{children}</div>;
+  return <div className="flex flex-1 py-4">{children}</div>;
 };
 
 export default PageContent;

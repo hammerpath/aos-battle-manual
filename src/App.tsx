@@ -4,7 +4,7 @@ import PreRounds from "./app/features/pre-rounds/routes/PreRounds";
 function App() {
   return (
     <div>
-      <div className="text-center">Main header</div>
+      <div className="text-center">AoS Battle Manual</div>
       <Page>
         <PreRounds />
       </Page>

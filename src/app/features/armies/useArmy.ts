@@ -1,6 +1,6 @@
 import mergeArrays from "../../utils/mergeArrays";
 import { CurrentTurn } from "../game/gameSlice";
-import { Content } from "../phase/components/PhaseContent";
+import { Content } from "../phase/types";
 import { getArmy } from "./Army";
 import { Ability, ArmyName } from "./types";
 

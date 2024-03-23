@@ -29,6 +29,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Hero",
             previousRoute: "/pre-rounds",
             previousRouteName: "Game setup",
             nextRoute: "/phases/movement",
@@ -46,6 +47,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Movement",
             previousRoute: "/phases/hero",
             previousRouteName: "Hero",
             nextRoute: "/phases/shooting",
@@ -59,6 +61,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Shooting",
             previousRoute: "/phases/movement",
             previousRouteName: "Movement",
             nextRoute: "/phases/charging",
@@ -72,6 +75,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Charging",
             previousRoute: "/phases/shooting",
             previousRouteName: "Shooting",
             nextRoute: "/phases/combat",
@@ -85,6 +89,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Combat",
             previousRoute: "/phases/charging",
             previousRouteName: "Charging",
             nextRoute: "/phases/battleshock",
@@ -98,6 +103,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Battleshock",
             previousRoute: "/phases/shooting",
             previousRouteName: "Shooting",
             nextRoute: "/phases/post-round",
@@ -111,6 +117,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
       return (
         <Phase
           navigation={{
+            currentRoute: "Post-round",
             previousRoute: "/phases/battleshock",
             previousRouteName: "Battleshock",
             nextRoute: "/phases/hero",

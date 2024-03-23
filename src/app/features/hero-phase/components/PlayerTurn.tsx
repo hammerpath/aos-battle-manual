@@ -4,7 +4,7 @@ import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { useAppSelector } from "../../../hooks";
 import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlice";
-import { Content } from "../../phase/components/PhaseContent";
+import { Content } from "../../phase/types";
 
 export interface PlayerTurnProps {
   battleTacticsContent?: Content[];

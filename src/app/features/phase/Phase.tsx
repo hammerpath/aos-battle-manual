@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Page } from "../../components/Page";
-import PageContent from "../../components/PageContent";
 import GameHeader from "../game/components/GameHeader";
 import { useAppSelector } from "../../hooks";
 import { selectCurrentTurn } from "../game/gameSlice";
@@ -23,13 +22,9 @@ const Phase: React.FC<PhaseProps> = function ({
 
   return (
     <Page>
-      {showHeader && (
-        <PageContent>
-          <GameHeader currentTurn={currentTurn} />
-        </PageContent>
-      )}
-      {children}
       <PhaseNavigation {...phaseNavigationProps} />
+      {showHeader && <GameHeader currentTurn={currentTurn} />}
+      {children}
     </Page>
   );
 };

@@ -3,6 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import LinkButton from "./LinkButton";
 
 export interface PhaseNavigationProps {
+  currentRoute: string;
   previousRoute: string;
   previousRouteName: string;
   nextRoute: string;
@@ -10,19 +11,21 @@ export interface PhaseNavigationProps {
 }
 
 const PhaseNavigation: React.FC<PhaseNavigationProps> = function ({
+  currentRoute,
   previousRoute,
-  previousRouteName,
   nextRoute,
-  nextRouteName,
 }) {
   return (
-    <div className="flex justify-between py-4">
-      <LinkButton href={previousRoute}>
-        <ArrowBackIcon /> {previousRouteName}
-      </LinkButton>
-      <LinkButton href={nextRoute}>
-        {nextRouteName} <ArrowForwardIcon />
-      </LinkButton>
+    <div className="pb-4">
+      <div className="flex justify-between py-4">
+        <LinkButton href={previousRoute}>
+          <ArrowBackIcon />
+        </LinkButton>
+        <div className="text-2xl">{currentRoute} Phase</div>
+        <LinkButton href={nextRoute}>
+          <ArrowForwardIcon />
+        </LinkButton>
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ export interface RootProps {}
 const Root: React.FC<RootProps> = function () {
   return (
     <>
-      <div className="text-center">AoS Battle Manual</div>
+      <div className="pt-4 text-center text-3xl">AoS Battle Manual</div>
       <Outlet />
     </>
   );

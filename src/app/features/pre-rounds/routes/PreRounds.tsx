@@ -5,7 +5,7 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionHeader from "../../../components/AccordionHeader";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import TurnSelect from "../../game/components/TurnSelect";
-import { Content } from "../../phase/components/PhaseContent";
+import { Content } from "../../phase/types";
 
 export interface PreRoundsProps {
   grandStrategiesContent?: Content[];

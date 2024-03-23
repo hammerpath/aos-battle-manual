@@ -14,6 +14,7 @@ const PreRoundsRoot: React.FC<PreRoundsRootProps> = function () {
     <Phase
       showHeader={false}
       navigation={{
+        currentRoute: "Setup",
         previousRoute: "/",
         previousRouteName: "Settings",
         nextRoute: "/phases/hero",

@@ -9,7 +9,7 @@ export interface LinkButtonProps {
 
 const LinkButton: React.FC<LinkButtonProps> = function ({ children, href }) {
   return (
-    <Button component={RouterLink} to={href}>
+    <Button variant="outlined" component={RouterLink} to={href}>
       {children}
     </Button>
   );

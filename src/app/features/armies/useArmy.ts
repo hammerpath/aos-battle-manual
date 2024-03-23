@@ -56,6 +56,10 @@ export function useArmy(
             : undefined,
       };
     default:
-      throw Error(`${phase} is not a known phase.`);
+      return {
+        startContent: undefined,
+        battleTacticsContent: undefined,
+        spells: undefined,
+      };
   }
 }

@@ -10,7 +10,7 @@ import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { Content } from "../../phase/components/PhaseContent";
 
 export interface HeroPhaseProps {
-  startContent: Content[];
+  startContent?: Content[];
   battleTacticsContent?: Content[];
   spellsContent?: Content[];
 }
@@ -31,9 +31,9 @@ const HeroPhase: React.FC<HeroPhaseProps> = function ({
         <AccordionSummary>General on battlefield</AccordionSummary>
         <AccordionDetails>Receive 1 command point.</AccordionDetails>
       </Accordion>
-      {startContent?.map((content) => {
+      {startContent?.map((content, index) => {
         return (
-          <Accordion>
+          <Accordion key={index}>
             <AccordionSummary>{content.summary}</AccordionSummary>
             <AccordionDetails>{content.details}</AccordionDetails>
           </Accordion>

@@ -37,9 +37,9 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
       <PageContent>
         <AccordionHeader>Spells</AccordionHeader>
       </PageContent>
-      {spellsContent?.map((content) => {
+      {spellsContent?.map((content, index) => {
         return (
-          <Accordion>
+          <Accordion key={index}>
             <AccordionSummary>{content.summary}</AccordionSummary>
             <AccordionDetails>{content.details}</AccordionDetails>
           </Accordion>
@@ -69,9 +69,9 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
           <PageContent>
             <AccordionHeader>Battle tactic</AccordionHeader>
           </PageContent>
-          {battleTacticsContent?.map((content) => {
+          {battleTacticsContent?.map((content, index) => {
             return (
-              <Accordion>
+              <Accordion key={index}>
                 <AccordionSummary>{content.summary}</AccordionSummary>
                 <AccordionDetails>{content.details}</AccordionDetails>
               </Accordion>

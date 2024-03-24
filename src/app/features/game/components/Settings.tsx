@@ -11,6 +11,7 @@ import ArmySelect from "./ArmySelect";
 import { ArmyName } from "../../armies/types";
 import PageContentColumns from "../../../components/PageContentColumns";
 import { choosePlayerArmy, selectPlayerArmyName } from "../gameSlice";
+import AccordionHeader from "../../../components/AccordionHeader";
 
 export interface SettingsProps {}
 
@@ -24,26 +25,37 @@ const Settings: React.FC<SettingsProps> = function () {
 
   return (
     <>
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={() => dispatch(toggleBattleTactics())}
-              checked={battleTacticsEnabled}
-            />
-          }
-          label="Use Battle Tactics"
-        />
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={() => dispatch(toggleGrandStrategies())}
-              checked={grandStrategiesEnabled}
-            />
-          }
-          label="Use Grand Strategies"
-        />
-      </FormGroup>
+      <div className="py-2">
+        <AccordionHeader>Description</AccordionHeader>
+        <div>
+          Setup the game according to your liking using the settings. Choose a
+          team from the list to get team specific information for the different
+          phases.
+        </div>
+      </div>
+      <div className="py-2">
+        <AccordionHeader>Settings</AccordionHeader>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={() => dispatch(toggleBattleTactics())}
+                checked={battleTacticsEnabled}
+              />
+            }
+            label="Use Battle Tactics"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={() => dispatch(toggleGrandStrategies())}
+                checked={grandStrategiesEnabled}
+              />
+            }
+            label="Use Grand Strategies"
+          />
+        </FormGroup>
+      </div>
       <PageContentColumns header={"Choose army"}>
         <ArmySelect
           armyNames={armyNames}

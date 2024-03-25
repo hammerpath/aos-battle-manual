@@ -1,20 +1,18 @@
 import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
-import AccordionHeader from "../../../components/AccordionHeader";
-import { Content } from "../../phase/types";
+import Header from "../../../components/Header";
+import { CommandAbilities } from "../../armies/types";
 
 export interface PlayerTurnProps {
-  commandAbilitiesContent: Content[];
+  commandAbilities?: CommandAbilities[];
 }
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function ({
-  commandAbilitiesContent,
-}) {
+const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
   return (
     <>
       <PageContent>
-        <AccordionHeader>Movement</AccordionHeader>
+        <Header>Movement</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Normal move</AccordionSummary>
@@ -51,13 +49,13 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
         </AccordionDetails>
       </Accordion>
       <PageContent>
-        <AccordionHeader>Command abilities</AccordionHeader>
+        <Header>Command abilities</Header>
       </PageContent>
-      {commandAbilitiesContent.map((content, index) => {
+      {commandAbilities?.map((commandAbility, index) => {
         return (
           <Accordion key={index}>
-            <AccordionSummary>{content.summary}</AccordionSummary>
-            <AccordionDetails>{content.details}</AccordionDetails>
+            <AccordionSummary>{commandAbility.name}</AccordionSummary>
+            <AccordionDetails>{commandAbility.description}</AccordionDetails>
           </Accordion>
         );
       })}

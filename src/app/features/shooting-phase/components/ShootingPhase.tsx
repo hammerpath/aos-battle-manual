@@ -2,23 +2,20 @@ import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
-import { Content } from "../../phase/types";
+import { useArmy } from "../../armies/useArmy";
 
-export interface ShootingPhaseProps {
-  commandAbilitiesContent: Content[];
-}
+export interface ShootingPhaseProps {}
 
-const ShootingPhase: React.FC<ShootingPhaseProps> = function ({
-  commandAbilitiesContent,
-}) {
+const ShootingPhase: React.FC<ShootingPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
+  const { commandAbilities } = useArmy("combat");
 
   return (
     <>
       {currentTurn === "mine" ? (
-        <PlayerTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <PlayerTurn commandAbilities={commandAbilities} />
       ) : (
-        <OpponentTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <OpponentTurn commandAbilities={commandAbilities} />
       )}
     </>
   );

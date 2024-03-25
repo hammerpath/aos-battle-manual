@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
@@ -9,7 +9,7 @@ const BattleshockPhase: React.FC<BattleshockPhaseProps> = function () {
   return (
     <>
       <PageContent>
-        <AccordionHeader>Battleshock</AccordionHeader>
+        <Header>Battleshock</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Battleshock Test</AccordionSummary>
@@ -25,7 +25,7 @@ const BattleshockPhase: React.FC<BattleshockPhaseProps> = function () {
         </AccordionDetails>
       </Accordion>
       <PageContent>
-        <AccordionHeader>Command abilities</AccordionHeader>
+        <Header>Command abilities</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Inspiring Presence</AccordionSummary>

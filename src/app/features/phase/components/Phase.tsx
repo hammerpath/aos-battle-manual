@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
-import { Page } from "../../components/Page";
-import GameHeader from "../game/components/GameHeader";
-import { useAppSelector } from "../../hooks";
-import { selectCurrentTurn } from "../game/gameSlice";
+import { Page } from "../../../components/Page";
+import GameHeader from "../../game/components/GameHeader";
+import { useAppSelector } from "../../../hooks";
+import { selectCurrentTurn } from "../../game/gameSlice";
 import PhaseNavigation, {
   PhaseNavigationProps,
-} from "../../components/PhaseNavigation";
+} from "../../../components/PhaseNavigation";
 
 export interface PhaseProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
@@ -9,7 +9,7 @@ const OpponentTurn: React.FC<OpponentTurnProps> = function () {
   return (
     <>
       <PageContent>
-        <AccordionHeader>Spells</AccordionHeader>
+        <Header>Spells</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Unbind spells</AccordionSummary>

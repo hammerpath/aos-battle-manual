@@ -3,44 +3,27 @@ import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
-import { Content } from "../../phase/types";
 
-export interface HeroPhaseProps {
-  startContent: Content[];
-  battleTacticsContent: Content[];
-  spellsContent: Content[];
-}
+export interface HeroPhaseProps {}
 
-const HeroPhase: React.FC<HeroPhaseProps> = function ({
-  startContent,
-  battleTacticsContent,
-  spellsContent,
-}) {
+const HeroPhase: React.FC<HeroPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
     <>
       <PageContent>
-        <AccordionHeader>Start</AccordionHeader>
+        <Header>Start</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>General on battlefield</AccordionSummary>
         <AccordionDetails>Receive 1 command point.</AccordionDetails>
       </Accordion>
-      {startContent.map((content, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary>{content.summary}</AccordionSummary>
-            <AccordionDetails>{content.details}</AccordionDetails>
-          </Accordion>
-        );
-      })}
       <PageContent>
-        <AccordionHeader>Heroic Actions</AccordionHeader>
+        <Header>Heroic Actions</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Heroic Leadership</AccordionSummary>
@@ -80,14 +63,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function ({
           wounds allocated to that HERO.
         </AccordionDetails>
       </Accordion>
-      {currentTurn === "mine" ? (
-        <PlayerTurn
-          battleTacticsContent={battleTacticsContent}
-          spellsContent={spellsContent}
-        />
-      ) : (
-        <OpponentTurn />
-      )}
+      {currentTurn === "mine" ? <PlayerTurn phase="hero" /> : <OpponentTurn />}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import AccordionHeader from "./AccordionHeader";
+import Header from "./Header";
 
 export interface PageContentColumnsProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ const PageContentColumns: React.FC<PageContentColumnsProps> = function ({
 }) {
   return (
     <>
-      <AccordionHeader>{header}</AccordionHeader>
+      <Header>{header}</Header>
       <div className="flex flex-col py-4">{children}</div>
     </>
   );

@@ -1,33 +1,29 @@
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { selectHasPriority, userHasPriority } from "../../game/gameSlice";
+import { selectCurrentTurn, userHasPriority } from "../../game/gameSlice";
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import TurnSelect from "../../game/components/TurnSelect";
-import { Content } from "../../phase/types";
+import { useArmy } from "../../armies/useArmy";
 
-export interface PreRoundsProps {
-  grandStrategiesContent?: Content[];
-}
+export interface PreRoundsProps {}
 
-const PreRounds: React.FC<PreRoundsProps> = function ({
-  grandStrategiesContent,
-}) {
-  const hasPriority = useAppSelector(selectHasPriority);
-
+const PreRounds: React.FC<PreRoundsProps> = function () {
+  const currentTurn = useAppSelector(selectCurrentTurn);
+  const { grandStrategies, terrains } = useArmy("pre-round");
   const dispatch = useAppDispatch();
 
   return (
     <>
       <PageContent>
-        <AccordionHeader>Grand strategy</AccordionHeader>
+        <Header>Grand strategy</Header>
       </PageContent>
-      {grandStrategiesContent?.map((content, index) => {
+      {grandStrategies?.map((grandStrategy, index) => {
         return (
           <Accordion key={index}>
-            <AccordionSummary>{content.summary}</AccordionSummary>
-            <AccordionDetails>{content.details}</AccordionDetails>
+            <AccordionSummary>{grandStrategy.name}</AccordionSummary>
+            <AccordionDetails>{grandStrategy.description}</AccordionDetails>
           </Accordion>
         );
       })}
@@ -54,11 +50,19 @@ const PreRounds: React.FC<PreRoundsProps> = function ({
         </AccordionDetails>
       </Accordion>
       <PageContent>
-        <AccordionHeader>Game setup</AccordionHeader>
+        <Header>Game setup</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Set up terrain</AccordionSummary>
       </Accordion>
+      {terrains?.map((terrain, index) => {
+        return (
+          <Accordion key={index}>
+            <AccordionSummary>{terrain.name}</AccordionSummary>
+            <AccordionDetails>{terrain.description}</AccordionDetails>
+          </Accordion>
+        );
+      })}
       <Accordion>
         <AccordionSummary>Set up custom terrain</AccordionSummary>
       </Accordion>
@@ -86,10 +90,10 @@ const PreRounds: React.FC<PreRoundsProps> = function ({
         </AccordionDetails>
       </Accordion>
       <PageContent>
-        <AccordionHeader>Who's turn</AccordionHeader>
+        <Header>Who's turn</Header>
       </PageContent>
       <TurnSelect
-        currentTurn={hasPriority ? "mine" : "opponent"}
+        currentTurn={currentTurn}
         onChange={(event) =>
           dispatch(userHasPriority(event.target.value === "mine"))
         }

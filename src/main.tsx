@@ -9,10 +9,10 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import Root from "./app/routes/Root.tsx";
+import Root from "./app/Root.tsx";
 import CreateGame from "./app/features/game/CreateGame.tsx";
-import PhaseRoot from "./app/features/phase/routes/PhaseRoot.tsx";
-import PreRoundsRoot from "./app/features/pre-rounds/routes/PreRoundsRoot.tsx";
+import PhaseRoot from "./app/features/phase/PhaseRoot.tsx";
+import PreRoundsRoot from "./app/features/pre-rounds/PreRoundsRoot.tsx";
 
 const router = createBrowserRouter([
   {

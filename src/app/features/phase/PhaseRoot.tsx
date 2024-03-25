@@ -1,29 +1,18 @@
 import { useParams } from "react-router-dom";
-import HeroPhase from "../../hero-phase/components/HeroPhase";
-import Phase from "../Phase";
-import MovementPhase from "../../movement-phase/components/MovementPhase";
-import ShootingPhase from "../../shooting-phase/components/ShootingPhase";
-import ChargePhase from "../../charge-phase/components/ChargePhase";
-import CombatPhase from "../../combat-phase/components/CombatPhase";
-import BattleshockPhase from "../../battleshock-phase/components/BattleshockPhase";
-import PostRound from "../../post-round/components/PostRound";
-import { useAppSelector } from "../../../hooks";
-import { selectCurrentTurn, selectMyArmyName } from "../../game/gameSlice";
-import { useArmy } from "../../armies/useArmy";
+import HeroPhase from "../hero-phase/components/HeroPhase";
+import Phase from "./components/Phase";
+import MovementPhase from "../movement-phase/components/MovementPhase";
+import ShootingPhase from "../shooting-phase/components/ShootingPhase";
+import ChargePhase from "../charge-phase/components/ChargePhase";
+import CombatPhase from "../combat-phase/components/CombatPhase";
+import BattleshockPhase from "../battleshock-phase/components/BattleshockPhase";
+import PostRound from "../post-round/components/PostRound";
 
 export interface PhaseRootProps {}
 
 const PhaseRoot: React.FC<PhaseRootProps> = function () {
   // TODO - can this be typed to Phase?
   const { phase } = useParams<"phase">();
-  const currentTurn = useAppSelector(selectCurrentTurn);
-  const myArmyName = useAppSelector(selectMyArmyName);
-  const {
-    startContent,
-    battleTacticsContent,
-    spellsContent,
-    commandAbilitiesContent,
-  } = useArmy(phase, currentTurn, myArmyName);
 
   switch (phase) {
     case "hero":
@@ -37,11 +26,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Movement",
           }}
         >
-          <HeroPhase
-            startContent={startContent ?? []}
-            battleTacticsContent={battleTacticsContent ?? []}
-            spellsContent={spellsContent ?? []}
-          />
+          <HeroPhase />
         </Phase>
       );
     case "movement":
@@ -55,9 +40,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Shooting",
           }}
         >
-          <MovementPhase
-            commandAbilitiesContent={commandAbilitiesContent ?? []}
-          />
+          <MovementPhase />
         </Phase>
       );
     case "shooting":
@@ -71,9 +54,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Charging",
           }}
         >
-          <ShootingPhase
-            commandAbilitiesContent={commandAbilitiesContent ?? []}
-          />
+          <ShootingPhase />
         </Phase>
       );
     case "charging":
@@ -87,9 +68,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Combat",
           }}
         >
-          <ChargePhase
-            commandAbilitiesContent={commandAbilitiesContent ?? []}
-          />
+          <ChargePhase />
         </Phase>
       );
     case "combat":
@@ -103,9 +82,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Battleshock",
           }}
         >
-          <CombatPhase
-            commandAbilitiesContent={commandAbilitiesContent ?? []}
-          />
+          <CombatPhase />
         </Phase>
       );
     case "battleshock":

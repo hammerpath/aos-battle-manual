@@ -4,27 +4,24 @@ import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import PageContent from "../../../components/PageContent";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
-import { Content } from "../../phase/types";
+import Header from "../../../components/Header";
+import { useArmy } from "../../armies/useArmy";
 
-export interface ChargePhaseProps {
-  commandAbilitiesContent: Content[];
-}
+export interface ChargePhaseProps {}
 
-const ChargePhase: React.FC<ChargePhaseProps> = function ({
-  commandAbilitiesContent,
-}) {
+const ChargePhase: React.FC<ChargePhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
+  const { commandAbilities } = useArmy("charging");
 
   return (
     <>
       {currentTurn === "mine" ? (
-        <PlayerTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <PlayerTurn commandAbilities={commandAbilities} />
       ) : (
-        <OpponentTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <OpponentTurn commandAbilities={commandAbilities} />
       )}
       <PageContent>
-        <AccordionHeader>Monstrous Rampage</AccordionHeader>
+        <Header>Monstrous Rampage</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Roar</AccordionSummary>

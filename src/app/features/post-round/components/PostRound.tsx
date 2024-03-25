@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
@@ -9,7 +9,7 @@ const PostRound: React.FC<PostRoundProps> = function () {
   return (
     <>
       <PageContent>
-        <AccordionHeader>End of battle round</AccordionHeader>
+        <Header>End of battle round</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Command Points</AccordionSummary>

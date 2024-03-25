@@ -10,8 +10,8 @@ import { getArmyNames } from "../../armies/Army";
 import ArmySelect from "./ArmySelect";
 import { ArmyName } from "../../armies/types";
 import PageContentColumns from "../../../components/PageContentColumns";
-import { choosePlayerArmy, selectPlayerArmyName } from "../gameSlice";
-import AccordionHeader from "../../../components/AccordionHeader";
+import { choosePlayerArmy, selectMyArmyName } from "../gameSlice";
+import Header from "../../../components/Header";
 
 export interface SettingsProps {}
 
@@ -19,14 +19,14 @@ const Settings: React.FC<SettingsProps> = function () {
   const dispatch = useAppDispatch();
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
   const grandStrategiesEnabled = useAppSelector(selectGrandStrategiesEnabled);
-  const playerArmyName = useAppSelector(selectPlayerArmyName);
+  const playerArmyName = useAppSelector(selectMyArmyName);
 
   const armyNames = getArmyNames();
 
   return (
     <>
       <div className="py-2">
-        <AccordionHeader>Description</AccordionHeader>
+        <Header>Description</Header>
         <div>
           Setup the game according to your liking using the settings. Choose a
           team from the list to get team specific information for the different
@@ -34,7 +34,7 @@ const Settings: React.FC<SettingsProps> = function () {
         </div>
       </div>
       <div className="py-2">
-        <AccordionHeader>Settings</AccordionHeader>
+        <Header>Settings</Header>
         <FormGroup>
           <FormControlLabel
             control={

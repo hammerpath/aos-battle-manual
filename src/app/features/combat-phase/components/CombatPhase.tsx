@@ -1,26 +1,23 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
-import { Content } from "../../phase/types";
+import { useArmy } from "../../armies/useArmy";
 
-export interface CombatPhaseProps {
-  commandAbilitiesContent: Content[];
-}
+export interface CombatPhaseProps {}
 
-const CombatPhase: React.FC<CombatPhaseProps> = function ({
-  commandAbilitiesContent,
-}) {
+const CombatPhase: React.FC<CombatPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
+  const { commandAbilities } = useArmy("combat");
 
   return (
     <>
       <PageContent>
-        <AccordionHeader>Prepare for Combat</AccordionHeader>
+        <Header>Prepare for Combat</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Fight or Pass</AccordionSummary>
@@ -54,9 +51,9 @@ const CombatPhase: React.FC<CombatPhaseProps> = function ({
         </AccordionDetails>
       </Accordion>
       {currentTurn === "mine" ? (
-        <PlayerTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <PlayerTurn commandAbilities={commandAbilities} />
       ) : (
-        <OpponentTurn commandAbilitiesContent={commandAbilitiesContent} />
+        <OpponentTurn commandAbilities={commandAbilities} />
       )}
     </>
   );

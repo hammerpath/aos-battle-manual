@@ -1,26 +1,24 @@
 import { Accordion, AccordionDetails } from "@mui/material";
-import AccordionHeader from "../../../components/AccordionHeader";
+import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { useAppSelector } from "../../../hooks";
 import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlice";
-import { Content } from "../../phase/types";
+import { Phase } from "../../phase/types";
+import { useArmy } from "../../armies/useArmy";
 
 export interface PlayerTurnProps {
-  battleTacticsContent: Content[];
-  spellsContent: Content[];
+  phase: Phase;
 }
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function ({
-  battleTacticsContent,
-  spellsContent,
-}) {
+const PlayerTurn: React.FC<PlayerTurnProps> = function ({ phase }) {
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
+  const { spells, battleTactics } = useArmy(phase);
 
   return (
     <>
       <PageContent>
-        <AccordionHeader>Command abilities</AccordionHeader>
+        <Header>Command abilities</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Rally</AccordionSummary>
@@ -35,13 +33,13 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
         </AccordionDetails>
       </Accordion>
       <PageContent>
-        <AccordionHeader>Spells</AccordionHeader>
+        <Header>Spells</Header>
       </PageContent>
-      {spellsContent.map((content, index) => {
+      {spells?.map((spell, index) => {
         return (
           <Accordion key={index}>
-            <AccordionSummary>{content.summary}</AccordionSummary>
-            <AccordionDetails>{content.details}</AccordionDetails>
+            <AccordionSummary>{spell.name}</AccordionSummary>
+            <AccordionDetails>{spell.description}</AccordionDetails>
           </Accordion>
         );
       })}
@@ -67,13 +65,13 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
       {battleTacticsEnabled ? (
         <>
           <PageContent>
-            <AccordionHeader>Battle tactic</AccordionHeader>
+            <Header>Battle tactic</Header>
           </PageContent>
-          {battleTacticsContent.map((content, index) => {
+          {battleTactics?.map((battleTactic, index) => {
             return (
               <Accordion key={index}>
-                <AccordionSummary>{content.summary}</AccordionSummary>
-                <AccordionDetails>{content.details}</AccordionDetails>
+                <AccordionSummary>{battleTactic.name}</AccordionSummary>
+                <AccordionDetails>{battleTactic.description}</AccordionDetails>
               </Accordion>
             );
           })}

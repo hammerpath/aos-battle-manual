@@ -6,10 +6,15 @@ import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
+import { Content } from "../../phase/types";
 
-export interface CombatPhaseProps {}
+export interface CombatPhaseProps {
+  commandAbilitiesContent: Content[];
+}
 
-const CombatPhase: React.FC<CombatPhaseProps> = function () {
+const CombatPhase: React.FC<CombatPhaseProps> = function ({
+  commandAbilitiesContent,
+}) {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
@@ -48,13 +53,11 @@ const CombatPhase: React.FC<CombatPhaseProps> = function () {
           been picked, you can make the attacks in the order you wish.
         </AccordionDetails>
       </Accordion>
-      <PageContent>
-        <AccordionHeader>Command abilities</AccordionHeader>
-      </PageContent>
-      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
-      <PageContent>
-        <AccordionHeader>Attack (TODO)</AccordionHeader>
-      </PageContent>
+      {currentTurn === "mine" ? (
+        <PlayerTurn commandAbilitiesContent={commandAbilitiesContent} />
+      ) : (
+        <OpponentTurn commandAbilitiesContent={commandAbilitiesContent} />
+      )}
     </>
   );
 };

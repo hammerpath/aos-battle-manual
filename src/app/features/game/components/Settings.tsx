@@ -58,7 +58,7 @@ const Settings: React.FC<SettingsProps> = function () {
       </div>
       <PageContentColumns header={"Choose army"}>
         <ArmySelect
-          armyNames={armyNames}
+          armyNames={armyNames.sort()}
           chosenHeroName={playerArmyName}
           label="My army"
           onChange={(event) =>

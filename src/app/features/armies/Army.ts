@@ -1,4 +1,5 @@
-import Sylvaneth from "../../armies/Sylvaneth.json";
+import Sylvaneth from "../../armies/sylvaneth/Sylvaneth.json";
+import OssiarchBonereapers from "../../armies/ossiarch-bonereapers/OssiarchBonereapers.json";
 import { Army, ArmyName } from "./types";
 
 const getArmy = (name?: ArmyName) => {
@@ -13,7 +14,7 @@ const getArmyNames = () => {
 };
 
 const getAllArmies = (): Army[] => {
-  return [Sylvaneth];
+  return [Sylvaneth, OssiarchBonereapers];
 };
 
 export { getArmy, getArmyNames };

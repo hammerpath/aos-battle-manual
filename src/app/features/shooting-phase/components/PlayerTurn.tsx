@@ -2,10 +2,15 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import AccordionHeader from "../../../components/AccordionHeader";
+import { Content } from "../../phase/types";
 
-export interface PlayerTurnProps {}
+export interface PlayerTurnProps {
+  commandAbilitiesContent: Content[];
+}
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function () {
+const PlayerTurn: React.FC<PlayerTurnProps> = function ({
+  commandAbilitiesContent,
+}) {
   return (
     <>
       <PageContent>
@@ -21,6 +26,14 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function () {
       <PageContent>
         <AccordionHeader>Command abilities</AccordionHeader>
       </PageContent>
+      {commandAbilitiesContent.map((content, index) => {
+        return (
+          <Accordion key={index}>
+            <AccordionSummary>{content.summary}</AccordionSummary>
+            <AccordionDetails>{content.details}</AccordionDetails>
+          </Accordion>
+        );
+      })}
       <Accordion>
         <AccordionSummary>All-out Attack</AccordionSummary>
         <AccordionDetails>

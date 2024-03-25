@@ -18,11 +18,12 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
   const { phase } = useParams<"phase">();
   const currentTurn = useAppSelector(selectCurrentTurn);
   const myArmyName = useAppSelector(selectMyArmyName);
-  const { startContent, battleTacticsContent, spells } = useArmy(
-    phase,
-    currentTurn,
-    myArmyName,
-  );
+  const {
+    startContent,
+    battleTacticsContent,
+    spellsContent,
+    commandAbilitiesContent,
+  } = useArmy(phase, currentTurn, myArmyName);
 
   switch (phase) {
     case "hero":
@@ -37,9 +38,9 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
           }}
         >
           <HeroPhase
-            startContent={startContent}
-            battleTacticsContent={battleTacticsContent}
-            spellsContent={spells}
+            startContent={startContent ?? []}
+            battleTacticsContent={battleTacticsContent ?? []}
+            spellsContent={spellsContent ?? []}
           />
         </Phase>
       );
@@ -54,7 +55,9 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Shooting",
           }}
         >
-          <MovementPhase />
+          <MovementPhase
+            commandAbilitiesContent={commandAbilitiesContent ?? []}
+          />
         </Phase>
       );
     case "shooting":
@@ -68,7 +71,9 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Charging",
           }}
         >
-          <ShootingPhase />
+          <ShootingPhase
+            commandAbilitiesContent={commandAbilitiesContent ?? []}
+          />
         </Phase>
       );
     case "charging":
@@ -82,7 +87,9 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Combat",
           }}
         >
-          <ChargePhase />
+          <ChargePhase
+            commandAbilitiesContent={commandAbilitiesContent ?? []}
+          />
         </Phase>
       );
     case "combat":
@@ -96,7 +103,9 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Battleshock",
           }}
         >
-          <CombatPhase />
+          <CombatPhase
+            commandAbilitiesContent={commandAbilitiesContent ?? []}
+          />
         </Phase>
       );
     case "battleshock":

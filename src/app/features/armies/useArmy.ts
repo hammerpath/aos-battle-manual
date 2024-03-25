@@ -50,16 +50,96 @@ export function useArmy(
           turn === "mine"
             ? army?.battleTactics?.map(mapAbilityToComponentContent)
             : undefined,
-        spells:
+        spellsContent:
           turn === "mine"
             ? army?.spells?.map(mapAbilityToComponentContent)
             : undefined,
       };
-    default:
+    case "movement":
       return {
-        startContent: undefined,
-        battleTacticsContent: undefined,
-        spells: undefined,
+        commandAbilitiesContent:
+          turn === "mine"
+            ? army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "mine" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent)
+            : army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "opponent" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent),
       };
+    case "shooting":
+      return {
+        commandAbilitiesContent:
+          turn === "mine"
+            ? army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "mine" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent)
+            : army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "opponent" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent),
+      };
+    case "charging":
+      return {
+        commandAbilitiesContent:
+          turn === "mine"
+            ? army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "mine" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent)
+            : army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "opponent" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent),
+      };
+    case "combat":
+      return {
+        commandAbilitiesContent:
+          turn === "mine"
+            ? army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "mine" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent)
+            : army?.commandAbilities
+                ?.filter(
+                  (ability) =>
+                    (ability.turn === "opponent" ||
+                      ability.turn === "independent") &&
+                    ability.phase?.includes(phase),
+                )
+                .map(mapAbilityToComponentContent),
+      };
+    default:
+      return {};
   }
 }

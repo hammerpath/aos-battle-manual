@@ -5,15 +5,24 @@ import OpponentTurn from "./OpponentTurn";
 import PageContent from "../../../components/PageContent";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import AccordionHeader from "../../../components/AccordionHeader";
+import { Content } from "../../phase/types";
 
-export interface ChargePhaseProps {}
+export interface ChargePhaseProps {
+  commandAbilitiesContent: Content[];
+}
 
-const ChargePhase: React.FC<ChargePhaseProps> = function () {
+const ChargePhase: React.FC<ChargePhaseProps> = function ({
+  commandAbilitiesContent,
+}) {
   const currentTurn = useAppSelector(selectCurrentTurn);
 
   return (
     <>
-      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
+      {currentTurn === "mine" ? (
+        <PlayerTurn commandAbilitiesContent={commandAbilitiesContent} />
+      ) : (
+        <OpponentTurn commandAbilitiesContent={commandAbilitiesContent} />
+      )}
       <PageContent>
         <AccordionHeader>Monstrous Rampage</AccordionHeader>
       </PageContent>

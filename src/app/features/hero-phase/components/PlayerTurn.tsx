@@ -7,8 +7,8 @@ import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlic
 import { Content } from "../../phase/types";
 
 export interface PlayerTurnProps {
-  battleTacticsContent?: Content[];
-  spellsContent?: Content[];
+  battleTacticsContent: Content[];
+  spellsContent: Content[];
 }
 
 const PlayerTurn: React.FC<PlayerTurnProps> = function ({
@@ -37,7 +37,7 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
       <PageContent>
         <AccordionHeader>Spells</AccordionHeader>
       </PageContent>
-      {spellsContent?.map((content, index) => {
+      {spellsContent.map((content, index) => {
         return (
           <Accordion key={index}>
             <AccordionSummary>{content.summary}</AccordionSummary>
@@ -69,7 +69,7 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({
           <PageContent>
             <AccordionHeader>Battle tactic</AccordionHeader>
           </PageContent>
-          {battleTacticsContent?.map((content, index) => {
+          {battleTacticsContent.map((content, index) => {
             return (
               <Accordion key={index}>
                 <AccordionSummary>{content.summary}</AccordionSummary>

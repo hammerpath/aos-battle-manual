@@ -8,6 +8,12 @@ export type Army = {
   battleTactics?: Ability[];
   preRound?: PreRound;
   heroPhase?: HeroPhase;
+  commandAbilities?: CommandAbilities[];
+};
+
+export type CommandAbilities = Ability & {
+  phase?: string[]; // TODO - should be Phase[]
+  turn: string; // TODO - should be "mine" | "opponent" | "independent"
 };
 
 export type PreRound = {

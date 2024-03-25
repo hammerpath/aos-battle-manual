@@ -2,15 +2,28 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import AccordionHeader from "../../../components/AccordionHeader";
+import { Content } from "../../phase/types";
 
-export interface OpponentTurnProps {}
+export interface OpponentTurnProps {
+  commandAbilitiesContent: Content[];
+}
 
-const OpponentTurn: React.FC<OpponentTurnProps> = function () {
+const OpponentTurn: React.FC<OpponentTurnProps> = function ({
+  commandAbilitiesContent,
+}) {
   return (
     <>
       <PageContent>
         <AccordionHeader>Command abilities</AccordionHeader>
       </PageContent>
+      {commandAbilitiesContent.map((content, index) => {
+        return (
+          <Accordion key={index}>
+            <AccordionSummary>{content.summary}</AccordionSummary>
+            <AccordionDetails>{content.details}</AccordionDetails>
+          </Accordion>
+        );
+      })}
       <Accordion>
         <AccordionSummary>Unleash Hell</AccordionSummary>
         <AccordionDetails>

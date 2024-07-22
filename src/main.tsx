@@ -13,12 +13,14 @@ import Root from "./app/Root.tsx";
 import CreateGame from "./app/features/game/CreateGame.tsx";
 import PhaseRoot from "./app/features/phase/PhaseRoot.tsx";
 import PreRoundsRoot from "./app/features/pre-rounds/PreRoundsRoot.tsx";
+import EditWarscroll from "./app/features/admin/warscrolls/components/EditWarscroll.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
+      { path: "admin", element: <EditWarscroll /> },
       {
         path: "/",
         element: <CreateGame />,

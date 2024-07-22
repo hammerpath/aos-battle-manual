@@ -62,6 +62,7 @@ const EditAbility: React.FC<EditAbilityProps> = function ({
   return (
     <>
       <TextField
+        defaultValue={name}
         label="Name"
         onChange={(event) => setName(event.target.value)}
       />
@@ -98,10 +99,12 @@ const EditAbility: React.FC<EditAbilityProps> = function ({
         </FormControl>
       </PageContent>
       <TextField
+        defaultValue={declare}
         label="Declare"
         onChange={(event) => setDeclare(event.target.value)}
       />
       <TextField
+        defaultValue={effect}
         label="Effect"
         onChange={(event) => setEffect(event.target.value)}
       />

@@ -6,12 +6,14 @@ export interface TextFieldProps {
   onChange?:
     | React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
     | undefined;
+  defaultValue?: string;
 }
 
 const TextField: React.FC<TextFieldProps> = function ({
   id,
   label,
   onChange,
+  defaultValue,
   ...rest
 }) {
   return (
@@ -19,6 +21,7 @@ const TextField: React.FC<TextFieldProps> = function ({
       id={id}
       label={label}
       variant="outlined"
+      defaultValue={defaultValue}
       onChange={onChange}
       {...rest}
     />

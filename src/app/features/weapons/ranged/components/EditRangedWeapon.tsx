@@ -2,8 +2,9 @@ import { useState } from "react";
 import TextField from "../../../../components/TextField";
 import PageContent from "../../../../components/PageContent";
 
-export interface MeleeWeapon {
+export interface RangedWeapon {
   name?: string;
+  range?: string;
   attacks?: string;
   toHit?: string;
   toWound?: string;
@@ -11,19 +12,20 @@ export interface MeleeWeapon {
   damage?: string;
 }
 
-export interface EditMeleeWeaponProps {
-  meleeWeapon: MeleeWeapon;
+export interface EditRangedWeaponProps {
+  rangedWeapon: RangedWeapon;
 }
 
-const EditMeleeWeapon: React.FC<EditMeleeWeaponProps> = function ({
-  meleeWeapon,
+const EditRangedWeapon: React.FC<EditRangedWeaponProps> = function ({
+  rangedWeapon,
 }) {
-  const [name, setName] = useState<string>(meleeWeapon.name ?? "");
-  const [attacks, setAttacks] = useState<string>(meleeWeapon.attacks ?? "");
-  const [toHit, setToHit] = useState<string>(meleeWeapon.toHit ?? "");
-  const [toWound, setToWound] = useState<string>(meleeWeapon.toWound ?? "");
-  const [rend, setRend] = useState<string>(meleeWeapon.rend ?? "");
-  const [damage, setDamage] = useState<string>(meleeWeapon.damage ?? "");
+  const [name, setName] = useState<string>(rangedWeapon.name ?? "");
+  const [range, setRange] = useState<string>(rangedWeapon.range ?? "");
+  const [attacks, setAttacks] = useState<string>(rangedWeapon.attacks ?? "");
+  const [toHit, setToHit] = useState<string>(rangedWeapon.toHit ?? "");
+  const [toWound, setToWound] = useState<string>(rangedWeapon.toWound ?? "");
+  const [rend, setRend] = useState<string>(rangedWeapon.rend ?? "");
+  const [damage, setDamage] = useState<string>(rangedWeapon.damage ?? "");
 
   return (
     <PageContent>
@@ -31,6 +33,11 @@ const EditMeleeWeapon: React.FC<EditMeleeWeaponProps> = function ({
         label="Name"
         defaultValue={name}
         onChange={(event) => setName(event.target.value)}
+      />
+      <TextField
+        label="Range"
+        defaultValue={range}
+        onChange={(event) => setRange(event.target.value)}
       />
       <TextField
         label="Attacks"
@@ -61,4 +68,4 @@ const EditMeleeWeapon: React.FC<EditMeleeWeaponProps> = function ({
   );
 };
 
-export default EditMeleeWeapon;
+export default EditRangedWeapon;

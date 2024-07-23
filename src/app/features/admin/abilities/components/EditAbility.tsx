@@ -1,13 +1,13 @@
 import FormControl from "@mui/material/FormControl";
-import TextField from "../../components/TextField";
+import TextField from "../../../../components/TextField";
 import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import Header from "../../components/Header";
+import Header from "../../../../components/Header";
 import { useState } from "react";
-import PageContent from "../../components/PageContent";
-import AutoComplete from "../../components/AutoComplete";
+import PageContent from "../../../../components/PageContent";
+import AutoComplete from "../../../../components/AutoComplete";
 
 export interface Ability {
   name?: string;

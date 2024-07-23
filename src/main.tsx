@@ -13,6 +13,10 @@ import Root from "./app/Root.tsx";
 import CreateGame from "./app/features/game/CreateGame.tsx";
 import PhaseRoot from "./app/features/phase/PhaseRoot.tsx";
 import PreRoundsRoot from "./app/features/pre-rounds/PreRoundsRoot.tsx";
+import Admin from "./app/features/admin/components/Admin.tsx";
+import FactionComponent from "./app/features/admin/factions/components/FactionComponent.tsx";
+import AdminRootComponent from "./app/features/admin/components/AdminRootComponent.tsx";
+import WarscrollList from "./app/features/admin/warscrolls/components/WarscrollList.tsx";
 import EditWarscroll from "./app/features/admin/warscrolls/components/EditWarscroll.tsx";
 
 const router = createBrowserRouter([
@@ -20,7 +24,30 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
-      { path: "admin", element: <EditWarscroll /> },
+      {
+        path: "admin",
+        element: <AdminRootComponent />,
+        children: [
+          {
+            path: "",
+            index: true,
+            element: <Admin />,
+          },
+          {
+            path: "factions/:faction",
+            element: <FactionComponent />,
+          },
+          {
+            path: "factions/:faction/warscroll",
+            element: <WarscrollList />,
+          },
+          {
+            path: "factions/:faction/warscroll/:name",
+            element: <EditWarscroll />,
+          },
+        ],
+      },
+
       {
         path: "/",
         element: <CreateGame />,

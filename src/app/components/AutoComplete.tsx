@@ -6,6 +6,7 @@ export interface AutoCompleteProps {
   id?: string;
   options?: string[];
   label?: string;
+  value?: string[];
   onChange?: (value: string[]) => void;
 }
 
@@ -13,6 +14,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = function ({
   id,
   options,
   label,
+  value,
   onChange,
 }) {
   const handleOnChange = (
@@ -27,6 +29,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = function ({
       multiple
       freeSolo
       id={id}
+      value={value}
       options={options ? options.map((option) => option) : []}
       renderTags={(value: readonly string[], getTagProps) =>
         value.map((option: string, index: number) => {

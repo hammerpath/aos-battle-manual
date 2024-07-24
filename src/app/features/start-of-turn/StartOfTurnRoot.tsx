@@ -1,23 +1,23 @@
 import Phase from "../phase/components/Phase";
-import PreRounds from "./components/PreRounds";
+import StartOfTurn from "./components/StartOfTurn";
 
-export interface PreRoundsRootProps {}
+export interface StartOfTurnRootProps {}
 
-const PreRoundsRoot: React.FC<PreRoundsRootProps> = function () {
+const StartOfTurnRoot: React.FC<StartOfTurnRootProps> = function () {
   return (
     <Phase
       showHeader={false}
       navigation={{
-        currentRoute: "Setup",
+        currentRoute: "Start of turn",
         previousRoute: "/",
         previousRouteName: "Settings",
         nextRoute: "/phases/hero",
         nextRouteName: "Hero",
       }}
     >
-      <PreRounds />
+      <StartOfTurn />
     </Phase>
   );
 };
 
-export default PreRoundsRoot;
+export default StartOfTurnRoot;

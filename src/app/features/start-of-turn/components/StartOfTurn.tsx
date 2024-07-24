@@ -7,48 +7,15 @@ import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import TurnSelect from "../../game/components/TurnSelect";
 import { useArmy } from "../../armies/useArmy";
 
-export interface PreRoundsProps {}
+export interface StartOfTurnProps {}
 
-const PreRounds: React.FC<PreRoundsProps> = function () {
+const StartOfTurn: React.FC<StartOfTurnProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
-  const { grandStrategies, terrains } = useArmy("pre-round");
+  const { terrains } = useArmy("start-of-turn");
   const dispatch = useAppDispatch();
 
   return (
     <>
-      <PageContent>
-        <Header>Grand strategy</Header>
-      </PageContent>
-      {grandStrategies?.map((grandStrategy, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary>{grandStrategy.name}</AccordionSummary>
-            <AccordionDetails>{grandStrategy.description}</AccordionDetails>
-          </Accordion>
-        );
-      })}
-      <Accordion>
-        <AccordionSummary>Sever the Head</AccordionSummary>
-        <AccordionDetails>
-          When the battle ends, you complete this grand strategy if there are no
-          HEROES from your opponent's starting army on the battlefield.
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>Vendetta</AccordionSummary>
-        <AccordionDetails>
-          When the battle ends, you complete this grand strategy if the model
-          chosen to be your opponent's general has been slain and the model
-          chosen to be your general has not been slain.
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>Hold the Line</AccordionSummary>
-        <AccordionDetails>
-          When the battle ends, you complete this grand strategy if there are
-          any Battleline units from your starting army on the battlefield.
-        </AccordionDetails>
-      </Accordion>
       <PageContent>
         <Header>Game setup</Header>
       </PageContent>
@@ -84,9 +51,12 @@ const PreRounds: React.FC<PreRoundsProps> = function () {
       <Accordion>
         <AccordionSummary>Command points</AccordionSummary>
         <AccordionDetails>
-          After determining who will take which turn, the player who will take
-          the first turn receives 1 command point and the player who will take
-          the second turn receives 2 command points.
+          At the start of each Battle Round each player gains four Command
+          Points, plus one extra if they're the underdog (have fewer Victory
+          Points than their opponent at the start of the round). You also get an
+          extra one in the first battle round if you are 50 points or more under
+          your opponent's list. Unspent Command Points are lost at the end of
+          each Battle Round.
         </AccordionDetails>
       </Accordion>
       <PageContent>
@@ -102,4 +72,4 @@ const PreRounds: React.FC<PreRoundsProps> = function () {
   );
 };
 
-export default PreRounds;
+export default StartOfTurn;

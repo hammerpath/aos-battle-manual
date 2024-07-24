@@ -8,7 +8,7 @@ const CreateGame: React.FC<CreateGameProps> = function () {
   return (
     <Page>
       <Settings />
-      <LinkButton href={"/pre-rounds"}>Game setup</LinkButton>
+      <LinkButton href={"/start-of-turn"}>Start of turn</LinkButton>
     </Page>
   );
 };

@@ -3,7 +3,7 @@ import { selectCurrentTurn, selectMyArmyName } from "../game/gameSlice";
 import { Phase } from "../phase/types";
 import { getArmy } from "./Army";
 
-export type Round = Phase | "pre-round" | "post-round";
+export type Round = Phase | "start-of-turn" | "post-round";
 
 export function useArmy(round: Round) {
   const currentTurn = useAppSelector(selectCurrentTurn);
@@ -11,7 +11,6 @@ export function useArmy(round: Round) {
   const army = getArmy(armyName);
 
   const terrains = army?.terrains;
-  const grandStrategies = army?.grandStrategies;
   const spells = currentTurn === "mine" ? army?.spells : undefined;
   const battleTactics =
     currentTurn === "mine" ? army?.battleTactics : undefined;
@@ -23,7 +22,6 @@ export function useArmy(round: Round) {
 
   return {
     terrains,
-    grandStrategies,
     spells,
     battleTactics,
     commandAbilities,

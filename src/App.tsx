@@ -1,12 +1,12 @@
 import { Page } from "./app/components/Page";
-import PreRounds from "./app/features/pre-rounds/components/PreRounds";
+import StartOfTurn from "./app/features/pre-rounds/components/StartOfTurn";
 
 function App() {
   return (
     <div>
       <div className="text-center">AoS Battle Manual</div>
       <Page>
-        <PreRounds />
+        <StartOfTurn />
       </Page>
     </div>
   );

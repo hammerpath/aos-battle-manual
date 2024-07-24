@@ -12,7 +12,7 @@ import "@fontsource/roboto/700.css";
 import Root from "./app/Root.tsx";
 import CreateGame from "./app/features/game/CreateGame.tsx";
 import PhaseRoot from "./app/features/phase/PhaseRoot.tsx";
-import StartOfTurnRoot from "./app/features/pre-rounds/StartOfTurnRoot.tsx";
+import StartOfTurnRoot from "./app/features/start-of-turn/StartOfTurnRoot.tsx";
 import Admin from "./app/features/admin/components/Admin.tsx";
 import FactionComponent from "./app/features/admin/factions/components/FactionComponent.tsx";
 import AdminRootComponent from "./app/features/admin/components/AdminRootComponent.tsx";

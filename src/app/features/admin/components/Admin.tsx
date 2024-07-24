@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FactionList from "../factions/components/FactionList";
 import { Faction } from "../factions/types";
 import FactionServiceImpl from "../factions/FactionService";
+import Typography from "@mui/material/Typography";
 
 const Admin: React.FC = function () {
   const [factions, setFactions] = useState<Faction[]>([]);
@@ -14,7 +15,12 @@ const Admin: React.FC = function () {
     })();
   }, []);
 
-  return <FactionList factions={factions} />;
+  return (
+    <>
+      <Typography variant="h2">Factions</Typography>
+      <FactionList factions={factions} />
+    </>
+  );
 };
 
 export default Admin;

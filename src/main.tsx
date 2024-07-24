@@ -18,6 +18,18 @@ import FactionComponent from "./app/features/admin/factions/components/FactionCo
 import AdminRootComponent from "./app/features/admin/components/AdminRootComponent.tsx";
 import WarscrollList from "./app/features/admin/warscrolls/components/WarscrollList.tsx";
 import EditWarscroll from "./app/features/admin/warscrolls/components/EditWarscroll.tsx";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {},
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -66,8 +78,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
 );

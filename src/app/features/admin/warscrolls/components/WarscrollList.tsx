@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { Warscroll } from "../types";
 import WarscrollServiceImpl from "../WarscrollService";
 import { useParams } from "react-router-dom";
-import LinkButton from "../../../../components/LinkButton";
+import PetsIcon from "@mui/icons-material/Pets";
+import {
+  Avatar,
+  List,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 
 export interface WarscrollListProps {}
 
@@ -21,20 +30,24 @@ const WarscrollList: React.FC<WarscrollListProps> = function () {
 
   return (
     <>
-      <div>Warscroll List</div>
-      <ul>
+      <Typography variant="h2">{faction} Warscrolls</Typography>
+      <List>
         {warscrolls.map((warscroll) => {
           return (
-            <li>
-              <LinkButton
-                href={`/admin/factions/${faction}/warscroll/${warscroll.name}`}
-              >
-                {warscroll.name}
-              </LinkButton>
-            </li>
+            <ListItemButton
+              href={`/admin/factions/${faction}/warscroll/${warscroll.name}`}
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <PetsIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={warscroll.name} />
+              <KeyboardArrowRight />
+            </ListItemButton>
           );
         })}
-      </ul>
+      </List>
     </>
   );
 };

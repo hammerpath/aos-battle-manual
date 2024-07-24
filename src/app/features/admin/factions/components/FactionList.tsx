@@ -1,5 +1,10 @@
-import LinkButton from "../../../../components/LinkButton";
+import List from "@mui/material/List";
 import { Faction } from "../types";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ShieldIcon from "@mui/icons-material/Shield";
+import { ListItemButton, ListItemText } from "@mui/material";
+import { KeyboardArrowRight } from "@mui/icons-material";
 
 export interface FactionListProps {
   factions: Faction[];
@@ -7,17 +12,21 @@ export interface FactionListProps {
 
 const FactionList: React.FC<FactionListProps> = function ({ factions }) {
   return (
-    <ul>
+    <List>
       {factions.map((faction) => {
         return (
-          <li>
-            <LinkButton href={`/admin/factions/${faction.name}`}>
-              {faction.name}
-            </LinkButton>
-          </li>
+          <ListItemButton href={`/admin/factions/${faction.name}`}>
+            <ListItemAvatar>
+              <Avatar>
+                <ShieldIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={faction.name} />
+            <KeyboardArrowRight />
+          </ListItemButton>
         );
       })}
-    </ul>
+    </List>
   );
 };
 

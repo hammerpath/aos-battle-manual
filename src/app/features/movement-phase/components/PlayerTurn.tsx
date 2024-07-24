@@ -60,7 +60,7 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
         );
       })}
       <Accordion>
-        <AccordionSummary>At the Double</AccordionSummary>
+        <AccordionSummary>At the Double (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability after you declare that a friendly
           unit will run. That unit must receive the command. The run roll is not

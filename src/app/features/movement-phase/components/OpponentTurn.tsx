@@ -25,7 +25,7 @@ const OpponentTurn: React.FC<OpponentTurnProps> = function ({
         );
       })}
       <Accordion>
-        <AccordionSummary>Redeploy</AccordionSummary>
+        <AccordionSummary>Redeploy (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability in the enemy movement phase after an
           enemy unit finishes a normal move, run or retreat. The unit that

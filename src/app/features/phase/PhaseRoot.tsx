@@ -5,7 +5,7 @@ import MovementPhase from "../movement-phase/components/MovementPhase";
 import ShootingPhase from "../shooting-phase/components/ShootingPhase";
 import ChargePhase from "../charge-phase/components/ChargePhase";
 import CombatPhase from "../combat-phase/components/CombatPhase";
-import PostRound from "../post-round/components/PostRound";
+import PostRound from "../end-of-turn/components/EndOfTurn";
 
 export interface PhaseRootProps {}
 
@@ -77,18 +77,18 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             currentRoute: "Combat",
             previousRoute: "/phases/charging",
             previousRouteName: "Charging",
-            nextRoute: "/phases/post-round",
-            nextRouteName: "Post round",
+            nextRoute: "/phases/end-of-turn",
+            nextRouteName: "End of turn",
           }}
         >
           <CombatPhase />
         </Phase>
       );
-    case "post-round":
+    case "end-of-turn":
       return (
         <Phase
           navigation={{
-            currentRoute: "Post-round",
+            currentRoute: "End of turn",
             previousRoute: "/phases/combat",
             previousRouteName: "Combat",
             nextRoute: "/phases/hero",

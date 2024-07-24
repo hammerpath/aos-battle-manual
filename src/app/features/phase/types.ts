@@ -4,5 +4,4 @@ export type Phase =
   | "shooting"
   | "charging"
   | "combat"
-  | "battleshock"
-  | "post-round";
+  | "end-of-turn";

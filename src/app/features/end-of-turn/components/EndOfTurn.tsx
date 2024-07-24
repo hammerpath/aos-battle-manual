@@ -3,13 +3,20 @@ import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
-export interface PostRoundProps {}
+export interface EndOfTurnProps {}
 
-const PostRound: React.FC<PostRoundProps> = function () {
+const EndOfTurn: React.FC<EndOfTurnProps> = function () {
   return (
     <>
       <PageContent>
-        <Header>End of battle round</Header>
+        <Header>Command abilities</Header>
+      </PageContent>
+      <Accordion>
+        <AccordionSummary>Power Through (1 CP)</AccordionSummary>
+        <AccordionDetails>TODO</AccordionDetails>
+      </Accordion>
+      <PageContent>
+        <Header>End of turn</Header>
       </PageContent>
       <Accordion>
         <AccordionSummary>Command Points</AccordionSummary>
@@ -22,4 +29,4 @@ const PostRound: React.FC<PostRoundProps> = function () {
   );
 };
 
-export default PostRound;
+export default EndOfTurn;

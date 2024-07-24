@@ -37,7 +37,7 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
         );
       })}
       <Accordion>
-        <AccordionSummary>Forward to Victory</AccordionSummary>
+        <AccordionSummary>Forward to Victory (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability after you make a charge roll for a
           friendly unit. That unit must receive the command. You can re-roll the

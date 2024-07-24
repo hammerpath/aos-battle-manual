@@ -23,7 +23,7 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
         );
       })}
       <Accordion>
-        <AccordionSummary>All-out Attack</AccordionSummary>
+        <AccordionSummary>All-out Attack (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability when you pick a friendly unit to
           shoot in your shooting phase or fight in the combat phase. That unit

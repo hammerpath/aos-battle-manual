@@ -25,7 +25,7 @@ const OpponentTurn: React.FC<OpponentTurnProps> = function ({
         );
       })}
       <Accordion>
-        <AccordionSummary>All-out Defence</AccordionSummary>
+        <AccordionSummary>All-out Defence (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability when a friendly unit is picked as the
           target of an attack in the shooting or combat phase. That unit must

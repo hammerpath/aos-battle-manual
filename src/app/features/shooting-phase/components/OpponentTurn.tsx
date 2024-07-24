@@ -25,6 +25,15 @@ const OpponentTurn: React.FC<OpponentTurnProps> = function ({
         );
       })}
       <Accordion>
+        <AccordionSummary>All-out Defence (1 CP)</AccordionSummary>
+        <AccordionDetails>
+          You can use this command ability when a friendly unit is picked as the
+          target of an attack in the shooting or combat phase. That unit must
+          receive the command. Add 1 to save rolls for attacks that target that
+          unit until the end of that phase.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
         <AccordionSummary>Covering Fire (1 CP)</AccordionSummary>
         <AccordionDetails>TODO</AccordionDetails>
       </Accordion>

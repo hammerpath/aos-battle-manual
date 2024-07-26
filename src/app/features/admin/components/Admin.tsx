@@ -1,24 +1,37 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FactionList from "../factions/components/FactionList";
-import { Faction } from "../factions/types";
-import FactionServiceImpl from "../factions/FactionService";
 import Typography from "@mui/material/Typography";
+import { Button } from "@mui/material";
+import TextField from "../../../components/TextField";
+import {
+  useAddFactionMutation,
+  useGetAllFactionsQuery,
+} from "../../faction/factionService";
 
 const Admin: React.FC = function () {
-  const [factions, setFactions] = useState<Faction[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const factionService = new FactionServiceImpl();
-      const f = await factionService.getAll();
-      setFactions(f);
-    })();
-  }, []);
+  const [factionName, setFactionName] = useState<string>();
+  const { data: factions } = useGetAllFactionsQuery("");
+  const [addFaction] = useAddFactionMutation();
 
   return (
     <>
-      <Typography variant="h2">Factions</Typography>
-      <FactionList factions={factions} />
+      {factions ? (
+        <>
+          <Typography variant="h2">Factions</Typography>
+          <TextField
+            label="Faction name"
+            onChange={(event) => setFactionName(event.target.value)}
+          ></TextField>
+          <Button
+            onClick={() => factionName && addFaction({ name: factionName })}
+          >
+            Add faction
+          </Button>
+          <FactionList factions={factions} />
+        </>
+      ) : (
+        <>Loading</>
+      )}
     </>
   );
 };

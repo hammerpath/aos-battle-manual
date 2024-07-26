@@ -1,5 +1,5 @@
 import { Page } from "./app/components/Page";
-import StartOfTurn from "./app/features/pre-rounds/components/StartOfTurn";
+import StartOfTurn from "./app/features/start-of-turn/components/StartOfTurn";
 
 function App() {
   return (

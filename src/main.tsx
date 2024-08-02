@@ -14,11 +14,15 @@ import CreateGame from "./app/features/game/CreateGame.tsx";
 import PhaseRoot from "./app/features/phase/PhaseRoot.tsx";
 import StartOfTurnRoot from "./app/features/start-of-turn/StartOfTurnRoot.tsx";
 import Admin from "./app/features/admin/components/Admin.tsx";
-import FactionComponent from "./app/features/admin/factions/components/FactionComponent.tsx";
+import FactionTypeList from "./app/features/admin/factions/components/FactionTypeList.tsx";
 import AdminRootComponent from "./app/features/admin/components/AdminRootComponent.tsx";
 import WarscrollList from "./app/features/admin/warscrolls/components/WarscrollList.tsx";
 import EditWarscroll from "./app/features/admin/warscrolls/components/EditWarscroll.tsx";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import EditFactionComponent from "./app/features/admin/factions/components/EditFactionComponent.tsx";
+import FactionTypeItemList from "./app/features/admin/faction-types/components/FactionTypeItemList.tsx";
+import SpellEdit from "./app/features/admin/spells/components/SpellEdit.tsx";
+import SpellList from "./app/features/admin/spells/components/SpellList.tsx";
 
 const theme = createTheme({
   palette: {},
@@ -46,8 +50,24 @@ const router = createBrowserRouter([
             element: <Admin />,
           },
           {
-            path: "factions/:faction",
-            element: <FactionComponent />,
+            path: "factions/:factionId",
+            element: <FactionTypeList />,
+          },
+          {
+            path: "factions/:factionId/faction-types/:factionTypeId",
+            element: <FactionTypeItemList />,
+          },
+          {
+            path: "factions/:factionId/faction-types/:factionTypeId/spells",
+            element: <SpellList />,
+          },
+          {
+            path: "factions/:factionId/faction-types/:factionTypeId/spells/:spellId",
+            element: <SpellEdit />,
+          },
+          {
+            path: "factions/:factionId/edit",
+            element: <EditFactionComponent />,
           },
           {
             path: "factions/:faction/warscroll",

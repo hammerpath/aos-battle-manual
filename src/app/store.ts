@@ -3,15 +3,23 @@ import gameReducer from "./features/game/gameSlice";
 import gameSettingsReducer from "./features/game-settings/gameSettingsSlice";
 import { factionApi } from "./features/faction/factionService";
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { factionTypeApi } from "./features/faction-types/factionTypeService";
+import { spellApi } from "./features/admin/spells/spellService";
 
 const store = configureStore({
   reducer: {
     [factionApi.reducerPath]: factionApi.reducer,
+    [factionTypeApi.reducerPath]: factionTypeApi.reducer,
+    [spellApi.reducerPath]: spellApi.reducer,
     game: gameReducer,
     gameSettings: gameSettingsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(factionApi.middleware),
+    getDefaultMiddleware().concat(
+      factionApi.middleware,
+      factionTypeApi.middleware,
+      spellApi.middleware,
+    ),
 });
 
 setupListeners(store.dispatch);

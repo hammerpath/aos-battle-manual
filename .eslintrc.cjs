@@ -12,7 +12,12 @@ module.exports = {
       config: "tailwind.config.js",
     },
   },
-  ignorePatterns: ["dist", ".eslintrc.cjs", "*/pb_data", "*/pb_migrations"],
+  ignorePatterns: [
+    "dist",
+    ".eslintrc.cjs",
+    "**/*/pb_data",
+    "**/*/pb_migrations",
+  ],
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh"],
   rules: {

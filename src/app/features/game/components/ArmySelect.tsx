@@ -6,14 +6,18 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { ReactNode } from "react";
-import { ArmyName } from "../../armies/types";
+
+interface ArmySelectOptions {
+  key: string;
+  value: string;
+}
 
 export interface ArmySelectProps {
-  chosenHeroName?: "none" | ArmyName;
-  armyNames: ArmyName[];
+  chosenHeroName?: string;
+  armyNames: ArmySelectOptions[];
   label: string;
   onChange:
-    | ((event: SelectChangeEvent<"none" | ArmyName>, child: ReactNode) => void)
+    | ((event: SelectChangeEvent<string>, child: ReactNode) => void)
     | undefined;
 }
 
@@ -24,7 +28,7 @@ const ArmySelect: React.FC<ArmySelectProps> = function ({
   onChange,
 }) {
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl sx={{ m: 1 }} size="small">
       <InputLabel id="demo-simple-select-helper-label">{label}</InputLabel>
       <Select
         id="army-select"
@@ -33,10 +37,10 @@ const ArmySelect: React.FC<ArmySelectProps> = function ({
         onChange={onChange}
       >
         <MenuItem value="none">None</MenuItem>
-        {armyNames.map((name, index) => {
+        {armyNames.map(({ key, value }) => {
           return (
-            <MenuItem key={index} value={name}>
-              {name}
+            <MenuItem key={key} value={value}>
+              {value}
             </MenuItem>
           );
         })}

@@ -19,7 +19,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
         <Phase
           navigation={{
             currentRoute: "Hero",
-            previousRoute: "/pre-rounds",
+            previousRoute: "/start-of-turn",
             previousRouteName: "Game setup",
             nextRoute: "/phases/movement",
             nextRouteName: "Movement",

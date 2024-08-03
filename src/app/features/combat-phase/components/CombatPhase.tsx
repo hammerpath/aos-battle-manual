@@ -3,16 +3,32 @@ import Header from "../../../components/Header";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import { useAppSelector } from "../../../hooks";
-import { selectCurrentTurn } from "../../game/gameSlice";
+import { selectCurrentTurn, selectMyFactionTypeId } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import { useArmy } from "../../armies/useArmy";
+import { useSelector } from "react-redux";
+import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
+import Loader from "../../loader/Loader";
+import AbilityList from "../../abilities/components/AbilityList";
 
 export interface CombatPhaseProps {}
 
 const CombatPhase: React.FC<CombatPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
   const { commandAbilities } = useArmy("combat");
+  const factionTypeId = useSelector(selectMyFactionTypeId);
+  const { data: abilities, isLoading: isAbilitiesLoading } =
+    useGetAbilitiesByPhaseQuery(
+      { factionTypeId: factionTypeId!, phase: "combat-phase" },
+      {
+        skip: factionTypeId === undefined,
+      },
+    );
+
+  if (isAbilitiesLoading || abilities === undefined) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -55,6 +71,7 @@ const CombatPhase: React.FC<CombatPhaseProps> = function () {
       ) : (
         <OpponentTurn commandAbilities={commandAbilities} />
       )}
+      <AbilityList abilities={abilities} />
     </>
   );
 };

@@ -8,8 +8,8 @@ export const factionTypeApi = createApi({
     baseUrl: "http://127.0.0.1:8090/api/collections/factionType/records",
   }),
   endpoints: (builder) => ({
-    getFactionTypesByFaction: builder.query<FactionType[], string>({
-      query: (factionId) => `?filter=(faction="${factionId}")`,
+    getFactionTypesByFactionId: builder.query<FactionType[], string>({
+      query: (factionId) => `?filter=(factionId="${factionId}")`,
       transformResponse: (response: PocketBaseResponse<FactionType>) =>
         response.items,
     }),
@@ -40,7 +40,7 @@ export const factionTypeApi = createApi({
 });
 
 export const {
-  useGetFactionTypesByFactionQuery,
+  useGetFactionTypesByFactionIdQuery,
   useGetFactionTypeByIdQuery,
   useAddFactionTypeMutation,
   useEditFactionTypeMutation,

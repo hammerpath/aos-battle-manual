@@ -1,6 +1,3 @@
-// TODO - infer from json instead.
-export type ArmyName = "Sylvaneth" | "Ossiarch Bonereapers";
-
 export type Army = {
   name: string;
   terrains?: Ability[];

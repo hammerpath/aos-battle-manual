@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
-import { useGetFactionTypesByFactionQuery } from "../../../faction-types/factionTypeService";
+import { useGetFactionTypesByFactionIdQuery } from "../../../faction-types/factionTypeService";
 import Loader from "../../../loader/Loader";
 import { useGetFactionByIdQuery } from "../../../faction/factionService";
 
@@ -21,7 +21,7 @@ interface FactionTypeListParams {
 const FactionTypeList: React.FC = function () {
   const { factionId } = useParams() as Pick<FactionTypeListParams, "factionId">;
   const { data: factionTypes, isLoading: isFactionTypesLoading } =
-    useGetFactionTypesByFactionQuery(factionId);
+    useGetFactionTypesByFactionIdQuery(factionId);
   const { data: faction, isLoading: isFactionLoading } =
     useGetFactionByIdQuery(factionId);
 

@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { ArmyName } from "../armies/types";
 
 export type CurrentTurn = "mine" | "opponent";
 
 export interface GameState {
   currentTurn: CurrentTurn;
-  playerArmyName?: ArmyName;
+  playerFactionId?: string;
+  playerFactionTypeId?: string;
 }
 
 const initialState: GameState = {
@@ -20,15 +20,32 @@ const gameSlice = createSlice({
     userHasPriority: (state, action: PayloadAction<boolean>) => {
       state.currentTurn = action.payload ? "mine" : "opponent";
     },
-    choosePlayerArmy: (state, action: PayloadAction<ArmyName | undefined>) => {
-      state.playerArmyName = action.payload;
+    choosePlayerFactionId: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      state.playerFactionId = action.payload;
+    },
+    choosePlayerFactionTypeId: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      state.playerFactionTypeId = action.payload;
     },
   },
 });
 
-export const { userHasPriority, choosePlayerArmy } = gameSlice.actions;
+export const {
+  userHasPriority,
+  choosePlayerFactionId,
+  choosePlayerFactionTypeId,
+} = gameSlice.actions;
 
 export const selectCurrentTurn = (state: RootState) => state.game.currentTurn;
-export const selectMyArmyName = (state: RootState) => state.game.playerArmyName;
+export const selectMyFactionId = (state: RootState) =>
+  state.game.playerFactionId;
+export const selectMyFactionTypeId = (state: RootState) =>
+  state.game.playerFactionTypeId;
+// "n47noos1gwfslfr";
 
 export default gameSlice.reducer;

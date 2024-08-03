@@ -10,7 +10,7 @@ import {
 
 const Admin: React.FC = function () {
   const [factionName, setFactionName] = useState<string>();
-  const { data: factions } = useGetAllFactionsQuery("");
+  const { data: factions } = useGetAllFactionsQuery();
   const [addFaction] = useAddFactionMutation();
 
   return (

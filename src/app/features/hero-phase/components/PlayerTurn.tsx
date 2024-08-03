@@ -6,17 +6,29 @@ import { useAppSelector } from "../../../hooks";
 import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlice";
 import { Phase } from "../../phase/types";
 import { useArmy } from "../../armies/useArmy";
+import { Ability } from "../../abilities/types";
 
 export interface PlayerTurnProps {
   phase: Phase;
+  abilities?: Ability[];
 }
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function ({ phase }) {
+const PlayerTurn: React.FC<PlayerTurnProps> = function ({ phase, abilities }) {
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
   const { spells, battleTactics } = useArmy(phase);
 
   return (
     <>
+      <PageContent>
+        <Header>Abilities</Header>
+      </PageContent>
+      {abilities?.map((ability) => {
+        return (
+          <Accordion key={ability.id}>
+            <AccordionSummary>{ability.name}</AccordionSummary>
+          </Accordion>
+        );
+      })}
       <PageContent>
         <Header>Spells</Header>
       </PageContent>

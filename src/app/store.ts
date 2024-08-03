@@ -5,12 +5,14 @@ import { factionApi } from "./features/faction/factionService";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { factionTypeApi } from "./features/faction-types/factionTypeService";
 import { spellApi } from "./features/admin/spells/spellService";
+import { abilityApi } from "./features/abilities/services/abilityService";
 
 const store = configureStore({
   reducer: {
     [factionApi.reducerPath]: factionApi.reducer,
     [factionTypeApi.reducerPath]: factionTypeApi.reducer,
     [spellApi.reducerPath]: spellApi.reducer,
+    [abilityApi.reducerPath]: abilityApi.reducer,
     game: gameReducer,
     gameSettings: gameSettingsReducer,
   },
@@ -19,6 +21,7 @@ const store = configureStore({
       factionApi.middleware,
       factionTypeApi.middleware,
       spellApi.middleware,
+      abilityApi.middleware,
     ),
 });
 

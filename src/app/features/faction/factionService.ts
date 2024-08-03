@@ -9,7 +9,7 @@ export const factionApi = createApi({
   }),
   tagTypes: ["Faction"],
   endpoints: (builder) => ({
-    getAllFactions: builder.query({
+    getAllFactions: builder.query<Faction[], void>({
       query: () => "",
       transformResponse: (response: PocketBaseResponse<Faction>) =>
         response.items,

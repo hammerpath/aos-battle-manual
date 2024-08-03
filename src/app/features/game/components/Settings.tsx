@@ -1,4 +1,12 @@
-import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
+  Switch,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 import {
   selectBattleTacticsEnabled,
@@ -6,12 +14,17 @@ import {
   toggleBattleTactics,
   toggleGrandStrategies,
 } from "../../game-settings/gameSettingsSlice";
-import { getArmyNames } from "../../armies/Army";
-import ArmySelect from "./ArmySelect";
-import { ArmyName } from "../../armies/types";
 import PageContentColumns from "../../../components/PageContentColumns";
-import { choosePlayerArmy, selectMyArmyName } from "../gameSlice";
+import {
+  choosePlayerFactionId,
+  choosePlayerFactionTypeId,
+  selectMyFactionId,
+  selectMyFactionTypeId,
+} from "../gameSlice";
 import Header from "../../../components/Header";
+import { useGetAllFactionsQuery } from "../../faction/factionService";
+import Loader from "../../loader/Loader";
+import { useGetFactionTypesByFactionIdQuery } from "../../faction-types/factionTypeService";
 
 export interface SettingsProps {}
 
@@ -19,9 +32,25 @@ const Settings: React.FC<SettingsProps> = function () {
   const dispatch = useAppDispatch();
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
   const grandStrategiesEnabled = useAppSelector(selectGrandStrategiesEnabled);
-  const playerArmyName = useAppSelector(selectMyArmyName);
+  const playerFactionId = useAppSelector(selectMyFactionId);
+  const playerFactionTypeId = useAppSelector(selectMyFactionTypeId);
 
-  const armyNames = getArmyNames();
+  const { data: factions, isLoading: isFactionsLoading } =
+    useGetAllFactionsQuery();
+  const { data: factionTypes } = useGetFactionTypesByFactionIdQuery(
+    playerFactionId!,
+    {
+      skip: playerFactionId === undefined,
+    },
+  );
+
+  if (isFactionsLoading) {
+    return <Loader />;
+  }
+
+  if (!factions) {
+    return <div>Not found</div>;
+  }
 
   return (
     <>
@@ -56,18 +85,65 @@ const Settings: React.FC<SettingsProps> = function () {
           />
         </FormGroup>
       </div>
-      <PageContentColumns header={"Choose army"}>
-        <ArmySelect
-          armyNames={armyNames.sort()}
-          chosenHeroName={playerArmyName}
-          label="My army"
-          onChange={(event) =>
-            event.target.value === "none"
-              ? dispatch(choosePlayerArmy(undefined))
-              : // TODO - fix this cast
-                dispatch(choosePlayerArmy(event.target.value as ArmyName))
-          }
-        />
+
+      <PageContentColumns header={"Choose Faction"}>
+        <FormControl>
+          <InputLabel>Faction</InputLabel>
+          <Select
+            value={playerFactionId ?? "none"}
+            onChange={(event) =>
+              dispatch(
+                choosePlayerFactionId(
+                  event.target.value === "none"
+                    ? undefined
+                    : event.target.value,
+                ),
+              )
+            }
+            label="Faction"
+          >
+            <MenuItem key="none" value="none">
+              None
+            </MenuItem>
+            {factions.map((faction) => {
+              return (
+                <MenuItem key={faction.id} value={faction.id}>
+                  {faction.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+      </PageContentColumns>
+
+      <PageContentColumns header={"Choose Faction Type"}>
+        <FormControl>
+          <InputLabel>Faction Type</InputLabel>
+          <Select
+            value={playerFactionTypeId ?? "none"}
+            onChange={(event) =>
+              dispatch(
+                choosePlayerFactionTypeId(
+                  event.target.value === "none"
+                    ? undefined
+                    : event.target.value,
+                ),
+              )
+            }
+            label="Faction Type"
+          >
+            <MenuItem key="none" value="none">
+              None
+            </MenuItem>
+            {factionTypes?.map((faction) => {
+              return (
+                <MenuItem key={faction.id} value={faction.id}>
+                  {faction.name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       </PageContentColumns>
     </>
   );

@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { PocketBaseResponse } from "../../../../server/types";
 import { FactionType } from "./types";
+import config from "../../config";
 
 export const factionTypeApi = createApi({
   reducerPath: "factionTypeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:8090/api/collections/factionType/records",
+    baseUrl: `${config.pocketBaseUrl}/api/collections/factionType/records`,
   }),
   endpoints: (builder) => ({
     getFactionTypesByFactionId: builder.query<FactionType[], string>({

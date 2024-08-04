@@ -1,11 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Spell } from "./types";
 import { PocketBaseResponse } from "../../../../../server/types";
+import config from "../../../config";
 
 export const spellApi = createApi({
   reducerPath: "spellApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:8090/api/collections/spell/records",
+    baseUrl: `${config.pocketBaseUrl}/api/collections/spell/records`,
   }),
   endpoints: (builder) => ({
     getSpellsByFactionType: builder.query<Spell[], string>({

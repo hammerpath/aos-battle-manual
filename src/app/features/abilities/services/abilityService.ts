@@ -3,6 +3,7 @@ import { Ability } from "../types";
 import { PocketBaseResponse } from "../../../../../server/types";
 import { PhaseNew } from "../../phase/types";
 import { AbilityUsage, Turn } from "./types";
+import config from "../../../config";
 
 export interface GetAbilityByPhaseQuery {
   factionTypeId: string;
@@ -33,7 +34,7 @@ interface AbilityResponse {
 export const abilityApi = createApi({
   reducerPath: "abilityApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://127.0.0.1:8090/api/collections/ability/records",
+    baseUrl: `${config.pocketBaseUrl}/api/collections/ability/records`,
   }),
   tagTypes: ["Ability"],
   endpoints: (builder) => ({

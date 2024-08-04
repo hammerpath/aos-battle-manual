@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { PocketBaseResponse } from "../../../../server/types";
 import { FactionType } from "./types";
 import config from "../../config";
+import { PocketBaseResponse } from "../../../server/types";
 
 export const factionTypeApi = createApi({
   reducerPath: "factionTypeApi",

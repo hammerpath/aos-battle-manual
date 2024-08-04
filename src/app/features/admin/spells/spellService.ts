@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Spell } from "./types";
-import { PocketBaseResponse } from "../../../../../server/types";
 import config from "../../../config";
+import { PocketBaseResponse } from "../../../../server/types";
 
 export const spellApi = createApi({
   reducerPath: "spellApi",

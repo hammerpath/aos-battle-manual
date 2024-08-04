@@ -4,15 +4,17 @@ import gameSettingsReducer from "./features/game-settings/gameSettingsSlice";
 import { factionApi } from "./features/faction/factionService";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { factionTypeApi } from "./features/faction-types/factionTypeService";
-import { spellApi } from "./features/admin/spells/spellService";
 import { abilityApi } from "./features/abilities/services/abilityService";
+import { spellApi } from "./features/spells/services/spellService";
+import { prayerApi } from "./features/prayers/services/prayerService";
 
 const store = configureStore({
   reducer: {
     [factionApi.reducerPath]: factionApi.reducer,
     [factionTypeApi.reducerPath]: factionTypeApi.reducer,
-    [spellApi.reducerPath]: spellApi.reducer,
     [abilityApi.reducerPath]: abilityApi.reducer,
+    [spellApi.reducerPath]: spellApi.reducer,
+    [prayerApi.reducerPath]: prayerApi.reducer,
     game: gameReducer,
     gameSettings: gameSettingsReducer,
   },
@@ -20,8 +22,9 @@ const store = configureStore({
     getDefaultMiddleware().concat(
       factionApi.middleware,
       factionTypeApi.middleware,
-      spellApi.middleware,
       abilityApi.middleware,
+      spellApi.middleware,
+      prayerApi.middleware,
     ),
 });
 

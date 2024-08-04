@@ -1,5 +1,5 @@
-// http://127.0.0.1:8090
-const pocketBaseUrl = "https://aos-battle-manual.pockethost.io";
+// https://aos-battle-manual.pockethost.io
+const pocketBaseUrl = "http://127.0.0.1:8090";
 
 const config = {
   pocketBaseUrl,

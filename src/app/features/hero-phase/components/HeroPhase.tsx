@@ -8,6 +8,10 @@ import { useSelector } from "react-redux";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
+import { useGetSpellsByFactionTypeIdQuery } from "../../spells/services/spellService";
+import SpellList from "../../spells/components/SpellList";
+import PrayerList from "../../prayers/components/PrayerList";
+import { useGetPrayersByFactionTypeIdQuery } from "../../prayers/services/prayerService";
 
 export interface HeroPhaseProps {}
 
@@ -21,7 +25,13 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
       },
     );
 
-  if (isAbilitiesLoading || abilities === undefined) {
+  const { data: spells, isLoading: isSpellsLoading } =
+    useGetSpellsByFactionTypeIdQuery(factionTypeId!);
+
+  const { data: prayers, isLoading: isPrayersLoading } =
+    useGetPrayersByFactionTypeIdQuery(factionTypeId!);
+
+  if (isAbilitiesLoading || isSpellsLoading || isPrayersLoading) {
     return <Loader />;
   }
 
@@ -35,6 +45,8 @@ const HeroPhase: React.FC<HeroPhaseProps> = function () {
         <AccordionDetails>TODO</AccordionDetails>
       </Accordion>
       <AbilityList abilities={abilities} />
+      <SpellList spells={spells} />
+      <PrayerList prayers={prayers} />
     </>
   );
 };

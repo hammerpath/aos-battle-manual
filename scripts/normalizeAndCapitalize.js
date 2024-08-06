@@ -1,6 +1,6 @@
 export default (text) => {
   // List of words that should always be lowercase
-  const lowercaseWords = ["of", "the", "in", "and"];
+  const lowercaseWords = ["of", "the", "in", "and", "to"];
 
   // Replace multiple whitespace characters with a single space
   const normalizedText = text.replace(/\s+/g, " ").trim();

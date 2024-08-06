@@ -42,17 +42,15 @@ interface FactionType {
   manifestationLore?: Lore;
 }
 
-const workSheetsFromFile = xlsx.parse(`./files/cities.xlsx`);
+const workSheetsFromFile = xlsx.parse(`./files/ogor-mawtribes.xlsx`);
 const rows = workSheetsFromFile[0].data;
 
 const factionTypeNameRaw = rows[0][0];
-const factionTypeNameRawParts = factionTypeNameRaw.split("\n");
-const factionTypeName = normalizeAndCapitalize(
-  factionTypeNameRawParts.join(": ").trim(),
-);
-const factionName = normalizeAndCapitalize(factionTypeNameRawParts[1]);
+const factionTypeNameRawParts = (factionTypeNameRaw as string).split("\n");
+const factionTypeName = `${normalizeAndCapitalize(factionTypeNameRawParts[0])}: ${normalizeAndCapitalize(factionTypeNameRawParts.slice(1).join(" "))}`;
+const factionName = factionTypeName.split(": ")[1];
 
-console.log(factionName);
+console.log(factionTypeName);
 
 /* Supported factions
 - Flesh-eater Courts
@@ -64,37 +62,14 @@ console.log(factionName);
 - Kharadron Overlords
 - Soulblight Gravelords
 - Sons of Behemat
+- Lumineth Realm-lords
+- Hedonites of Slaanesh
+- Slaves to Darkness
+- Maggotkin of Nurgle
+- Ogor Mawtribes
 */
 
 // Unsupported factions ordered by ease of fixing.
-
-// Easy fixes
-if (factionTypeName.includes("Hedonites")) {
-  throw new Error(
-    "Unsupported faction since name is incorrect. Otherwise fine.",
-  );
-}
-if (factionTypeName.includes("Lumineth")) {
-  throw new Error(
-    "Unsupported faction since name is incorrect. Otherwise fine.",
-  );
-}
-if (factionTypeName.includes("Slaves To")) {
-  throw new Error(
-    "Unsupported faction since name is incorrect. Otherwise fine.",
-  );
-}
-if (factionTypeName.includes("Maggotkin")) {
-  throw new Error(
-    "Unsupported faction since name is incorrect. Otherwise fine.",
-  );
-}
-if (factionTypeName.includes("Ogor")) {
-  throw new Error(
-    "Unsupported faction since name is incorrect. Otherwise fine.",
-  );
-}
-// -----------------------
 
 // Make an exception for this specific faction
 if (factionTypeName.includes("Blades")) {

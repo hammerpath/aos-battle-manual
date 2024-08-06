@@ -42,7 +42,7 @@ interface FactionType {
   manifestationLore?: Lore;
 }
 
-const workSheetsFromFile = xlsx.parse(`./files/ossiarch.xlsx`);
+const workSheetsFromFile = xlsx.parse(`./files/flesh-eater.xlsx`);
 const rows = workSheetsFromFile[0].data;
 
 const factionTypeNameRaw = rows[0][0];
@@ -52,6 +52,55 @@ const factionTypeName = normalizeAndCapitalize(
 );
 const factionName = normalizeAndCapitalize(factionTypeNameRawParts[1]);
 
+/* Factions that doesn't work at all
+- cities
+- idoneth
+- kharadron
+- maggotkin
+- ogor-mawtribes
+- sons-of-behemat
+- soulblight
+*/
+
+/* Supported factions
+- Flesh-eater Courts
+- Gloomspite
+- Ossiarch Bonereapers
+- Stormcast Eternals
+- Sylvaneth
+*/
+
+// Unsupported factions ordered by ease of fixing.
+
+// Easy fixes
+if (factionTypeName.includes("Hedonites")) {
+  throw new Error(
+    "Unsupported faction since name is incorrect. Otherwise fine.",
+  );
+}
+
+if (factionTypeName.includes("Lumineth")) {
+  throw new Error(
+    "Unsupported faction since name is incorrect. Otherwise fine.",
+  );
+}
+
+if (factionTypeName.includes("Slaves To")) {
+  throw new Error(
+    "Unsupported faction since name is incorrect. Otherwise fine.",
+  );
+}
+// -----------------------
+
+// Make an exception for this specific faction
+if (factionTypeName.includes("Blades")) {
+  throw new Error(
+    "Unsupported faction since name is just Blades and manifestation lore comes before prayer lore",
+  );
+}
+// -----------------------
+
+// Probably easy refactoring
 if (factionTypeName.includes("Orruk")) {
   throw new Error("Unsupported faction since it has multiple faction types");
 }
@@ -59,6 +108,33 @@ if (factionTypeName.includes("Orruk")) {
 if (factionTypeName.includes("Seraphon")) {
   throw new Error("Unsupported faction since it has multiple spell lores");
 }
+
+if (factionTypeName.includes("Disciples of")) {
+  throw new Error(
+    "Unsupported faction since name is just Disciples of and it has multiple spell lores",
+  );
+}
+// -----------------------
+
+// Search for bugs
+if (factionTypeName.includes("Daughters")) {
+  throw new Error(
+    "Unsupported action because of an unknown error in battle formations",
+  );
+}
+
+if (factionTypeName.includes("Fyreslayers")) {
+  throw new Error(
+    "Unsupported faction since battle formation names are incorrect",
+  );
+}
+
+if (factionTypeName.includes("Nighthaunt")) {
+  throw new Error(
+    "Unsupported action because of an unknown error in battle formations",
+  );
+}
+// -----------------------
 
 const isString = (value: unknown) => value && typeof value === "string";
 

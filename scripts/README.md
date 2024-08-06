@@ -1,3 +1,10 @@
-Download the PDF's from here https://spikeybits.com/age-of-sigmar/faction-packs-warscrolls/
+# Import data
 
-Convert to xlxs using this https://www.adobe.com/acrobat/online/pdf-to-excel.html
+Download the PDF's from here: <https://spikeybits.com/age-of-sigmar/faction-packs-warscrolls/>
+Convert to xlxs using this: <https://www.adobe.com/acrobat/online/pdf-to-excel.html>
+
+Run the script:
+
+```bash
+npx tsx .\fpParserNew.ts
+```

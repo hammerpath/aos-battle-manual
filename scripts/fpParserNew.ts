@@ -25,8 +25,40 @@ interface ParseResult<T> {
   value: T;
 }
 
-const workSheetsFromFile = xlsx.parse(`./files/stormcast.xlsx`);
+interface Faction {
+  id?: string;
+  name: string;
+  factionType: FactionType;
+}
+
+interface FactionType {
+  id?: string;
+  name: string;
+  battleFormations: BattleFormation[];
+  heroicTraits: Lore;
+  artefactsOfPower: Lore;
+  spellLore?: Lore;
+  prayerLore?: Lore;
+  manifestationLore?: Lore;
+}
+
+const workSheetsFromFile = xlsx.parse(`./files/ossiarch.xlsx`);
 const rows = workSheetsFromFile[0].data;
+
+const factionTypeNameRaw = rows[0][0];
+const factionTypeNameRawParts = factionTypeNameRaw.split("\n");
+const factionTypeName = normalizeAndCapitalize(
+  factionTypeNameRawParts.join(": ").trim(),
+);
+const factionName = normalizeAndCapitalize(factionTypeNameRawParts[1]);
+
+if (factionTypeName.includes("Orruk")) {
+  throw new Error("Unsupported faction since it has multiple faction types");
+}
+
+if (factionTypeName.includes("Seraphon")) {
+  throw new Error("Unsupported faction since it has multiple spell lores");
+}
 
 const isString = (value: unknown) => value && typeof value === "string";
 
@@ -117,7 +149,13 @@ const parseBattleFormations = (
       const ability = parseAbility(value);
 
       // Add name
-      if (isString(value) && battleFormations.length < 4 && !ability) {
+      if (
+        isString(value) &&
+        battleFormations.length < 4 &&
+        !ability &&
+        (battleFormations.length === 0 ||
+          battleFormations.filter((a) => a.name && !a.ability).length !== 2)
+      ) {
         const parts = (value as string).split("\n");
 
         if (parts.length > 1) {
@@ -161,6 +199,7 @@ const parseBattleFormations = (
 };
 
 const parseFile = () => {
+  let factionType: Partial<FactionType> = { name: factionTypeName };
   for (let i = 0; i < rows.length; i++) {
     const columnLength = rows[i].length;
     for (let j = 0; j < columnLength; j++) {
@@ -169,35 +208,64 @@ const parseFile = () => {
       if (isString(value) && value.includes("BATTLE FORMATIONS")) {
         const battleFormationResult = parseBattleFormations(i + 1);
         i = battleFormationResult.rowIndex;
-        console.log(battleFormationResult);
+        factionType = {
+          ...factionType,
+          battleFormations: battleFormationResult.value,
+        };
       }
       if (isString(value) && value.includes("HEROIC TRAITS")) {
         const heroicTraitsResult = parseLore(i, j, ["ARTEFACTS OF POWER"]);
         i = heroicTraitsResult.rowIndex - 1;
-        console.log(heroicTraitsResult);
+        factionType = {
+          ...factionType,
+          heroicTraits: heroicTraitsResult.value,
+        };
       }
       if (isString(value) && value.includes("ARTEFACTS OF POWER")) {
-        const artefactsOfPowerResult = parseLore(i, j, ["SPELL LORE"]);
+        const artefactsOfPowerResult = parseLore(i, j, [
+          "SPELL LORE",
+          "PRAYER LORE",
+          "MANIFESTATION LORE",
+          "WARSCROLL",
+        ]);
         i = artefactsOfPowerResult.rowIndex - 1;
-        console.log(artefactsOfPowerResult);
+        factionType = {
+          ...factionType,
+          artefactsOfPower: artefactsOfPowerResult.value,
+        };
       }
       if (isString(value) && value.includes("SPELL LORE")) {
         const spellLoreResult = parseLore(i, j, [
-          "MANIFESTATION LORE",
           "PRAYER LORE",
+          "MANIFESTATION LORE",
+          "WARSCROLL",
         ]);
         i = spellLoreResult.rowIndex - 1;
-        console.log(spellLoreResult);
+        factionType = { ...factionType, spellLore: spellLoreResult.value };
       }
       if (isString(value) && value.includes("PRAYER LORE")) {
-        const prayerLoreResult = parseLore(i, j, ["MANIFESTATION LORE"]);
+        const prayerLoreResult = parseLore(i, j, [
+          "MANIFESTATION LORE",
+          "WARSCROLL",
+        ]);
         i = prayerLoreResult.rowIndex - 1;
-        console.log(prayerLoreResult);
+        factionType = { ...factionType, prayerLore: prayerLoreResult.value };
       }
       if (isString(value) && value.includes("MANIFESTATION LORE")) {
         const manifestationLoreResult = parseLore(i, j, ["WARSCROLL"]);
         i = manifestationLoreResult.rowIndex - 1;
-        console.log(manifestationLoreResult);
+        factionType = {
+          ...factionType,
+          manifestationLore: manifestationLoreResult.value,
+        };
+
+        const faction: Faction = {
+          name: factionName,
+          factionType: factionType as FactionType,
+        };
+
+        console.dir(faction, { depth: 3 });
+
         return;
       }
     }

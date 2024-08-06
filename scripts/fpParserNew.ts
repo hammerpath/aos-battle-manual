@@ -42,7 +42,7 @@ interface FactionType {
   manifestationLore?: Lore;
 }
 
-const workSheetsFromFile = xlsx.parse(`./files/flesh-eater.xlsx`);
+const workSheetsFromFile = xlsx.parse(`./files/cities.xlsx`);
 const rows = workSheetsFromFile[0].data;
 
 const factionTypeNameRaw = rows[0][0];
@@ -52,15 +52,7 @@ const factionTypeName = normalizeAndCapitalize(
 );
 const factionName = normalizeAndCapitalize(factionTypeNameRawParts[1]);
 
-/* Factions that doesn't work at all
-- cities
-- idoneth
-- kharadron
-- maggotkin
-- ogor-mawtribes
-- sons-of-behemat
-- soulblight
-*/
+console.log(factionName);
 
 /* Supported factions
 - Flesh-eater Courts
@@ -68,6 +60,10 @@ const factionName = normalizeAndCapitalize(factionTypeNameRawParts[1]);
 - Ossiarch Bonereapers
 - Stormcast Eternals
 - Sylvaneth
+- Idoneth Deepkin
+- Kharadron Overlords
+- Soulblight Gravelords
+- Sons of Behemat
 */
 
 // Unsupported factions ordered by ease of fixing.
@@ -78,14 +74,22 @@ if (factionTypeName.includes("Hedonites")) {
     "Unsupported faction since name is incorrect. Otherwise fine.",
   );
 }
-
 if (factionTypeName.includes("Lumineth")) {
   throw new Error(
     "Unsupported faction since name is incorrect. Otherwise fine.",
   );
 }
-
 if (factionTypeName.includes("Slaves To")) {
+  throw new Error(
+    "Unsupported faction since name is incorrect. Otherwise fine.",
+  );
+}
+if (factionTypeName.includes("Maggotkin")) {
+  throw new Error(
+    "Unsupported faction since name is incorrect. Otherwise fine.",
+  );
+}
+if (factionTypeName.includes("Ogor")) {
   throw new Error(
     "Unsupported faction since name is incorrect. Otherwise fine.",
   );
@@ -104,11 +108,9 @@ if (factionTypeName.includes("Blades")) {
 if (factionTypeName.includes("Orruk")) {
   throw new Error("Unsupported faction since it has multiple faction types");
 }
-
 if (factionTypeName.includes("Seraphon")) {
   throw new Error("Unsupported faction since it has multiple spell lores");
 }
-
 if (factionTypeName.includes("Disciples of")) {
   throw new Error(
     "Unsupported faction since name is just Disciples of and it has multiple spell lores",
@@ -119,19 +121,22 @@ if (factionTypeName.includes("Disciples of")) {
 // Search for bugs
 if (factionTypeName.includes("Daughters")) {
   throw new Error(
-    "Unsupported action because of an unknown error in battle formations",
+    "Unsupported faction because of an unknown error in battle formations",
   );
 }
-
 if (factionTypeName.includes("Fyreslayers")) {
   throw new Error(
     "Unsupported faction since battle formation names are incorrect",
   );
 }
-
 if (factionTypeName.includes("Nighthaunt")) {
   throw new Error(
-    "Unsupported action because of an unknown error in battle formations",
+    "Unsupported faction because of an unknown error in battle formations",
+  );
+}
+if (factionTypeName.includes("Cities of Sigmar")) {
+  throw new Error(
+    "Unsupported faction because of a missing word in the battle formation Collegiate Arcane",
   );
 }
 // -----------------------
@@ -334,7 +339,8 @@ const parseFile = () => {
           ...factionType,
           manifestationLore: manifestationLoreResult.value,
         };
-
+      }
+      if (isString(value) && value.includes("WARSCROLL")) {
         const faction: Faction = {
           name: factionName,
           factionType: factionType as FactionType,

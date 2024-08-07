@@ -1,21 +1,19 @@
 import xlsx from "node-xlsx";
 import normalizeAndCapitalize from "./normalizeAndCapitalize";
+import updateFaction from "./factionUpdater";
 
-interface Ability {
-  id?: string;
+export interface Ability {
   name: string;
   declare?: string;
   effect: string;
 }
 
-interface Lore {
-  id?: string;
+export interface Lore {
   name: string;
   abilities: Ability[];
 }
 
-interface BattleFormation {
-  id?: string;
+export interface BattleFormation {
   name: string;
   ability: Ability;
 }
@@ -25,14 +23,12 @@ interface ParseResult<T> {
   value: T;
 }
 
-interface Faction {
-  id?: string;
+export interface Faction {
   name: string;
   factionType: FactionType;
 }
 
 interface FactionType {
-  id?: string;
   name: string;
   battleFormations: BattleFormation[];
   heroicTraits: Lore;
@@ -42,7 +38,7 @@ interface FactionType {
   manifestationLore?: Lore;
 }
 
-const workSheetsFromFile = xlsx.parse(`./files/ogor-mawtribes.xlsx`);
+const workSheetsFromFile = xlsx.parse(`./files/stormcast.xlsx`);
 const rows = workSheetsFromFile[0].data;
 
 const factionTypeNameRaw = rows[0][0];
@@ -50,14 +46,11 @@ const factionTypeNameRawParts = (factionTypeNameRaw as string).split("\n");
 const factionTypeName = `${normalizeAndCapitalize(factionTypeNameRawParts[0])}: ${normalizeAndCapitalize(factionTypeNameRawParts.slice(1).join(" "))}`;
 const factionName = factionTypeName.split(": ")[1];
 
-console.log(factionTypeName);
-
 /* Supported factions
 - Flesh-eater Courts
 - Gloomspite
 - Ossiarch Bonereapers
 - Stormcast Eternals
-- Sylvaneth
 - Idoneth Deepkin
 - Kharadron Overlords
 - Soulblight Gravelords
@@ -80,9 +73,6 @@ if (factionTypeName.includes("Blades")) {
 // -----------------------
 
 // Probably easy refactoring
-if (factionTypeName.includes("Orruk")) {
-  throw new Error("Unsupported faction since it has multiple faction types");
-}
 if (factionTypeName.includes("Seraphon")) {
   throw new Error("Unsupported faction since it has multiple spell lores");
 }
@@ -93,15 +83,26 @@ if (factionTypeName.includes("Disciples of")) {
 }
 // -----------------------
 
-// Search for bugs
-if (factionTypeName.includes("Daughters")) {
-  throw new Error(
-    "Unsupported faction because of an unknown error in battle formations",
-  );
+// A bit more refactoring is necessary
+if (factionTypeName.includes("Orruk")) {
+  throw new Error("Unsupported faction since it has multiple faction types");
 }
+// -----------------------
+
+// Search for bugs
 if (factionTypeName.includes("Fyreslayers")) {
   throw new Error(
     "Unsupported faction since battle formation names are incorrect",
+  );
+}
+if (factionTypeName.includes("Sylvaneth")) {
+  throw new Error(
+    "Unsupported faction since battle formation names are incorrect",
+  );
+}
+if (factionTypeName.includes("Cities of Sigmar")) {
+  throw new Error(
+    "Unsupported faction because of a missing word in the battle formation Collegiate Arcane",
   );
 }
 if (factionTypeName.includes("Nighthaunt")) {
@@ -109,9 +110,9 @@ if (factionTypeName.includes("Nighthaunt")) {
     "Unsupported faction because of an unknown error in battle formations",
   );
 }
-if (factionTypeName.includes("Cities of Sigmar")) {
+if (factionTypeName.includes("Daughters")) {
   throw new Error(
-    "Unsupported faction because of a missing word in the battle formation Collegiate Arcane",
+    "Unsupported faction because of an unknown error in battle formations",
   );
 }
 // -----------------------
@@ -323,10 +324,15 @@ const parseFile = () => {
 
         console.dir(faction, { depth: 3 });
 
-        return;
+        return faction;
       }
     }
   }
 };
 
-parseFile();
+const faction = parseFile();
+if (!faction) {
+  throw new Error("Couldn't get a faction");
+}
+
+await updateFaction(faction);

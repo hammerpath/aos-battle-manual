@@ -30,6 +30,7 @@ export interface Faction {
 
 interface FactionType {
   name: string;
+  battleTraits: Ability[];
   battleFormations: BattleFormation[];
   heroicTraits: Lore;
   artefactsOfPower: Lore;
@@ -144,6 +145,38 @@ const parseAbility = (value): Ability | undefined => {
   }
 
   return undefined;
+};
+
+const parseBattleTraits = (
+  rowIndex: number,
+  stopKeywords: string[],
+): ParseResult<Ability[]> => {
+  const abilities: Ability[] = [];
+
+  for (let i = rowIndex; i < rows.length; i++) {
+    const columnLength = rows[i].length;
+    for (let j = 0; j < columnLength; j++) {
+      const value = rows[i][j];
+
+      const ability = parseAbility(value);
+
+      if (ability) {
+        abilities.push(ability);
+      }
+
+      if (
+        isString(value) &&
+        stopKeywords.some((a) => (value as string).includes(a))
+      ) {
+        return {
+          rowIndex: i,
+          value: abilities,
+        };
+      }
+    }
+  }
+
+  throw new Error("No battle traits found");
 };
 
 // // This needs to be called when "*** LORE" text is received
@@ -262,6 +295,14 @@ const parseFile = () => {
     for (let j = 0; j < columnLength; j++) {
       const value = rows[i][j];
 
+      if (isString(value) && value.includes("BATTLE TRAITS")) {
+        const battleTraitsResult = parseBattleTraits(i, ["BATTLE FORMATIONS"]);
+        i = battleTraitsResult.rowIndex - 1;
+        factionType = {
+          ...factionType,
+          battleTraits: battleTraitsResult.value,
+        };
+      }
       if (isString(value) && value.includes("BATTLE FORMATIONS")) {
         const battleFormationResult = parseBattleFormations(i + 1);
         i = battleFormationResult.rowIndex;

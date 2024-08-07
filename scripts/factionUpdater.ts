@@ -41,6 +41,18 @@ const updateFaction = async (faction: Faction) => {
     filter: `factionTypeId="${factionTypeEntity.id}"`,
   });
 
+  // Battle traits
+  await updateAbilities(
+    abilityEntities.filter(
+      (a) => !a.battleFormationId && !a.heroicTraitId && !a.artefactOfPowerId,
+    ),
+    factionTypeEntity.id,
+    "ability",
+    undefined,
+    undefined,
+    { name: "Dummy", abilities: faction.factionType.battleTraits },
+  );
+
   // Battle formations
   for (const battleFormation of faction.factionType.battleFormations) {
     const battleFormationEntityId = await updateLore(
@@ -53,15 +65,13 @@ const updateFaction = async (faction: Faction) => {
       abilityEntities.filter(
         (a) => a.battleFormationId === battleFormationEntityId,
       ),
-      battleFormationEntityId!,
-      "battleFormationId",
       factionTypeEntity.id,
       "ability",
+      battleFormationEntityId,
+      "battleFormationId",
       { name: battleFormation.name, abilities: [battleFormation.ability] },
     );
   }
-
-  // TODO - battle traits
 
   // Heroic traits
   const heroicTraitEntityId = await updateLore(
@@ -71,10 +81,10 @@ const updateFaction = async (faction: Faction) => {
   );
   await updateAbilities(
     abilityEntities.filter((a) => a.heroicTraitId === heroicTraitEntityId),
-    heroicTraitEntityId!,
-    "heroicTraitId",
     factionTypeEntity.id,
     "ability",
+    heroicTraitEntityId,
+    "heroicTraitId",
     faction.factionType.heroicTraits,
   );
 
@@ -88,10 +98,10 @@ const updateFaction = async (faction: Faction) => {
     abilityEntities.filter(
       (a) => a.artefactOfPowerId === artefactsOfPowerEntityId,
     ),
-    artefactsOfPowerEntityId!,
-    "artefactOfPowerId",
     factionTypeEntity.id,
     "ability",
+    artefactsOfPowerEntityId,
+    "artefactOfPowerId",
     faction.factionType.artefactsOfPower,
   );
 
@@ -102,10 +112,10 @@ const updateFaction = async (faction: Faction) => {
   );
   await updateAbilities(
     spellEntities.filter((a) => a.spellLoreId === spellLoreEntityId),
-    spellLoreEntityId!,
-    "spellLoreId",
     factionTypeEntity.id,
     "spell",
+    spellLoreEntityId,
+    "spellLoreId",
     faction.factionType.spellLore,
   );
 
@@ -117,10 +127,10 @@ const updateFaction = async (faction: Faction) => {
   );
   await updateAbilities(
     prayerEntities.filter((a) => a.prayerLoreId === prayerLoreEntityId),
-    prayerLoreEntityId!,
-    "prayerLoreId",
     factionTypeEntity.id,
     "prayer",
+    prayerLoreEntityId,
+    "prayerLoreId",
     faction.factionType.prayerLore,
   );
 
@@ -166,10 +176,10 @@ const updateLore = async (
 
 const updateAbilities = async (
   abilityEntities: RecordModel[],
-  loreId: string,
-  pbLoreRelationName: string,
   factionTypeId: string,
   collectionName: string,
+  loreId?: string,
+  pbLoreRelationName?: string,
   lore?: Lore,
 ) => {
   if (!lore) {
@@ -207,10 +217,13 @@ const updateAbilities = async (
       console.log(`${collectionName} ${ability.name} successfully updated`);
     }
     for (const ability of abilitiesToCreate) {
+      const relation =
+        loreId && pbLoreRelationName ? { [pbLoreRelationName]: loreId } : {};
+
       await pb
         .collection(collectionName)
         .create(
-          { ...ability, factionTypeId, [pbLoreRelationName]: loreId },
+          { ...ability, factionTypeId, ...relation },
           { requestKey: null },
         );
       console.log(`${collectionName} ${ability.name} successfully created`);

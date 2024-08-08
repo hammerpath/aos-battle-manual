@@ -1,4 +1,4 @@
-import { Accordion, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import { Ability } from "../types";
@@ -31,6 +31,16 @@ const AbilityList: React.FC<AbilityListProps> = function ({ abilities }) {
               {ability.name}{" "}
               {ability.commandPoints ? `(${ability.commandPoints} CP)` : ""}
             </AccordionSummary>
+            <AccordionDetails>
+              {ability.declare ? (
+                <>
+                  <strong>Declare:</strong> {ability.declare}
+                </>
+              ) : null}
+              <div className="pt-2">
+                <strong>Effect:</strong> {ability.effect}
+              </div>
+            </AccordionDetails>
           </Accordion>
         );
       })}

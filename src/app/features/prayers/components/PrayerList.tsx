@@ -1,4 +1,4 @@
-import { Accordion, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import { Prayer } from "../types";
@@ -31,6 +31,16 @@ const PrayerList: React.FC<PrayerListProps> = function ({ prayers }) {
             <AccordionSummary>
               {prayer.name} ({prayer.value})
             </AccordionSummary>
+            <AccordionDetails>
+              {prayer.declare ? (
+                <>
+                  <strong>Declare:</strong> {prayer.declare}
+                </>
+              ) : null}
+              <div className="pt-2">
+                <strong>Effect:</strong> {prayer.effect}
+              </div>
+            </AccordionDetails>
           </Accordion>
         );
       })}

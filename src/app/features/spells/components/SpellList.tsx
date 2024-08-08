@@ -1,4 +1,4 @@
-import { Accordion, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import { Spell } from "../types";
@@ -31,6 +31,16 @@ const SpellList: React.FC<SpellListProps> = function ({ spells }) {
             <AccordionSummary>
               {spell.name} ({spell.value})
             </AccordionSummary>
+            <AccordionDetails>
+              {spell.declare ? (
+                <>
+                  <strong>Declare:</strong> {spell.declare}
+                </>
+              ) : null}
+              <div className="pt-2">
+                <strong>Effect:</strong> {spell.effect}
+              </div>
+            </AccordionDetails>
           </Accordion>
         );
       })}

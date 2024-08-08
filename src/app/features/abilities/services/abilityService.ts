@@ -23,8 +23,10 @@ interface PbAbilityExpand {
 interface PbAbility {
   id: string;
   name: string;
+  declare?: string;
+  effect: string;
   commandPoints: number;
-  expand: PbAbilityExpand;
+  expand?: PbAbilityExpand;
 }
 
 interface AbilityResponse {
@@ -49,7 +51,7 @@ export const abilityApi = createApi({
       transformResponse: (response: AbilityResponse, _meta, { phase }) =>
         response.items
           .filter((item) =>
-            item.expand.abilityUsageId?.some(
+            item.expand?.abilityUsageId?.some(
               (abilityUsage) => abilityUsage.name === phase,
             ),
           )
@@ -57,8 +59,10 @@ export const abilityApi = createApi({
             return {
               id: pbAbility.id,
               name: pbAbility.name,
+              declare: pbAbility.declare,
+              effect: pbAbility.effect,
               commandPoints: pbAbility.commandPoints,
-              turn: pbAbility.expand.abilityTurnId?.name,
+              turn: pbAbility.expand?.abilityTurnId?.name,
             };
           }),
       providesTags: (_result, _error, query) => [

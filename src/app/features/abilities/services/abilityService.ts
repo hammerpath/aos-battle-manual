@@ -3,7 +3,7 @@ import { Ability } from "../types";
 import { PhaseNew } from "../../phase/types";
 import { AbilityUsage, Turn } from "./types";
 import config from "../../../config";
-import { PocketBaseResponse } from "../../../../server/types";
+import { PocketBaseListResponse } from "../../../../server/types";
 
 export interface GetAbilityByPhaseQuery {
   factionTypeId: string;
@@ -42,7 +42,7 @@ export const abilityApi = createApi({
   endpoints: (builder) => ({
     getAbilitiesByFactionTypeId: builder.query<Ability[], string>({
       query: (factionTypeId) => `?filter=(factionTypeId="${factionTypeId}")`,
-      transformResponse: (response: PocketBaseResponse<Ability>) =>
+      transformResponse: (response: PocketBaseListResponse<Ability>) =>
         response.items,
     }),
     getAbilitiesByPhase: builder.query<Ability[], GetAbilityByPhaseQuery>({

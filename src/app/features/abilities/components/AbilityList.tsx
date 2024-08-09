@@ -1,9 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import { Ability } from "../types";
 import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
+import AccordionSummary from "../../../components/accordion/AccordionSummary";
+import AbilityContent from "./AbilityContent";
 
 export interface AbilityListProps {
   abilities?: Ability[];
@@ -12,7 +14,8 @@ export interface AbilityListProps {
 const AbilityList: React.FC<AbilityListProps> = function ({ abilities }) {
   const currentTurn = useAppSelector(selectCurrentTurn);
   const filteredAbilities = abilities?.filter(
-    (ability) => ability.turn === currentTurn || ability.turn === "any",
+    (ability) =>
+      !ability.turn || ability.turn === currentTurn || ability.turn === "any",
   );
 
   if (!filteredAbilities || filteredAbilities.length === 0) {
@@ -32,14 +35,7 @@ const AbilityList: React.FC<AbilityListProps> = function ({ abilities }) {
               {ability.commandPoints ? `(${ability.commandPoints} CP)` : ""}
             </AccordionSummary>
             <AccordionDetails>
-              {ability.declare ? (
-                <>
-                  <strong>Declare:</strong> {ability.declare}
-                </>
-              ) : null}
-              <div className="pt-2">
-                <strong>Effect:</strong> {ability.effect}
-              </div>
+              <AbilityContent ability={ability} />
             </AccordionDetails>
           </Accordion>
         );

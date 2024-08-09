@@ -1,9 +1,10 @@
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import { Spell } from "../types";
 import { useAppSelector } from "../../../hooks";
 import { selectCurrentTurn } from "../../game/gameSlice";
+import AccordionSummary from "../../../components/accordion/AccordionSummary";
 
 export interface SpellListProps {
   spells?: Spell[];

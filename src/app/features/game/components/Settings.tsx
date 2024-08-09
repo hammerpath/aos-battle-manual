@@ -22,7 +22,7 @@ import {
   selectMyFactionTypeId,
 } from "../gameSlice";
 import Header from "../../../components/Header";
-import { useGetAllFactionsQuery } from "../../faction/factionService";
+import { useGetAllActiveFactionsQuery } from "../../faction/factionService";
 import Loader from "../../loader/Loader";
 import { useGetFactionTypesByFactionIdQuery } from "../../faction-types/factionTypeService";
 
@@ -36,7 +36,7 @@ const Settings: React.FC<SettingsProps> = function () {
   const playerFactionTypeId = useAppSelector(selectMyFactionTypeId);
 
   const { data: factions, isLoading: isFactionsLoading } =
-    useGetAllFactionsQuery();
+    useGetAllActiveFactionsQuery();
   const { data: factionTypes } = useGetFactionTypesByFactionIdQuery(
     playerFactionId!,
     {

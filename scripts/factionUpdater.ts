@@ -59,18 +59,23 @@ const updateFaction = async (faction: Faction) => {
       lore: { name: battleFormation.name, abilities: [] },
     });
 
-    await updateAbilities({
+    const [abilityRecord] = await updateAbilities({
       abilityEntities: abilityEntities.filter(
         (a) => a.battleFormationId === battleFormationEntityId,
       ),
       abilities: [battleFormation.ability],
       factionType: factionTypeEntity,
       collectionName: "ability",
-      pbLore: {
-        id: battleFormationEntityId!,
-        pbLoreRelationName: "battleFormationId",
-      },
     });
+
+    if (battleFormationEntityId && !dryRun) {
+      await pb
+        .collection("battleFormation")
+        .update(battleFormationEntityId, { abilityId: abilityRecord.id });
+      console.log(
+        `battleFormation successfully updated with ${abilityRecord.name}`,
+      );
+    }
   }
 
   // Heroic traits
@@ -220,6 +225,8 @@ const updateAbilities = async ({
     console.log("Abilities will be updated without a Lore");
   }
 
+  const updatedAbilities: Array<Ability & RecordModel> = [];
+
   const { abilitiesToUpdate, abilitiesToCreate } =
     abilities.reduce<MatchResult>(
       (acc, a) => {
@@ -245,23 +252,27 @@ const updateAbilities = async ({
 
   if (!dryRun) {
     for (const ability of abilitiesToUpdate) {
-      await pb
+      const record = await pb
         .collection(collectionName)
         .update(ability.id!, { ...ability }, { requestKey: null });
       console.log(`${collectionName} ${ability.name} successfully updated`);
+      updatedAbilities.push({ ...ability, ...record });
     }
     for (const ability of abilitiesToCreate) {
       const relation = pbLore ? { [pbLore.pbLoreRelationName]: pbLore.id } : {};
 
-      await pb
+      const record = await pb
         .collection(collectionName)
         .create(
           { ...ability, factionTypeId: factionType.id, ...relation },
           { requestKey: null },
         );
       console.log(`${collectionName} ${ability.name} successfully created`);
+      updatedAbilities.push({ ...ability, ...record });
     }
   }
+
+  return updatedAbilities;
 };
 
 export default updateFaction;

@@ -5,12 +5,12 @@ import { Button } from "@mui/material";
 import TextField from "../../../components/TextField";
 import {
   useAddFactionMutation,
-  useGetAllFactionsQuery,
+  useGetAllActiveFactionsQuery,
 } from "../../faction/factionService";
 
 const Admin: React.FC = function () {
   const [factionName, setFactionName] = useState<string>();
-  const { data: factions } = useGetAllFactionsQuery();
+  const { data: factions } = useGetAllActiveFactionsQuery();
   const [addFaction] = useAddFactionMutation();
 
   return (

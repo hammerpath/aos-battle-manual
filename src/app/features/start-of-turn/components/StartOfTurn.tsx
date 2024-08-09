@@ -13,6 +13,9 @@ import { useArmy } from "../../armies/useArmy";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import { useSelector } from "react-redux";
 import Loader from "../../loader/Loader";
+import AbilityList from "../../abilities/components/AbilityList";
+import BattleFormationList from "../../battleFormations/components/BattleFormationList";
+import { useGetBattleFormationsByFactionIdQuery } from "../../battleFormations/battleFormationService";
 
 export interface StartOfTurnProps {}
 
@@ -27,9 +30,13 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
         skip: factionTypeId === undefined,
       },
     );
+  const { data: battleFormations, isLoading: isBattleFormationsLoading } =
+    useGetBattleFormationsByFactionIdQuery(factionTypeId!, {
+      skip: !factionTypeId,
+    });
   const dispatch = useAppDispatch();
 
-  if (isAbilitiesLoading) {
+  if (isAbilitiesLoading || isBattleFormationsLoading) {
     return <Loader />;
   }
 
@@ -55,13 +62,6 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
       <Accordion>
         <AccordionSummary>Deploy units</AccordionSummary>
       </Accordion>
-      {abilities?.map((ability) => {
-        return (
-          <Accordion key={ability.id}>
-            <AccordionSummary>{ability.name}</AccordionSummary>
-          </Accordion>
-        );
-      })}
       <Accordion>
         <AccordionSummary>Priority roll</AccordionSummary>
         <AccordionDetails>
@@ -85,6 +85,11 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
           each Battle Round.
         </AccordionDetails>
       </Accordion>
+      <AbilityList abilities={abilities} />
+      {battleFormations ? (
+        <BattleFormationList battleFormations={battleFormations} />
+      ) : null}
+
       <PageContent>
         <Header>Who's turn</Header>
       </PageContent>

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import config from "../../../config";
 import { Prayer } from "../types";
-import { PocketBaseResponse } from "../../../../server/types";
+import { PocketBaseListResponse } from "../../../../server/types";
 
 export const prayerApi = createApi({
   reducerPath: "prayerApi",
@@ -11,7 +11,7 @@ export const prayerApi = createApi({
   endpoints: (builder) => ({
     getPrayersByFactionTypeId: builder.query<Prayer[], string>({
       query: (factionTypeId) => `?filter=(factionTypeId="${factionTypeId}")`,
-      transformResponse: (response: PocketBaseResponse<Prayer>) =>
+      transformResponse: (response: PocketBaseListResponse<Prayer>) =>
         response.items,
     }),
   }),

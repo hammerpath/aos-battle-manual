@@ -7,6 +7,7 @@ import { factionTypeApi } from "./features/faction-types/factionTypeService";
 import { abilityApi } from "./features/abilities/services/abilityService";
 import { spellApi } from "./features/spells/services/spellService";
 import { prayerApi } from "./features/prayers/services/prayerService";
+import { battleFormationApi } from "./features/battleFormations/battleFormationService";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     [abilityApi.reducerPath]: abilityApi.reducer,
     [spellApi.reducerPath]: spellApi.reducer,
     [prayerApi.reducerPath]: prayerApi.reducer,
+    [battleFormationApi.reducerPath]: battleFormationApi.reducer,
     game: gameReducer,
     gameSettings: gameSettingsReducer,
   },
@@ -25,6 +27,7 @@ const store = configureStore({
       abilityApi.middleware,
       spellApi.middleware,
       prayerApi.middleware,
+      battleFormationApi.middleware,
     ),
 });
 

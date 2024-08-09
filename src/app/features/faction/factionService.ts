@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Faction } from "../admin/factions/types";
 import config from "../../config";
-import { PocketBaseResponse } from "../../../server/types";
+import { PocketBaseListResponse } from "../../../server/types";
 
 export const factionApi = createApi({
   reducerPath: "factionApi",
@@ -10,9 +10,9 @@ export const factionApi = createApi({
   }),
   tagTypes: ["Faction"],
   endpoints: (builder) => ({
-    getAllFactions: builder.query<Faction[], void>({
-      query: () => "",
-      transformResponse: (response: PocketBaseResponse<Faction>) =>
+    getAllActiveFactions: builder.query<Faction[], void>({
+      query: () => "?filter=(active=true)",
+      transformResponse: (response: PocketBaseListResponse<Faction>) =>
         response.items,
       providesTags: () => [{ type: "Faction" }],
     }),
@@ -47,7 +47,7 @@ export const factionApi = createApi({
 });
 
 export const {
-  useGetAllFactionsQuery,
+  useGetAllActiveFactionsQuery,
   useGetFactionByIdQuery,
   useAddFactionMutation,
   useEditFactionMutation,

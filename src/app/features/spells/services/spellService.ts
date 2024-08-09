@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { PocketBaseResponse } from "../../../../server/types";
+import { PocketBaseListResponse } from "../../../../server/types";
 import { Spell } from "../types";
 import config from "../../../config";
 
@@ -11,7 +11,7 @@ export const spellApi = createApi({
   endpoints: (builder) => ({
     getSpellsByFactionTypeId: builder.query<Spell[], string>({
       query: (factionTypeId) => `?filter=(factionTypeId="${factionTypeId}")`,
-      transformResponse: (response: PocketBaseResponse<Spell>) =>
+      transformResponse: (response: PocketBaseListResponse<Spell>) =>
         response.items,
     }),
   }),

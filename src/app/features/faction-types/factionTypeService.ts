@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { FactionType } from "./types";
 import config from "../../config";
-import { PocketBaseResponse } from "../../../server/types";
+import { PocketBaseListResponse } from "../../../server/types";
 
 export const factionTypeApi = createApi({
   reducerPath: "factionTypeApi",
@@ -11,7 +11,7 @@ export const factionTypeApi = createApi({
   endpoints: (builder) => ({
     getFactionTypesByFactionId: builder.query<FactionType[], string>({
       query: (factionId) => `?filter=(factionId="${factionId}")`,
-      transformResponse: (response: PocketBaseResponse<FactionType>) =>
+      transformResponse: (response: PocketBaseListResponse<FactionType>) =>
         response.items,
     }),
     getFactionTypeById: builder.query<FactionType, string>({

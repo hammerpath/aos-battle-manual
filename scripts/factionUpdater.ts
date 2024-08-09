@@ -53,11 +53,11 @@ const updateFaction = async (faction: Faction) => {
 
   // Battle formations
   for (const battleFormation of faction.factionType.battleFormations) {
-    const battleFormationEntityId = await updateLore(
-      "battleFormation",
-      factionTypeEntity.id,
-      { name: battleFormation.name, abilities: [] },
-    );
+    const battleFormationEntityId = await updateLore({
+      factionType: factionTypeEntity,
+      collectionName: "battleFormation",
+      lore: { name: battleFormation.name, abilities: [] },
+    });
 
     await updateAbilities({
       abilityEntities: abilityEntities.filter(
@@ -74,11 +74,11 @@ const updateFaction = async (faction: Faction) => {
   }
 
   // Heroic traits
-  const heroicTraitEntityId = await updateLore(
-    "heroicTrait",
-    factionTypeEntity.id,
-    faction.factionType.heroicTraits,
-  );
+  const heroicTraitEntityId = await updateLore({
+    factionType: factionTypeEntity,
+    collectionName: "heroicTrait",
+    lore: faction.factionType.heroicTraits,
+  });
   await updateAbilities({
     abilityEntities: abilityEntities.filter(
       (a) => a.heroicTraitId === heroicTraitEntityId,
@@ -90,11 +90,11 @@ const updateFaction = async (faction: Faction) => {
   });
 
   // Artefacts of power
-  const artefactsOfPowerEntityId = await updateLore(
-    "artefactOfPower",
-    factionTypeEntity.id,
-    faction.factionType.artefactsOfPower,
-  );
+  const artefactsOfPowerEntityId = await updateLore({
+    factionType: factionTypeEntity,
+    collectionName: "artefactOfPower",
+    lore: faction.factionType.artefactsOfPower,
+  });
   await updateAbilities({
     abilityEntities: abilityEntities.filter(
       (a) => a.artefactOfPowerId === artefactsOfPowerEntityId,
@@ -108,11 +108,11 @@ const updateFaction = async (faction: Faction) => {
     },
   });
 
-  const spellLoreEntityId = await updateLore(
-    "spellLore",
-    factionTypeEntity.id,
-    faction.factionType.spellLore,
-  );
+  const spellLoreEntityId = await updateLore({
+    factionType: factionTypeEntity,
+    collectionName: "spellLore",
+    lore: faction.factionType.spellLore,
+  });
 
   if (faction.factionType.spellLore) {
     await updateAbilities({
@@ -127,11 +127,11 @@ const updateFaction = async (faction: Faction) => {
   }
 
   // Prayers
-  const prayerLoreEntityId = await updateLore(
-    "prayerLore",
-    factionTypeEntity.id,
-    faction.factionType.prayerLore,
-  );
+  const prayerLoreEntityId = await updateLore({
+    factionType: factionTypeEntity,
+    collectionName: "prayerLore",
+    lore: faction.factionType.prayerLore,
+  });
 
   if (faction.factionType.prayerLore) {
     await updateAbilities({
@@ -150,17 +150,23 @@ const updateFaction = async (faction: Faction) => {
   return;
 };
 
-const updateLore = async (
-  pbLoreName: string,
-  factionTypeId: string,
-  lore?: Lore,
-) => {
+interface UpdateLore {
+  factionType: RecordModel;
+  collectionName: string;
+  lore?: Lore;
+}
+
+const updateLore = async ({
+  collectionName,
+  factionType,
+  lore,
+}: UpdateLore) => {
   if (!lore) {
-    console.log(`No lore supplied for ${pbLoreName}`);
+    console.log(`No lore supplied for ${collectionName}`);
     return;
   }
-  const loreEntities = await pb.collection(pbLoreName).getFullList({
-    filter: `factionTypeId="${factionTypeId}"&&name="${lore.name}"`,
+  const loreEntities = await pb.collection(collectionName).getFullList({
+    filter: `factionTypeId="${factionType.id}"&&name="${lore.name}"`,
     requestKey: null,
   });
   if (loreEntities.length > 1) {
@@ -169,16 +175,21 @@ const updateLore = async (
   const loreEntity = loreEntities.find((a) => a.name === lore.name);
 
   if (loreEntity) {
-    console.log(`${pbLoreName} ${lore.name} already exists and will be used.`);
+    console.log(
+      `${collectionName} ${lore.name} already exists and will be used.`,
+    );
   } else if (dryRun) {
-    console.log(`${pbLoreName} ${lore.name} will be created.`);
+    console.log(`${collectionName} ${lore.name} will be created.`);
   }
 
   if (!loreEntity && !dryRun) {
     const newLoreEntity = await pb
-      .collection(pbLoreName)
-      .create({ name: lore.name, factionTypeId }, { requestKey: null });
-    console.log(`${pbLoreName} ${lore.name} successfully created`);
+      .collection(collectionName)
+      .create(
+        { name: lore.name, factionTypeId: factionType.id },
+        { requestKey: null },
+      );
+    console.log(`${collectionName} ${lore.name} successfully created`);
     return newLoreEntity.id;
   }
 
@@ -196,7 +207,6 @@ interface UpdateAbilities {
 interface PbLore {
   id: string;
   pbLoreRelationName: string;
-  // lore: Lore
 }
 
 const updateAbilities = async ({

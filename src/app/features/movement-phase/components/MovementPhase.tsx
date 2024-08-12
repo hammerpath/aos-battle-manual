@@ -5,27 +5,23 @@ import OpponentTurn from "./OpponentTurn";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
-import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
+import { GameSettings } from "../../game/types";
 
-export interface MovementPhaseProps {}
+export interface MovementPhaseProps {
+  gameSettings: GameSettings;
+}
 
-const MovementPhase: React.FC<MovementPhaseProps> = function () {
-  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
-    useGetFactionTypeIdByUserQuery();
+const MovementPhase: React.FC<MovementPhaseProps> = function ({
+  gameSettings,
+}) {
   const currentTurn = useAppSelector(selectCurrentTurn);
   const { data: abilities, isLoading: isAbilitiesLoading } =
-    useGetAbilitiesByPhaseQuery(
-      { factionTypeId: factionTypeId!, phase: "movement-phase" },
-      {
-        skip: factionTypeId === undefined,
-      },
-    );
+    useGetAbilitiesByPhaseQuery({
+      factionTypeId: gameSettings.factionTypeId,
+      phase: "movement-phase",
+    });
 
-  if (
-    isAbilitiesLoading ||
-    abilities === undefined ||
-    isUserFactionTypeIdLoading
-  ) {
+  if (isAbilitiesLoading || !abilities) {
     return <Loader />;
   }
 

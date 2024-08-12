@@ -6,12 +6,24 @@ import ShootingPhase from "../shooting-phase/components/ShootingPhase";
 import ChargePhase from "../charge-phase/components/ChargePhase";
 import CombatPhase from "../combat-phase/components/CombatPhase";
 import PostRound from "../end-of-turn/components/EndOfTurn";
+import { useGetGameSettingsQuery } from "../game/gameSettingsService";
+import Loader from "../loader/Loader";
 
 export interface PhaseRootProps {}
 
 const PhaseRoot: React.FC<PhaseRootProps> = function () {
   // TODO - can this be typed to Phase?
   const { phase } = useParams<"phase">();
+  const { data: gameSettings, isLoading: isGameSettingsLoading } =
+    useGetGameSettingsQuery();
+
+  if (isGameSettingsLoading) {
+    return <Loader />;
+  }
+
+  if (!gameSettings) {
+    return <div>Setup game first - TODO</div>;
+  }
 
   switch (phase) {
     case "hero":
@@ -25,7 +37,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Movement",
           }}
         >
-          <HeroPhase />
+          <HeroPhase gameSettings={gameSettings} />
         </Phase>
       );
     case "movement":
@@ -39,7 +51,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Shooting",
           }}
         >
-          <MovementPhase />
+          <MovementPhase gameSettings={gameSettings} />
         </Phase>
       );
     case "shooting":
@@ -53,7 +65,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Charging",
           }}
         >
-          <ShootingPhase />
+          <ShootingPhase gameSettings={gameSettings} />
         </Phase>
       );
     case "charging":
@@ -67,7 +79,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Combat",
           }}
         >
-          <ChargePhase />
+          <ChargePhase gameSettings={gameSettings} />
         </Phase>
       );
     case "combat":
@@ -81,7 +93,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "End of turn",
           }}
         >
-          <CombatPhase />
+          <CombatPhase gameSettings={gameSettings} />
         </Phase>
       );
     case "end-of-turn":
@@ -95,7 +107,7 @@ const PhaseRoot: React.FC<PhaseRootProps> = function () {
             nextRouteName: "Hero",
           }}
         >
-          <PostRound />
+          <PostRound gameSettings={gameSettings} />
         </Phase>
       );
     default:

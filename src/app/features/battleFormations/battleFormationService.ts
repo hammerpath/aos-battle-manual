@@ -23,7 +23,10 @@ export const battleFormationApi = createApi({
     baseUrl: `${config.pocketBaseUrl}/api/collections/battleFormation/records`,
   }),
   endpoints: (builder) => ({
-    getBattleFormationsByFactionId: builder.query<BattleFormation[], string>({
+    getBattleFormationsByFactionTypeId: builder.query<
+      BattleFormation[],
+      string
+    >({
       query: (factionTypeId) =>
         `?filter=(factionTypeId="${factionTypeId}")&expand=abilityId`,
       transformResponse: (response: PbBattleFormationResult) => {
@@ -45,4 +48,5 @@ export const battleFormationApi = createApi({
   }),
 });
 
-export const { useGetBattleFormationsByFactionIdQuery } = battleFormationApi;
+export const { useGetBattleFormationsByFactionTypeIdQuery } =
+  battleFormationApi;

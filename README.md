@@ -24,7 +24,7 @@ _Discalimer_ - This repository is undergoing development, and some rules may be 
 
 - Store user faction type choice in local storage instead of redux state
 - Remove all deprecated stuff, such as admin and armies
-- Make Battle Formation selectable
+- Make Battle Formation a setting and make the it selectable
 - Store battle formation choice in local storage instead of redux state
 - Extract Game setup from start-of-turn-phase and navigate to start-of-turn-phase from end-of-turn-phase
 - Parse and store ability execution information, such as "Once per Turn, Your Movement Phase"
@@ -33,6 +33,7 @@ _Discalimer_ - This repository is undergoing development, and some rules may be 
 - Fix parser bugs and parse more factions
 - Parse Manifestation Lore
 - Parse and save Warscrolls
+- Parse and save general rules
 
 ### General TODO's
 
@@ -53,5 +54,3 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-- Add more armies
-- Add army units

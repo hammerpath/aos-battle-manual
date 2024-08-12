@@ -5,26 +5,20 @@ import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
-import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
+import { GameSettings } from "../../game/types";
 
-export interface EndOfTurnProps {}
+export interface EndOfTurnProps {
+  gameSettings: GameSettings;
+}
 
-const EndOfTurn: React.FC<EndOfTurnProps> = function () {
-  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
-    useGetFactionTypeIdByUserQuery();
+const EndOfTurn: React.FC<EndOfTurnProps> = function ({ gameSettings }) {
   const { data: abilities, isLoading: isAbilitiesLoading } =
-    useGetAbilitiesByPhaseQuery(
-      { factionTypeId: factionTypeId!, phase: "combat-phase" },
-      {
-        skip: factionTypeId === undefined,
-      },
-    );
+    useGetAbilitiesByPhaseQuery({
+      factionTypeId: gameSettings.factionTypeId,
+      phase: "combat-phase",
+    });
 
-  if (
-    isAbilitiesLoading ||
-    abilities === undefined ||
-    isUserFactionTypeIdLoading
-  ) {
+  if (isAbilitiesLoading || abilities === undefined) {
     return <Loader />;
   }
 

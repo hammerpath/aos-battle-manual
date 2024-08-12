@@ -10,38 +10,31 @@ import { useGetSpellsByFactionTypeIdQuery } from "../../spells/services/spellSer
 import SpellList from "../../spells/components/SpellList";
 import PrayerList from "../../prayers/components/PrayerList";
 import { useGetPrayersByFactionTypeIdQuery } from "../../prayers/services/prayerService";
-import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
 import { useSelector } from "react-redux";
 import { selectCurrentTurn } from "../../game/gameSlice";
+import { GameSettings } from "../../game/types";
 
-export interface HeroPhaseProps {}
+export interface HeroPhaseProps {
+  gameSettings: GameSettings;
+}
 
-const HeroPhase: React.FC<HeroPhaseProps> = function () {
+const HeroPhase: React.FC<HeroPhaseProps> = function ({ gameSettings }) {
   const currentTurn = useSelector(selectCurrentTurn);
-  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
-    useGetFactionTypeIdByUserQuery();
   const { data: abilities, isLoading: isAbilitiesLoading } =
-    useGetAbilitiesByPhaseQuery(
-      { factionTypeId: factionTypeId!, phase: "hero-phase" },
-      {
-        skip: factionTypeId === undefined,
-      },
-    );
+    useGetAbilitiesByPhaseQuery({
+      factionTypeId: gameSettings!.factionTypeId,
+      phase: "hero-phase",
+    });
 
   const { data: spells, isLoading: isSpellsLoading } =
-    useGetSpellsByFactionTypeIdQuery(factionTypeId!);
+    useGetSpellsByFactionTypeIdQuery(gameSettings.factionTypeId);
 
   const { data: prayers, isLoading: isPrayersLoading } =
-    useGetPrayersByFactionTypeIdQuery(factionTypeId!);
+    useGetPrayersByFactionTypeIdQuery(gameSettings.factionTypeId);
 
-  if (
-    isAbilitiesLoading ||
-    isSpellsLoading ||
-    isPrayersLoading ||
-    isUserFactionTypeIdLoading
-  ) {
+  if (isAbilitiesLoading || isSpellsLoading || isPrayersLoading) {
     return <Loader />;
   }
 

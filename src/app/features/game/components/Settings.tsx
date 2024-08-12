@@ -19,11 +19,12 @@ import PageContentColumns from "../../../components/PageContentColumns";
 import Header from "../../../components/Header";
 import { useGetAllActiveFactionsQuery } from "../../faction/factionService";
 import Loader from "../../loader/Loader";
-import {
-  useAddFactionTypeIdToUserMutation,
-  useGetFactionTypesByFactionIdQuery,
-} from "../../faction-types/factionTypeService";
+import { useGetFactionTypesByFactionIdQuery } from "../../faction-types/factionTypeService";
 import { useState } from "react";
+import {
+  useAddGameSettingsMutation,
+  useGetGameSettingsQuery,
+} from "../gameSettingsService";
 
 export interface SettingsProps {}
 
@@ -31,20 +32,23 @@ const Settings: React.FC<SettingsProps> = function () {
   const dispatch = useAppDispatch();
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
   const grandStrategiesEnabled = useAppSelector(selectGrandStrategiesEnabled);
-  const [factionId, setFactionId] = useState<string | undefined>(undefined);
+
+  const { data: gameSettings } = useGetGameSettingsQuery();
+
+  const [factionId, setFactionId] = useState<string | undefined>(
+    gameSettings?.factionId,
+  );
   const [factionTypeId, setFactionTypeId] = useState<string | undefined>(
-    undefined,
+    gameSettings?.factionTypeId,
   );
 
   const { data: factions, isLoading: isFactionsLoading } =
     useGetAllActiveFactionsQuery();
-  const { data: factionTypes } = useGetFactionTypesByFactionIdQuery(
-    factionId!,
-    {
-      skip: factionId === undefined,
-    },
-  );
-  const [addFactionTypeId] = useAddFactionTypeIdToUserMutation();
+  const { data: factionTypes, isLoading: isFactionTypesLoading } =
+    useGetFactionTypesByFactionIdQuery(factionId!, {
+      skip: !factionId,
+    });
+  const [addFactionTypeId] = useAddGameSettingsMutation();
 
   const handleFactionIdChange = (event: SelectChangeEvent<string>) => {
     setFactionId(
@@ -53,15 +57,17 @@ const Settings: React.FC<SettingsProps> = function () {
     setFactionTypeId(undefined);
     addFactionTypeId(undefined);
   };
-
   const handleFactionTypeIdChange = (event: SelectChangeEvent<string>) => {
     const value =
       event.target.value === "none" ? undefined : event.target.value;
+
     setFactionTypeId(value);
-    addFactionTypeId(value);
+    if (value && factionId) {
+      addFactionTypeId({ factionTypeId: value, factionId });
+    }
   };
 
-  if (isFactionsLoading) {
+  if (isFactionsLoading || isFactionTypesLoading) {
     return <Loader />;
   }
 

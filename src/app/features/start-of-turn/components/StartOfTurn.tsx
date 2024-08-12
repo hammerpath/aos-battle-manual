@@ -9,32 +9,32 @@ import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilitySer
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
 import BattleFormationList from "../../battleFormations/components/BattleFormationList";
-import { useGetBattleFormationsByFactionIdQuery } from "../../battleFormations/battleFormationService";
-import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
+import { useGetBattleFormationsByFactionTypeIdQuery } from "../../battleFormations/battleFormationService";
+import { useGetGameSettingsQuery } from "../../game/gameSettingsService";
 
 export interface StartOfTurnProps {}
 
 const StartOfTurn: React.FC<StartOfTurnProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
-  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
-    useGetFactionTypeIdByUserQuery();
+  const { data: gameSettings, isLoading: isGameSettingsLoading } =
+    useGetGameSettingsQuery();
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery(
-      { factionTypeId: factionTypeId!, phase: "deployment-phase" },
+      { factionTypeId: gameSettings!.factionTypeId, phase: "deployment-phase" },
       {
-        skip: factionTypeId === undefined,
+        skip: !gameSettings,
       },
     );
   const { data: battleFormations, isLoading: isBattleFormationsLoading } =
-    useGetBattleFormationsByFactionIdQuery(factionTypeId!, {
-      skip: !factionTypeId,
+    useGetBattleFormationsByFactionTypeIdQuery(gameSettings!.factionId, {
+      skip: !gameSettings,
     });
   const dispatch = useAppDispatch();
 
   if (
     isAbilitiesLoading ||
     isBattleFormationsLoading ||
-    isUserFactionTypeIdLoading
+    isGameSettingsLoading
   ) {
     return <Loader />;
   }

@@ -2,7 +2,14 @@
 
 A web manual to help players navigate battles in Age of Sigmar.
 
-To run:
+Download the Pocketbase application from <https://pocketbase.io/docs/> and place it in the `src/server` folder.
+Start the server by typing:
+
+```bash
+src/server/pocketbase serve
+```
+
+Run the web app by:
 
 ```bash
 npm install
@@ -12,6 +19,22 @@ npm run dev
 _Discalimer_ - This repository is undergoing development, and some rules may be incorrect or missing.
 
 ## TODO's
+
+### Game TODO´s
+
+- Store user faction type choice in local storage instead of redux state
+- Remove all deprecated stuff, such as admin and armies
+- Make Battle Formation selectable
+- Store battle formation choice in local storage instead of redux state
+- Extract Game setup from start-of-turn-phase and navigate to start-of-turn-phase from end-of-turn-phase
+- Parse and store ability execution information, such as "Once per Turn, Your Movement Phase"
+- Add user login
+- Store game info in DB
+- Fix parser bugs and parse more factions
+- Parse Manifestation Lore
+- Parse and save Warscrolls
+
+### General TODO's
 
 - Configure the top-level `parserOptions` property like this:
 

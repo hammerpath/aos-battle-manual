@@ -3,21 +3,20 @@ import Header from "../../../components/Header";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import { useAppSelector } from "../../../hooks";
-import { selectCurrentTurn, selectMyFactionTypeId } from "../../game/gameSlice";
+import { selectCurrentTurn } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
-import { useArmy } from "../../armies/useArmy";
-import { useSelector } from "react-redux";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
+import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
 
 export interface CombatPhaseProps {}
 
 const CombatPhase: React.FC<CombatPhaseProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
-  const { commandAbilities } = useArmy("combat");
-  const factionTypeId = useSelector(selectMyFactionTypeId);
+  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
+    useGetFactionTypeIdByUserQuery();
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery(
       { factionTypeId: factionTypeId!, phase: "combat-phase" },
@@ -26,7 +25,11 @@ const CombatPhase: React.FC<CombatPhaseProps> = function () {
       },
     );
 
-  if (isAbilitiesLoading || abilities === undefined) {
+  if (
+    isAbilitiesLoading ||
+    abilities === undefined ||
+    isUserFactionTypeIdLoading
+  ) {
     return <Loader />;
   }
 
@@ -66,11 +69,7 @@ const CombatPhase: React.FC<CombatPhaseProps> = function () {
           been picked, you can make the attacks in the order you wish.
         </AccordionDetails>
       </Accordion>
-      {currentTurn === "mine" ? (
-        <PlayerTurn commandAbilities={commandAbilities} />
-      ) : (
-        <OpponentTurn commandAbilities={commandAbilities} />
-      )}
+      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
       <AbilityList abilities={abilities} />
     </>
   );

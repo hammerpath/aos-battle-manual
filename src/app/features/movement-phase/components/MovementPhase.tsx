@@ -1,18 +1,18 @@
 import { useAppSelector } from "../../../hooks";
-import { selectCurrentTurn, selectMyFactionTypeId } from "../../game/gameSlice";
+import { selectCurrentTurn } from "../../game/gameSlice";
 import PlayerTurn from "./PlayerTurn";
 import OpponentTurn from "./OpponentTurn";
-import { useArmy } from "../../armies/useArmy";
-import { useSelector } from "react-redux";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
+import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
 
 export interface MovementPhaseProps {}
 
 const MovementPhase: React.FC<MovementPhaseProps> = function () {
+  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
+    useGetFactionTypeIdByUserQuery();
   const currentTurn = useAppSelector(selectCurrentTurn);
-  const factionTypeId = useSelector(selectMyFactionTypeId);
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery(
       { factionTypeId: factionTypeId!, phase: "movement-phase" },
@@ -20,19 +20,18 @@ const MovementPhase: React.FC<MovementPhaseProps> = function () {
         skip: factionTypeId === undefined,
       },
     );
-  const { commandAbilities } = useArmy("movement");
 
-  if (isAbilitiesLoading || abilities === undefined) {
+  if (
+    isAbilitiesLoading ||
+    abilities === undefined ||
+    isUserFactionTypeIdLoading
+  ) {
     return <Loader />;
   }
 
   return (
     <>
-      {currentTurn === "mine" ? (
-        <PlayerTurn commandAbilities={commandAbilities} />
-      ) : (
-        <OpponentTurn commandAbilities={commandAbilities} />
-      )}
+      {currentTurn === "mine" ? <PlayerTurn /> : <OpponentTurn />}
       <AbilityList abilities={abilities} />
     </>
   );

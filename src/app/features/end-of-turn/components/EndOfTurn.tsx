@@ -2,16 +2,16 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import Header from "../../../components/Header";
 import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
-import { useSelector } from "react-redux";
-import { selectMyFactionTypeId } from "../../game/gameSlice";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
+import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
 
 export interface EndOfTurnProps {}
 
 const EndOfTurn: React.FC<EndOfTurnProps> = function () {
-  const factionTypeId = useSelector(selectMyFactionTypeId);
+  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
+    useGetFactionTypeIdByUserQuery();
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery(
       { factionTypeId: factionTypeId!, phase: "combat-phase" },
@@ -20,7 +20,11 @@ const EndOfTurn: React.FC<EndOfTurnProps> = function () {
       },
     );
 
-  if (isAbilitiesLoading || abilities === undefined) {
+  if (
+    isAbilitiesLoading ||
+    abilities === undefined ||
+    isUserFactionTypeIdLoading
+  ) {
     return <Loader />;
   }
 

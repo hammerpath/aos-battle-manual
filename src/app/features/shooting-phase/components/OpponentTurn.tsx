@@ -2,30 +2,17 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import Header from "../../../components/Header";
-import { CommandAbilities } from "../../armies/types";
 
-export interface OpponentTurnProps {
-  commandAbilities?: CommandAbilities[];
-}
+export interface OpponentTurnProps {}
 
-const OpponentTurn: React.FC<OpponentTurnProps> = function ({
-  commandAbilities,
-}) {
+const OpponentTurn: React.FC<OpponentTurnProps> = function () {
   return (
     <>
       <PageContent>
         <Header>Command abilities</Header>
       </PageContent>
-      {commandAbilities?.map((commandAbility, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary>{commandAbility.name}</AccordionSummary>
-            <AccordionDetails>{commandAbility.description}</AccordionDetails>
-          </Accordion>
-        );
-      })}
       <Accordion>
-        <AccordionSummary>All-out Defence (1 CP)</AccordionSummary>
+        <AccordionSummary>All-out Defense (1 CP)</AccordionSummary>
         <AccordionDetails>
           You can use this command ability when a friendly unit is picked as the
           target of an attack in the shooting or combat phase. That unit must

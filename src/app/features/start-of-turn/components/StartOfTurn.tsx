@@ -1,28 +1,23 @@
 import PageContent from "../../../components/PageContent";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import {
-  selectCurrentTurn,
-  selectMyFactionTypeId,
-  userHasPriority,
-} from "../../game/gameSlice";
+import { selectCurrentTurn, userHasPriority } from "../../game/gameSlice";
 import { Accordion, AccordionDetails } from "@mui/material";
 import Header from "../../../components/Header";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import TurnSelect from "../../game/components/TurnSelect";
-import { useArmy } from "../../armies/useArmy";
 import { useGetAbilitiesByPhaseQuery } from "../../abilities/services/abilityService";
-import { useSelector } from "react-redux";
 import Loader from "../../loader/Loader";
 import AbilityList from "../../abilities/components/AbilityList";
 import BattleFormationList from "../../battleFormations/components/BattleFormationList";
 import { useGetBattleFormationsByFactionIdQuery } from "../../battleFormations/battleFormationService";
+import { useGetFactionTypeIdByUserQuery } from "../../faction-types/factionTypeService";
 
 export interface StartOfTurnProps {}
 
 const StartOfTurn: React.FC<StartOfTurnProps> = function () {
   const currentTurn = useAppSelector(selectCurrentTurn);
-  const { terrains } = useArmy("start-of-turn");
-  const factionTypeId = useSelector(selectMyFactionTypeId);
+  const { data: factionTypeId, isLoading: isUserFactionTypeIdLoading } =
+    useGetFactionTypeIdByUserQuery();
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery(
       { factionTypeId: factionTypeId!, phase: "deployment-phase" },
@@ -36,7 +31,11 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
     });
   const dispatch = useAppDispatch();
 
-  if (isAbilitiesLoading || isBattleFormationsLoading) {
+  if (
+    isAbilitiesLoading ||
+    isBattleFormationsLoading ||
+    isUserFactionTypeIdLoading
+  ) {
     return <Loader />;
   }
 
@@ -48,14 +47,6 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
       <Accordion>
         <AccordionSummary>Set up terrain</AccordionSummary>
       </Accordion>
-      {terrains?.map((terrain, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary>{terrain.name}</AccordionSummary>
-            <AccordionDetails>{terrain.description}</AccordionDetails>
-          </Accordion>
-        );
-      })}
       <Accordion>
         <AccordionSummary>Set up custom terrain</AccordionSummary>
       </Accordion>

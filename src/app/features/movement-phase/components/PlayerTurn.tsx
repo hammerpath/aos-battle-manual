@@ -2,13 +2,10 @@ import { Accordion, AccordionDetails } from "@mui/material";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import PageContent from "../../../components/PageContent";
 import Header from "../../../components/Header";
-import { CommandAbilities } from "../../armies/types";
 
-export interface PlayerTurnProps {
-  commandAbilities?: CommandAbilities[];
-}
+export interface PlayerTurnProps {}
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
+const PlayerTurn: React.FC<PlayerTurnProps> = function () {
   return (
     <>
       <PageContent>
@@ -51,14 +48,6 @@ const PlayerTurn: React.FC<PlayerTurnProps> = function ({ commandAbilities }) {
       <PageContent>
         <Header>Command abilities</Header>
       </PageContent>
-      {commandAbilities?.map((commandAbility, index) => {
-        return (
-          <Accordion key={index}>
-            <AccordionSummary>{commandAbility.name}</AccordionSummary>
-            <AccordionDetails>{commandAbility.description}</AccordionDetails>
-          </Accordion>
-        );
-      })}
       <Accordion>
         <AccordionSummary>At the Double (1 CP)</AccordionSummary>
         <AccordionDetails>

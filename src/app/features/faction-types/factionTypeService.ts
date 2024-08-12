@@ -40,6 +40,39 @@ export const factionTypeApi = createApi({
   }),
 });
 
+export const useGetFactionTypeIdByUserQuery = (
+  userId?: string,
+): { data: string | undefined; isLoading: boolean } => {
+  if (userId) {
+    throw new Error("No support for users yet.");
+  }
+
+  const factionTypeId = localStorage.getItem("factionTypeId");
+
+  if (factionTypeId === null) {
+    return { data: undefined, isLoading: false };
+  }
+
+  return { data: factionTypeId, isLoading: false };
+};
+
+export const useAddFactionTypeIdToUserMutation = () => {
+  const mutation = (factionTypeId?: string, userId?: string) => {
+    if (userId) {
+      throw new Error("No support for users yet.");
+    }
+
+    if (!factionTypeId) {
+      localStorage.removeItem("factionTypeId");
+      return;
+    }
+
+    localStorage.setItem("factionTypeId", factionTypeId);
+  };
+
+  return [mutation];
+};
+
 export const {
   useGetFactionTypesByFactionIdQuery,
   useGetFactionTypeByIdQuery,

@@ -26,7 +26,7 @@ const StartOfTurn: React.FC<StartOfTurnProps> = function () {
       },
     );
   const { data: battleFormations, isLoading: isBattleFormationsLoading } =
-    useGetBattleFormationsByFactionTypeIdQuery(gameSettings!.factionId, {
+    useGetBattleFormationsByFactionTypeIdQuery(gameSettings!.factionTypeId, {
       skip: !gameSettings,
     });
   const dispatch = useAppDispatch();

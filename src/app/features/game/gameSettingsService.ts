@@ -16,17 +16,19 @@ const useGetGameSettingsQuery = ({
     throw new Error("No support for stored games yet.");
   }
 
-  const factionTypeAsString = localStorage.getItem("aos_battle_game_settings");
+  const gameSettingsLocalStorage = localStorage.getItem(
+    "aos_battle_game_settings",
+  );
 
-  if (factionTypeAsString === null) {
+  if (!gameSettingsLocalStorage) {
     return { data: undefined, isLoading: false };
   }
 
-  const factionType = JSON.parse(
-    factionTypeAsString,
+  const gameSettings = JSON.parse(
+    gameSettingsLocalStorage,
   ) as LocalStorageGameSettings;
 
-  return { data: factionType, isLoading: false };
+  return { data: gameSettings, isLoading: false };
 };
 
 const useAddGameSettingsMutation = () => {

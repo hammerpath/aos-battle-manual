@@ -24,7 +24,7 @@ const HeroPhase: React.FC<HeroPhaseProps> = function ({ gameSettings }) {
   const currentTurn = useSelector(selectCurrentTurn);
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery({
-      factionTypeId: gameSettings!.factionTypeId,
+      factionTypeId: gameSettings.factionTypeId,
       phase: "hero-phase",
     });
 

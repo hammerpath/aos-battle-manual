@@ -15,7 +15,7 @@ const ChargePhase: React.FC<ChargePhaseProps> = function ({ gameSettings }) {
   const currentTurn = useAppSelector(selectCurrentTurn);
   const { data: abilities, isLoading: isAbilitiesLoading } =
     useGetAbilitiesByPhaseQuery({
-      factionTypeId: gameSettings!.factionTypeId,
+      factionTypeId: gameSettings.factionTypeId,
       phase: "charge-phase",
     });
 

@@ -4,27 +4,14 @@ import PageContent from "../../../components/PageContent";
 import AccordionSummary from "../../../components/accordion/AccordionSummary";
 import { useAppSelector } from "../../../hooks";
 import { selectBattleTacticsEnabled } from "../../game-settings/gameSettingsSlice";
-import { Ability } from "../../abilities/types";
 
-export interface PlayerTurnProps {
-  abilities?: Ability[];
-}
+export interface PlayerTurnProps {}
 
-const PlayerTurn: React.FC<PlayerTurnProps> = function ({ abilities }) {
+const PlayerTurn: React.FC<PlayerTurnProps> = function () {
   const battleTacticsEnabled = useAppSelector(selectBattleTacticsEnabled);
 
   return (
     <>
-      <PageContent>
-        <Header>Abilities</Header>
-      </PageContent>
-      {abilities?.map((ability) => {
-        return (
-          <Accordion key={ability.id}>
-            <AccordionSummary>{ability.name}</AccordionSummary>
-          </Accordion>
-        );
-      })}
       <PageContent>
         <Header>Spells</Header>
       </PageContent>

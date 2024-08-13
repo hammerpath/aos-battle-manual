@@ -64,7 +64,10 @@ const Settings: React.FC<SettingsProps> = function () {
     setFactionTypeId(value);
     if (value && factionId) {
       addFactionTypeId({ factionTypeId: value, factionId });
+      return;
     }
+
+    addFactionTypeId(undefined);
   };
 
   if (isFactionsLoading || isFactionTypesLoading) {
